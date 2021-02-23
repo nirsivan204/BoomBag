@@ -4,9 +4,9 @@ using UnityEngine.InputSystem;
 [RequireComponent (typeof (Rigidbody))]
 [RequireComponent (typeof (CapsuleCollider))]
  
-public class RigidPlayer : MonoBehaviour {
+public class RigidPlayer : AbstractPlayer {
  
-	public float speed = 10.0f;
+	/*public float speed = 10.0f;
 	public float gravity = 10.0f;
 	public float maxVelocityChange = 10.0f;
 	public bool canJump = true;
@@ -43,5 +43,5 @@ public class RigidPlayer : MonoBehaviour {
 	    // From the jump height and gravity we deduce the upwards speed 
 	    // for the character to reach at the apex.
 	    return Mathf.Sqrt(2 * jumpHeight * gravity);
-	}
+	}*/
 }

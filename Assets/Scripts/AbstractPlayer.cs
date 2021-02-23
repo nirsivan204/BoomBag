@@ -1,12 +1,14 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent (typeof (Rigidbody))]
 [RequireComponent (typeof (CapsuleCollider))]
- 
-public class SoftPlayer : AbstractPlayer {
- 
-    /*public float speed = 10.0f;
+
+public class AbstractPlayer : MonoBehaviour 
+{
+    public float speed = 10.0f;
     public float gravity = 10.0f;
     public float maxVelocityChange = 10.0f;
     public bool canJump = true;
@@ -21,7 +23,6 @@ public class SoftPlayer : AbstractPlayer {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
     }
-
     private void OnMove(InputValue movementValue)
     {
         Vector2 movementVector = movementValue.Get<Vector2>();
@@ -34,14 +35,9 @@ public class SoftPlayer : AbstractPlayer {
         Vector3 movement = new Vector3(movementX, 0, movementY);
         rb.AddForce(movement * speed);
     }
- 
+    
     void OnCollisionStay () {
         grounded = true;    
     }
- 
-    float CalculateJumpVerticalSpeed () {
-        // From the jump height and gravity we deduce the upwards speed 
-        // for the character to reach at the apex.
-        return Mathf.Sqrt(2 * jumpHeight * gravity);
-    }*/
 }
+    
