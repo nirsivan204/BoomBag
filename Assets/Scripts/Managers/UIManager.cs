@@ -11,16 +11,11 @@ public class UIManager : MonoBehaviour
     public TMP_Text winLoseCondition;
     private static bool player1Win; 
     private static bool player2Win;
-    private GameObject player1;
-    private GameObject player2;
-    private GameObject baseGround;
+    public GameObject player1;
+    public GameObject player2;
+    public GameObject baseGround;
 
-    private void Start()
-    {
-        player1 = GameObject.Find("Player1");
-        player2 = GameObject.Find("Player2");
-        baseGround = GameObject.Find("BaseGround");
-    }
+
 
     void Update()
     
