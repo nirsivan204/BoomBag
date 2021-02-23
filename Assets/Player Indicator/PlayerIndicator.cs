@@ -7,6 +7,7 @@ public class PlayerIndicator : MonoBehaviour {
     public float frequency = 1f;
     public GameObject player;
    
+    public float playerHeight = 2.0f;
     
     Vector3 posOffset = new Vector3 ();
     Vector3 tempPos = new Vector3 ();
@@ -29,7 +30,7 @@ public class PlayerIndicator : MonoBehaviour {
         // Float up/down with a Sin()
       //  tempPos = posOffset;
         tempPos.y += Mathf.Sin (Time.fixedTime * Mathf.PI * frequency) * amplitude /50;
-        transform.position = tempPos + new Vector3(0, 2, 0);
+        transform.position = tempPos + new Vector3(0, playerHeight, 0);
 
         transform.position += player.transform.position;
 
