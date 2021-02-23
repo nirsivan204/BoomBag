@@ -8,7 +8,7 @@ public class TiltManager : MonoBehaviour
     private float timer, tiltAngle, tiltTime;
     private bool isTilting;
     private Vector3 tiltVector;
-    private const float MAX_TILT = 2f;
+    private const float MAX_TILT = 0.05f;
 
     void Start()
     {
@@ -28,11 +28,11 @@ public class TiltManager : MonoBehaviour
     // Tilt angle around axis (unless it's more then MAX_TILT).
     void tilt(Vector3 axis, float angle)
 	{
-        Transform transform = ground.transform;
-        transform.Rotate(axis, angle);
-        if (transform.rotation.x <= MAX_TILT && transform.rotation.z <= MAX_TILT)
+        ground.transform.Rotate(axis, angle);
+        if (Mathf.Abs(ground.transform.rotation.x) > MAX_TILT || Mathf.Abs(ground.transform.rotation.z) > MAX_TILT)
         {
-            ground.transform.Rotate(axis, angle);
+            
+            ground.transform.Rotate(axis, -angle);
         }
     }
 
