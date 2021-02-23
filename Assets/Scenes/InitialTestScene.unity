@@ -492,6 +492,9 @@ MonoBehaviour:
   maxVelocityChange: 10
   canJump: 1
   jumpHeight: 2
+  maxGrow: 7
+  minGrow: 1
+  growRatio: 10
 --- !u!23 &754256238
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -653,6 +656,9 @@ MonoBehaviour:
   maxVelocityChange: 10
   canJump: 1
   jumpHeight: 2
+  maxGrow: 7
+  minGrow: 1
+  growRatio: 1.05
 --- !u!23 &817806928
 MeshRenderer:
   m_ObjectHideFlags: 0

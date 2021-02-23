@@ -17,11 +17,16 @@ public class AbstractPlayer : MonoBehaviour
     private float movementX;
     private float movementY;
     private bool grounded = false;
-
+    private int size = 4;
+    [SerializeField] private int maxGrow = 7;
+    [SerializeField] private int minGrow = 1;
+    private float growRatio = 0.25f;
+    public float massGrowRate = 0.2f;
     void Awake ()
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
+        rb.mass = size * massGrowRate;
     }
     private void OnMove(InputValue movementValue)
     {
@@ -34,10 +39,41 @@ public class AbstractPlayer : MonoBehaviour
     {
         Vector3 movement = new Vector3(movementX, 0, movementY);
         rb.AddForce(movement * speed);
+        //if (movementY > 0)
+        //{
+        //    grow();
+       // }
+       // if (movementY < 0)
+       // {
+       //     shrink();
+       // }
+
     }
-    
+
     void OnCollisionStay () {
         grounded = true;    
     }
+
+    public void grow()
+    {
+        if (size < maxGrow)
+        {
+            size++;
+            float newSize = size * growRatio;
+            transform.localScale = new Vector3(newSize, newSize, newSize);
+            rb.mass = size * massGrowRate;
+        }
+    }
+
+    public void shrink()
+    {
+        if (size > minGrow)
+        {
+            size--;
+            float newSize = size * growRatio;
+            transform.localScale = new Vector3(newSize, newSize, newSize);
+            rb.mass = size * massGrowRate;
+        }
+    } 
 }
     
