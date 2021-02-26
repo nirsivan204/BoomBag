@@ -35,6 +35,15 @@ public class AbstractPlayer : MonoBehaviour
         movementY = movementVector.y;
     }
 
+    private void OnFire()
+    {
+        useAbility();
+    }
+
+    protected virtual void useAbility()
+    {
+        
+    }    
     void FixedUpdate ()
     {
         Vector3 movement = new Vector3(movementX, 0, movementY);
