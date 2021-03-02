@@ -16,7 +16,7 @@ public class DebugManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+   
     }
 
     private void OnGrow1()
@@ -39,4 +39,11 @@ public class DebugManager : MonoBehaviour
         player2.GetComponent<AbstractPlayer>().shrink(); ;
     }
 
+    private void OnResetScene()
+    {
+        //Resets the Scene on button press
+        SceneManager.LoadSceneAsync("InitialTestScene");
+    }
+
+    
 }
