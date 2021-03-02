@@ -9,5 +9,12 @@ public class RigidPlayer : AbstractPlayer
 	protected override void useAbility()
 	{
 		speed += 10;
+
+		Invoke("endAbility", 3f);
+	}
+
+	protected void endAbility()
+	{
+		speed -= 10;
 	}
 }

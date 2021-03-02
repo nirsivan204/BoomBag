@@ -8,11 +8,11 @@ public class TiltManager : MonoBehaviour
     private float timer, tiltAngle, tiltTime;
     private bool isTilting;
     private Vector3 tiltVector;
-    private const float MAX_TILT = 0.05f;
+    private const float MAX_TILT = 0.1f;
 
     void Start()
     {
-        ground = GameObject.Find("baseGround"); // Probably should use a tag.
+        ground = GameObject.Find("BaseGround"); // Probably should use a tag.
         timer = 0;
     }
 
