@@ -6,8 +6,10 @@ using UnityEngine.InputSystem;
 [RequireComponent (typeof (Rigidbody))]
 [RequireComponent (typeof (CapsuleCollider))]
 
-public class AbstractPlayer : MonoBehaviour 
+public class AbstractPlayer : MonoBehaviour
 {
+    protected int playerIndex;
+    public GameObject[] players;
     public float speed = 10.0f;
     public float gravity = 10.0f;
     public float maxVelocityChange = 10.0f;
