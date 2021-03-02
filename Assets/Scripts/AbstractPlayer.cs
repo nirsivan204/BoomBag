@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -24,11 +25,17 @@ public class AbstractPlayer : MonoBehaviour
     [SerializeField] private int minGrow = 1;
     private float growRatio = 0.25f;
     public float massGrowRate = 0.2f;
+    [SerializeField] private GameObject playerCharacter;
+    public Color MyColor;
+    private MeshRenderer playerMeshRenderer;
+
     void Awake ()
     {
         rb = GetComponent<Rigidbody>();
+        MyColor = playerCharacter.GetComponent<MeshRenderer>().material.color;
         rb.freezeRotation = true;
         rb.mass = size * massGrowRate;
+        playerMeshRenderer = playerCharacter.GetComponent<MeshRenderer>();
     }
     private void OnMove(InputValue movementValue)
     {
@@ -50,19 +57,22 @@ public class AbstractPlayer : MonoBehaviour
     {
         Vector3 movement = new Vector3(movementX, 0, movementY);
         rb.AddForce(movement * speed);
-        //if (movementY > 0)
-        //{
-        //    grow();
-       // }
-       // if (movementY < 0)
-       // {
-       //     shrink();
-       // }
-
     }
 
-    void OnCollisionStay () {
-        grounded = true;    
+    private void OnCollisionEnter(Collision otherPlayer)
+    {
+        AbstractPlayer other = otherPlayer.gameObject.GetComponent<AbstractPlayer>();
+        if (other)
+        {
+            if (other.getColor() == MyColor)
+            {
+                grow();
+            }
+            else 
+            {
+                shrink();
+            }
+        }
     }
 
     public void grow()
@@ -85,6 +95,17 @@ public class AbstractPlayer : MonoBehaviour
             transform.localScale = new Vector3(newSize, newSize, newSize);
             rb.mass = size * massGrowRate;
         }
-    } 
+    }
+
+    public void setColor(Color color)
+    {
+        MyColor = color;
+        playerMeshRenderer.material.color = color;
+    }
+
+    public Color getColor()
+    {
+        return MyColor;
+    }
 }
     

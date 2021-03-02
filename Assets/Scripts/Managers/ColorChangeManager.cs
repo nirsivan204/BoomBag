@@ -4,7 +4,7 @@ public class ColorChangeManager : MonoBehaviour
 {
     private Color[] meshColors;
     public GameObject[] players;
-    private MeshRenderer[] meshRenderers;
+    private AbstractPlayer[] PlayersScripts;
     
     public void Start()
     {
@@ -16,11 +16,11 @@ public class ColorChangeManager : MonoBehaviour
         ColorUtility.TryParseHtmlString("#00A650", out Color green);
         ColorUtility.TryParseHtmlString("#81398F", out Color purple);
         meshColors = new Color[] {yellow, red, cyan, orange, green, purple};
-        meshRenderers = new MeshRenderer[players.Length];
+        PlayersScripts = new AbstractPlayer[players.Length];
         
         for (int i = 0; i < players.Length; i++)
         {
-            meshRenderers[i] = players[i].GetComponent<MeshRenderer>();
+            PlayersScripts[i] = players[i].GetComponent<AbstractPlayer>();
         }
 
         InvokeRepeating("ColorChanger", 3, 3);
@@ -28,9 +28,10 @@ public class ColorChangeManager : MonoBehaviour
 
     public void ColorChanger()
     {
-        foreach (MeshRenderer playerMesh in meshRenderers)
+        foreach (AbstractPlayer script in PlayersScripts)
         {
-            playerMesh.material.color = meshColors[Random.Range(0, meshColors.Length)];
+            //playerMesh.material.color = meshColors[Random.Range(0, meshColors.Length)];
+            script.setColor(meshColors[Random.Range(0, meshColors.Length)]);
         }
     }
 }
