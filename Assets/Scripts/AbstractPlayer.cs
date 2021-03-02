@@ -56,7 +56,7 @@ public class AbstractPlayer : MonoBehaviour
     void FixedUpdate ()
     {
         Vector3 movement = new Vector3(movementX, 0, movementY);
-        rb.AddForce(movement * speed);
+        rb.AddForce(movement * speed,ForceMode.Acceleration);
     }
 
     private void OnCollisionEnter(Collision otherPlayer)
