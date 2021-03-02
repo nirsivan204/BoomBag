@@ -5,6 +5,8 @@ public class ColorChangeManager : MonoBehaviour
     private Color[] meshColors;
     public GameObject[] players;
     private AbstractPlayer[] PlayersScripts;
+    public float time;
+    public float repeatingTime;
     
     public void Start()
     {
@@ -23,7 +25,7 @@ public class ColorChangeManager : MonoBehaviour
             PlayersScripts[i] = players[i].GetComponent<AbstractPlayer>();
         }
 
-        InvokeRepeating("ColorChanger", 3, 3);
+        InvokeRepeating("ColorChanger", time, repeatingTime);
     }
 
     public void ColorChanger()
