@@ -6,15 +6,22 @@ using UnityEngine.InputSystem;
  
 public class RigidPlayer : AbstractPlayer
 {
+	bool canUseAbility = true;
 	protected override void useAbility()
 	{
+    if (canUseAbility)
+    {
+		  canUseAbility = false;
+			speed += 10;
+			Invoke("endAbility", 5f);
+		}
 		speed += 10;
-
 		Invoke("endAbility", 3f);
 	}
 
 	protected void endAbility()
 	{
 		speed -= 10;
+		canUseAbility = true;
 	}
 }

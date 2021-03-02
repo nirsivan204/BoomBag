@@ -211,6 +211,26 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 378446723893145229, guid: 3e2c36a2634710c45b7c7b596017ab2f, type: 3}
   m_PrefabInstance: {fileID: 850105447}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &358470371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 358470365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80515cb5ca50b2b45921d7151d3cf882, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  players: []
+  speed: 15
+  maxGrow: 7
+  minGrow: 1
+  massGrowRate: 0.2
+  playerCharacter: {fileID: 2104154086}
+  MyColor: {r: 0, g: 0, b: 0, a: 0}
+  jumpForce: 300
 --- !u!1 &415606365 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 378446724226986323, guid: 3e2c36a2634710c45b7c7b596017ab2f, type: 3}
@@ -724,6 +744,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 378446724226986321, guid: 3e2c36a2634710c45b7c7b596017ab2f, type: 3}
+    - {fileID: 378446723893145216, guid: 3e2c36a2634710c45b7c7b596017ab2f, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 3e2c36a2634710c45b7c7b596017ab2f, type: 3}
 --- !u!1 &939874149
 GameObject:
@@ -813,7 +834,7 @@ GameObject:
   - component: {fileID: 1045231696}
   m_Layer: 0
   m_Name: BaseGround
-  m_TagString: Untagged
+  m_TagString: Arena
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1085,10 +1106,6 @@ MonoBehaviour:
   - {fileID: 358470365}
   - {fileID: 1408915952}
   speed: 10
-  gravity: 10
-  maxVelocityChange: 10
-  canJump: 1
-  jumpHeight: 2
   maxGrow: 7
   minGrow: 1
   massGrowRate: 0.2
@@ -1337,7 +1354,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1692728271
 MonoBehaviour:
   m_ObjectHideFlags: 0

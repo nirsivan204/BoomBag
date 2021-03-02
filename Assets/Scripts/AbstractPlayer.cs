@@ -12,14 +12,10 @@ public class AbstractPlayer : MonoBehaviour
     protected int playerIndex;
     public GameObject[] players;
     public float speed = 10.0f;
-    public float gravity = 10.0f;
-    public float maxVelocityChange = 10.0f;
-    public bool canJump = true;
-    public float jumpHeight = 2.0f;
-    private Rigidbody rb;
+    protected Rigidbody rb;
     private float movementX;
     private float movementY;
-    private bool grounded = false;
+    protected bool grounded = true;
     private int size = 4;
     [SerializeField] private int maxGrow = 7;
     [SerializeField] private int minGrow = 1;
@@ -80,6 +76,13 @@ public class AbstractPlayer : MonoBehaviour
             else
             {
                 shrink();
+            }
+        }
+        else
+        {
+            if(otherPlayer.gameObject.tag == "Arena")
+            {
+                grounded = true;
             }
         }
     }

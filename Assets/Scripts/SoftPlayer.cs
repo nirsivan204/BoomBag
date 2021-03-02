@@ -6,6 +6,8 @@ using UnityEngine.InputSystem;
 [RequireComponent (typeof (CapsuleCollider))]
  
 public class SoftPlayer : AbstractPlayer {
+    bool canUseAbility = true;
+
     public void Start()
     {
         playerIndex = 0;
@@ -20,19 +22,24 @@ public class SoftPlayer : AbstractPlayer {
                 Physics.IgnoreCollision(players[playerIndex].GetComponent<Collider>(), players[i].GetComponent<Collider>(),false);
             }
         }
-        
+        canUseAbility = true;
+
+
     }
     protected override void useAbility()
     {
-        for (int i = 0; i < 4; i++)
+        if (canUseAbility)
         {
-            if (i != playerIndex)
+            for (int i = 0; i < 4; i++)
             {
-                Physics.IgnoreCollision(players[playerIndex].GetComponent<Collider>(), players[i].GetComponent<Collider>());
+                if (i != playerIndex)
+                {
+                    Physics.IgnoreCollision(players[playerIndex].GetComponent<Collider>(), players[i].GetComponent<Collider>());
+                }
             }
+
+            Invoke("endAbility", 5f);
+            canUseAbility = false;
         }
-
-        Invoke("endAbility",5f);
-
     }
 }
