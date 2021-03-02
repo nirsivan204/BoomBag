@@ -14,6 +14,14 @@
                     "interactions": ""
                 },
                 {
+                    "name": "Tilt",
+                    "type": "Button",
+                    "id": "6da630fd-c12d-4779-891e-dcbee4420e40",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
                     "name": "shrink2",
                     "type": "Button",
                     "id": "f638de78-ccb3-4c05-8e4e-61bce2bfdcc1",
@@ -101,6 +109,61 @@
                     "action": "ResetScene",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "pl;'",
+                    "id": "0f0f8749-1ce5-4f4c-9a7c-9093418be295",
+                    "path": "Dpad",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Tilt",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "91067959-0eb5-4922-a49d-ac7394fe82c5",
+                    "path": "<Keyboard>/k",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Tilt",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "80f2d95a-ee7a-4e20-90d2-4bc9a2e0529d",
+                    "path": "<Keyboard>/m",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Tilt",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "0c943d8d-3ef5-4eea-8f54-116d18aa92a9",
+                    "path": "<Keyboard>/n",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Tilt",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "18cef11e-4c6e-44df-aa3d-23b6f0e001f9",
+                    "path": "<Keyboard>/comma",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Tilt",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         }
