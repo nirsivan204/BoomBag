@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent (typeof (Rigidbody))]
-[RequireComponent (typeof (CapsuleCollider))]
+[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(CapsuleCollider))]
 
 public class AbstractPlayer : MonoBehaviour
 {
@@ -24,9 +24,11 @@ public class AbstractPlayer : MonoBehaviour
     [SerializeField] private GameObject playerCharacter;
     public Color MyColor;
     private MeshRenderer playerMeshRenderer;
+    private float energy;
 
-    void Awake ()
+    void Awake()
     {
+        energy = 25;
         rb = GetComponent<Rigidbody>();
         MyColor = playerCharacter.GetComponent<MeshRenderer>().material.color;
         rb.freezeRotation = true;
@@ -42,17 +44,24 @@ public class AbstractPlayer : MonoBehaviour
 
     private void OnFire()
     {
-        useAbility();
+        if (energy >= 30)
+        {
+            useAbility();
+            energy -= 30;
+        }
     }
 
     protected virtual void useAbility()
     {
-        
-    }    
-    void FixedUpdate ()
+
+    }
+
+    void FixedUpdate()
     {
         Vector3 movement = new Vector3(movementX, 0, movementY);
-        rb.AddForce(movement * speed,ForceMode.Acceleration);
+        rb.AddForce(movement * speed, ForceMode.Acceleration);
+
+        energy += Time.deltaTime;
     }
 
     private void OnCollisionEnter(Collision otherPlayer)
@@ -64,7 +73,7 @@ public class AbstractPlayer : MonoBehaviour
             {
                 grow();
             }
-            else 
+            else
             {
                 shrink();
             }
@@ -111,4 +120,3 @@ public class AbstractPlayer : MonoBehaviour
         return MyColor;
     }
 }
-    
