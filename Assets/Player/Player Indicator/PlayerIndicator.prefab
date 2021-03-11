@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 7189927557975331547}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 2.3503683, y: 1.7799854, z: -2.6819134}
-  m_LocalScale: {x: 0.73, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 50, y: 50, z: 50}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -40,7 +40,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7189927557975331547}
-  m_Mesh: {fileID: 2212009239438826721, guid: 60f550ad135afc44db3499b41516b89e, type: 3}
+  m_Mesh: {fileID: 2212009239438826721, guid: 4233ec5e496e3a043a4d9357901665e8, type: 3}
 --- !u!23 &7189927557975331550
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -60,7 +60,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 51b24fb34528c4840be7a46760311763, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -95,6 +95,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   degreesPerSecond: 15
-  amplitude: 0.5
+  amplitude: 0.25
   frequency: 1
   player: {fileID: 0}
+  playerHeight: 2
