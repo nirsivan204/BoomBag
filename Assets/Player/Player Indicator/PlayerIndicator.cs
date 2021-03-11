@@ -6,17 +6,22 @@ public class PlayerIndicator : MonoBehaviour {
     public float amplitude = 0.5f;
     public float frequency = 1f;
     public GameObject player;
-   
     public float playerHeight = 2.0f;
-    
-    Vector3 posOffset = new Vector3 ();
+
+    AbstractPlayer parentPlayer;
+    MeshRenderer mesh;
+    // Vector3 posOffset = new Vector3 ();
     Vector3 tempPos = new Vector3 ();
  
     // Use this for initialization
     void Start () {
         // Store the starting position & rotation of the object
       //  posOffset = transform.position;
-      transform.position = player.transform.position + new Vector3(0, 4, 0);
+        transform.position = player.transform.position + new Vector3(0, 4, 0);
+
+        // Get components:
+        parentPlayer = transform.parent.GetComponent<AbstractPlayer>();
+        mesh = GetComponent<MeshRenderer>();
     }
      
     // Update is called once per frame
@@ -33,6 +38,8 @@ public class PlayerIndicator : MonoBehaviour {
         transform.position = tempPos + new Vector3(0, playerHeight, 0);
 
         transform.position += player.transform.position;
-
+        
+        // Fill the indicator according to player's energy:
+        mesh.material.SetTextureOffset("_MainTex" , new Vector2(0, parentPlayer.energy / (AbstractPlayer.MAX_ENERGY * 2)));
     }
 }

@@ -24,11 +24,13 @@ public class AbstractPlayer : MonoBehaviour
     [SerializeField] private GameObject playerCharacter;
     public Color MyColor;
     private MeshRenderer playerMeshRenderer;
-    private float energy;
+    // Energy units are equivalent to seconds:
+    public float energy = 4;
+    public const float MAX_ENERGY = 15;
+    private const float ENERGY_COST = 10;
 
     void Awake()
     {
-        energy = 25;
         rb = GetComponent<Rigidbody>();
         MyColor = playerCharacter.GetComponent<MeshRenderer>().material.color;
         rb.freezeRotation = true;
@@ -44,10 +46,10 @@ public class AbstractPlayer : MonoBehaviour
 
     private void OnFire()
     {
-        if (energy >= 30)
+        if (energy >= ENERGY_COST)
         {
+            energy -= ENERGY_COST;
             useAbility();
-            energy -= 30;
         }
     }
 
@@ -61,7 +63,7 @@ public class AbstractPlayer : MonoBehaviour
         Vector3 movement = new Vector3(movementX, 0, movementY);
         rb.AddForce(movement * speed, ForceMode.Acceleration);
 
-        energy += Time.deltaTime;
+        if (energy < MAX_ENERGY) energy += Time.deltaTime;
     }
 
     private void OnCollisionEnter(Collision otherPlayer)
