@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 80447092}
   - component: {fileID: 80447091}
   - component: {fileID: 80447090}
+  - component: {fileID: 80447093}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -206,6 +207,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 39.214, y: 1.591, z: 0.257}
+--- !u!114 &80447093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 80447089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c3e653fc255cf44d81c458fc042c259, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  players:
+  - {fileID: 378446723875387451}
+  - {fileID: 1561978745}
+  - {fileID: 358470365}
+  - {fileID: 1408915952}
+  cameraInitialPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &358470365 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 378446723893145229, guid: 3e2c36a2634710c45b7c7b596017ab2f, type: 3}
@@ -230,6 +249,7 @@ MonoBehaviour:
   massGrowRate: 0.2
   playerCharacter: {fileID: 2104154086}
   MyColor: {r: 0, g: 0, b: 0, a: 0}
+  energy: 4
   jumpForce: 300
 --- !u!1 &415606365 stripped
 GameObject:
@@ -559,7 +579,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f24811625abacc64789bc44fb4e49468, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 68.8
+      value: 95.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f24811625abacc64789bc44fb4e49468, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1074,7 +1094,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1045231695}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -48.1, y: 9.24, z: 0}
+  m_LocalPosition: {x: -62.2, y: 9.24, z: 0}
   m_LocalScale: {x: 35, y: 1.2504637, z: 35}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1275,6 +1295,7 @@ MonoBehaviour:
   massGrowRate: 0.2
   playerCharacter: {fileID: 740507620}
   MyColor: {r: 0, g: 0, b: 0, a: 0}
+  energy: 4
 --- !u!1001 &1582412579
 PrefabInstance:
   m_ObjectHideFlags: 0
