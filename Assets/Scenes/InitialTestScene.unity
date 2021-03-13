@@ -219,12 +219,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c3e653fc255cf44d81c458fc042c259, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  players:
-  - {fileID: 378446723875387451}
-  - {fileID: 1561978745}
-  - {fileID: 358470365}
-  - {fileID: 1408915952}
-  cameraInitialPosition: {x: 0, y: 0, z: 0}
+  gm: {fileID: 1293597158}
 --- !u!1 &358470365 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 378446723893145229, guid: 3e2c36a2634710c45b7c7b596017ab2f, type: 3}
@@ -1430,7 +1425,7 @@ MonoBehaviour:
   player1: {fileID: 378446723875387451}
   player2: {fileID: 1561978745}
   baseGround: {fileID: 1045231695}
-  gm: {fileID: 0}
+  gm: {fileID: 1293597158}
 --- !u!1 &1636520223
 GameObject:
   m_ObjectHideFlags: 0

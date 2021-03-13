@@ -18,20 +18,20 @@ public class UIManager : MonoBehaviour
 
     void Start()
     {
-        //gm.
+        gm.winEvent.AddListener(setWinText);
     }
 
     void Update()
     {
-            if (player1.transform.position.y < baseGround.transform.position.y) //Check if Player1 is off the ground
-            {
-                winLoseCondition.SetText("Player 1 wins!");
-            }
+            //if (player1.transform.position.y < baseGround.transform.position.y) //Check if Player1 is off the ground
+            //{
+            //    winLoseCondition.SetText("Player 1 wins!");
+           // }
 
-            else if (player2.transform.position.y <  baseGround.transform.position.y) // Check if Player2 is off the ground
-            {
-                winLoseCondition.SetText("Player 2 wins!");
-            }
+            //else if (player2.transform.position.y <  baseGround.transform.position.y) // Check if Player2 is off the ground
+           // {
+           //     winLoseCondition.SetText("Player 2 wins!");
+           // }
 
     }
 

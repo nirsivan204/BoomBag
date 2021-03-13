@@ -2,7 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
+
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(CapsuleCollider))]
@@ -28,7 +30,8 @@ public class AbstractPlayer : MonoBehaviour
     public float energy = 4;
     public const float MAX_ENERGY = 15;
     private const float ENERGY_COST = 10;
-
+    public IntEvent playerOut;
+    protected bool isOut = false;
     void Awake()
     {
         playerCharacter = transform.Find("Character").gameObject;
@@ -37,6 +40,7 @@ public class AbstractPlayer : MonoBehaviour
         rb.freezeRotation = true;
         rb.mass = size * massGrowRate;
         playerMeshRenderer = playerCharacter.GetComponent<MeshRenderer>();
+        playerOut = new IntEvent();
         init();
     }
 
@@ -69,13 +73,21 @@ public class AbstractPlayer : MonoBehaviour
 
     void FixedUpdate()
     {
-        Vector3 movement = new Vector3(movementX, 0, movementY);
-        if (rb)
+        if (!isOut)
         {
-            rb.AddForce(movement * speed, ForceMode.Acceleration);
+            Vector3 movement = new Vector3(movementX, 0, movementY);
+            if (rb)
+            {
+                rb.AddForce(movement * speed, ForceMode.Acceleration);
+            }
+
+            if (energy < MAX_ENERGY)
+            {
+                energy += Time.deltaTime;
+            }
         }
 
-        if (energy < MAX_ENERGY) energy += Time.deltaTime;
+
     }
 
     private void OnCollisionEnter(Collision otherPlayer)
@@ -97,6 +109,11 @@ public class AbstractPlayer : MonoBehaviour
             if(otherPlayer.gameObject.tag == "Arena")
             {
                 grounded = true;
+            }
+            else if (otherPlayer.gameObject.tag == "Out")
+            {
+                playerOut.Invoke(playerIndex);
+                isOut = true;
             }
         }
     }
@@ -148,4 +165,16 @@ public class AbstractPlayer : MonoBehaviour
     {
         gameManager = gm;
     }
+
+    public bool getIsOut()
+    {
+        return isOut;
+    }
+
+    public bool isInFrame()
+    {
+        return playerMeshRenderer.isVisible;
+    }
+    
+
 }
