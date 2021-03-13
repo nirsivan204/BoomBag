@@ -28,12 +28,12 @@ public class PlayerIndicator : MonoBehaviour {
     void Update ()
     {
         float playerSize = player.transform.localScale.x;
-        //1.75-0.25
+        // 1.75-0.25
         // Spin object around Y-Axis
         transform.Rotate(new Vector3(0f, Time.deltaTime * degreesPerSecond, 0f), Space.World);
  
         // Float up/down with a Sin()
-      //  tempPos = posOffset;
+        // tempPos = posOffset;
         tempPos.y += Mathf.Sin (Time.fixedTime * Mathf.PI * frequency) * amplitude /50;
         transform.position = tempPos + new Vector3(0, playerHeight, 0);
 
