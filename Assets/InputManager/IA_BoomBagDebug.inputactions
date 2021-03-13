@@ -58,7 +58,7 @@
                 {
                     "name": "",
                     "id": "b32f93e8-62fe-4108-8c7d-31b0a0ccc557",
-                    "path": "<Keyboard>/q",
+                    "path": "<Keyboard>/x",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
@@ -69,7 +69,7 @@
                 {
                     "name": "",
                     "id": "28aacb72-d53a-488d-8a02-19cc5eec502b",
-                    "path": "<Keyboard>/e",
+                    "path": "<Keyboard>/z",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
@@ -80,7 +80,7 @@
                 {
                     "name": "",
                     "id": "e5d87ae7-937e-4414-bc37-b94ae7644bc9",
-                    "path": "<Keyboard>/slash",
+                    "path": "<Keyboard>/v",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
@@ -91,7 +91,7 @@
                 {
                     "name": "",
                     "id": "e88e5312-cb7e-4803-a8d9-6719c05625f0",
-                    "path": "<Keyboard>/period",
+                    "path": "<Keyboard>/c",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
@@ -111,7 +111,7 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "pl;'",
+                    "name": "knm,",
                     "id": "0f0f8749-1ce5-4f4c-9a7c-9093418be295",
                     "path": "Dpad",
                     "interactions": "",

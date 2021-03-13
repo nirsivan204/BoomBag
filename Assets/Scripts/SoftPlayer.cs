@@ -7,19 +7,29 @@ using UnityEngine.InputSystem;
  
 public class SoftPlayer : AbstractPlayer {
     bool canUseAbility = true;
+    private Collider[] playersColliders;
 
-    public void Start()
+
+    protected override void init()
     {
-        playerIndex = 0;
+        playersColliders = new Collider[gameManager.players.Length];
+        for (int i =0; i < gameManager.players.Length; i++)
+        {
+            playersColliders[i] = gameManager.players[i].GetComponent<Collider>();
+            if (!playersColliders[i])
+            {
+                print("ERROR in softPlayer");
+            }
+        }
     }
 
     protected void endAbility()
     {
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < gameManager.players.Length; i++)
         {
             if (i != playerIndex)
             {
-                Physics.IgnoreCollision(players[playerIndex].GetComponent<Collider>(), players[i].GetComponent<Collider>(),false);
+                Physics.IgnoreCollision(playersColliders[playerIndex], playersColliders[i], false);
             }
         }
         canUseAbility = true;
@@ -30,11 +40,11 @@ public class SoftPlayer : AbstractPlayer {
     {
         if (canUseAbility)
         {
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < gameManager.players.Length; i++)
             {
                 if (i != playerIndex)
                 {
-                    Physics.IgnoreCollision(players[playerIndex].GetComponent<Collider>(), players[i].GetComponent<Collider>());
+                    Physics.IgnoreCollision(playersColliders[playerIndex], playersColliders[i]);
                 }
             }
 

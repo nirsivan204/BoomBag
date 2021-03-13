@@ -14,12 +14,15 @@ public class UIManager : MonoBehaviour
     public GameObject player1;
     public GameObject player2;
     public GameObject baseGround;
+    public GameManager gm;
 
-
+    void Start()
+    {
+        //gm.
+    }
 
     void Update()
-    
-        {
+    {
             if (player1.transform.position.y < baseGround.transform.position.y) //Check if Player1 is off the ground
             {
                 winLoseCondition.SetText("Player 1 wins!");
@@ -30,6 +33,11 @@ public class UIManager : MonoBehaviour
                 winLoseCondition.SetText("Player 2 wins!");
             }
 
-        }
-    
+    }
+
+    public void setWinText(int winnerIndex)
+    {
+        winLoseCondition.SetText("Player "+ winnerIndex + " wins!");
+    }
+
 }

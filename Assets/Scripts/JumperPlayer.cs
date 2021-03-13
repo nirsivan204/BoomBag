@@ -6,16 +6,14 @@ using UnityEngine.InputSystem;
  
 public class JumperPlayer : AbstractPlayer
 {
-	public float jumpForce;
+	private float jumpForce = 400;
 	
 	protected override void useAbility()
 	{
         if (grounded)
         {
 			grounded = false;
-			//rb jumpForce
 			rb.AddForce(Vector3.up * jumpForce, ForceMode.Acceleration);
-			print("jumpiong");
 		}
 
 	}
