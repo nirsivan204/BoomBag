@@ -9,11 +9,12 @@ public class RigidPlayer : AbstractPlayer
 	bool canUseAbility = true;
 	protected override void useAbility()
 	{
-    if (canUseAbility)
-    {
-		  canUseAbility = false;
+		if (canUseAbility)
+		{
+			canUseAbility = false;
 			speed += 10;
 			Invoke("endAbility", 5f);
+			print("DASH");
 		}
 		speed += 10;
 		Invoke("endAbility", 3f);

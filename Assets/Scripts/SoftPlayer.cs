@@ -50,6 +50,7 @@ public class SoftPlayer : AbstractPlayer {
 
             Invoke("endAbility", 5f);
             canUseAbility = false;
+            print("GHOST");
         }
     }
 }

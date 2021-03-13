@@ -1,6 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+
+public class IntEvent : UnityEvent<int>
+{
+}
 
 public class GameManager : MonoBehaviour
 {
@@ -9,19 +14,18 @@ public class GameManager : MonoBehaviour
     public enum CharTypes { Rigid, Soft, Jumper, Avoider };
     public CharTypes[] charTypes;
     public GameObject colorChanger;
-
+    public AbstractPlayer[] playersScripts;
+    private int numPlayersAlive;
+    private bool[] liveOrDead;
+    public IntEvent winEvent;
     // Start is called before the first frame update
     void Awake()
     {
-       // foreach(GameObject player in players)
-       // {
-       //     player.SetActive(false);
-       // }
-    }
-
-    void Start()
-    {
-        for(int i = 0; i<players.Length; i++)
+        numPlayersAlive = 0;
+        winEvent = new IntEvent();
+        playersScripts = new AbstractPlayer[players.Length];
+        liveOrDead = new bool[players.Length];
+        for (int i = 0; i < players.Length; i++)
         {
             AbstractPlayer playerScript = null;
             switch (charTypes[i])
@@ -51,14 +55,27 @@ public class GameManager : MonoBehaviour
                 playerScript.enabled = true;
                 playerScript.setPlayerIndex(i);
                 playerScript.setGameManager(this);
-                players[i].SetActive(true);
-            }
-            else
+                playersScripts[i] = playerScript;
+                }
+                else
             {
                 print("ERROR in creating player " + i);
             }
+            numPlayersAlive++;
+            liveOrDead[i] = true;
         }
         colorChanger.SetActive(true);
+
+    }
+
+    void Start()
+    {
+        for(int i=0; i< players.Length; i++)
+        {
+            players[i].SetActive(true);
+            playersScripts[i].playerOut.AddListener(playerDied);
+        }
+
 
 
     }
@@ -67,5 +84,15 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    private void playerDied(int playerIndex)
+    {
+        numPlayersAlive--;
+        liveOrDead[playerIndex] = false;
+        if (numPlayersAlive == 1)
+        {
+            winEvent.Invoke(playerIndex);
+        }
     }
 }
