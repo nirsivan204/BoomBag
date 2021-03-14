@@ -7,8 +7,11 @@ public class DynamicCamera : MonoBehaviour
 {
     public GameManager gm;
     private Vector3 cameraInitialPosition;
-    private int zoomFactor = 1;
+    private float zoomFactor = 0.01f;
     private int zoomDir = 0;
+    float desiredMergin = 0.1f;
+    float updateZoomDelay = 0.01f;
+    int minZoom = -500;
 
     private float findMiddleX()
     {
@@ -62,32 +65,40 @@ public class DynamicCamera : MonoBehaviour
     private void Start()
     {
         cameraInitialPosition = transform.position;
+        Invoke("zoom", updateZoomDelay);
     }
 
     private void Update()
     {
         transform.position = new Vector3(cameraInitialPosition.x + findMiddleX(), cameraInitialPosition.y + (zoomFactor * zoomDir), cameraInitialPosition.z + findMiddleZ());
-        zoom();
+        //Vector3 screenPoint = Camera.WorldToViewportPoint(targetPoint.position);
+        //bool onScreen = screenPoint.z > 0 && screenPoint.x > 0 && screenPoint.x < 1 && screenPoint.y > 0 && screenPoint.y < 1;
     }
-
+    int counter = 0;
     private void zoom()
     {
-        /*foreach (AbstractPlayer player in gm.playersScripts)
+        Invoke("zoom", updateZoomDelay);
+        foreach (AbstractPlayer player in gm.playersScripts)
         {
-            if (!player.getIsOut() && !player.isInFrame())
+            if (!player.getIsOut() && !player.isInFrame(desiredMergin))
             {
-                if (zoomDir < 0)
+/*                if (zoomDir < 0)
                 {
                     zoomDir = 0;
-                }
+                }*/
                 zoomDir++;
                 return;
             }
         }
-        if (zoomDir > 0)
+        if(zoomDir > -minZoom)
+        {
+                zoomDir--;
+        }
+/*        if (zoomDir > 0)
         {
             zoomDir = 0;
-        }
-        zoomDir--;*/
+        }*/
+        //zoomDir--;
     }
+
 }

@@ -13,7 +13,7 @@ public class AbstractPlayer : MonoBehaviour
 {
     protected int playerIndex;
     protected GameManager gameManager;
-    public float speed = 10.0f;
+    public float speed = 30.0f;
     protected Rigidbody rb;
     private float movementX = 0;
     private float movementY = 0;
@@ -112,6 +112,7 @@ public class AbstractPlayer : MonoBehaviour
             }
             else if (otherPlayer.gameObject.tag == "Out")
             {
+                print(gameObject + "out");
                 playerOut.Invoke(playerIndex);
                 isOut = true;
             }
@@ -171,10 +172,9 @@ public class AbstractPlayer : MonoBehaviour
         return isOut;
     }
 
-    public bool isInFrame()
+    public bool isInFrame(float mergin)
     {
-        return playerMeshRenderer.isVisible;
+        Vector3 screenPoint = Camera.main.WorldToViewportPoint(transform.position);
+        return (screenPoint.z > mergin && screenPoint.x > mergin && screenPoint.x < 1- mergin && screenPoint.y > mergin && screenPoint.y < 1- mergin);
     }
-    
-
 }

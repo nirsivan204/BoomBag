@@ -42,7 +42,7 @@ public class DebugManager : MonoBehaviour
     private void OnResetScene()
     {
         //Resets the Scene on button press
-        SceneManager.LoadSceneAsync("InitialTestScene");
+        SceneManager.LoadScene("InitialTestScene");
     }
 
     
