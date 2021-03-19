@@ -9,9 +9,11 @@ public class DynamicCamera : MonoBehaviour
     private Vector3 cameraInitialPosition;
     private float zoomFactor = 0.01f;
     private int zoomDir = 0;
+
     float desiredMergin = 0.1f;
     float updateZoomDelay = 0.01f;
     int minZoom = -500;
+    int maxZoom = 800;
 
     private float findMiddleX()
     {
@@ -86,8 +88,12 @@ public class DynamicCamera : MonoBehaviour
                 {
                     zoomDir = 0;
                 }*/
-                zoomDir++;
-                return;
+                if (zoomDir < maxZoom)
+                {
+                    zoomDir++;
+                    return;
+                }
+
             }
         }
         if(zoomDir > -minZoom)

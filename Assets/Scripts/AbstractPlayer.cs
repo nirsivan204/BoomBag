@@ -19,9 +19,9 @@ public class AbstractPlayer : MonoBehaviour
     private float movementY = 0;
     protected bool grounded = true;
     private int size = 4;
-    [SerializeField] private int maxGrow = 7;
-    [SerializeField] private int minGrow = 1;
-    private float growRatio = 0.25f;
+    [SerializeField] private int maxGrow = 10;
+    [SerializeField] private int minGrow = 4;
+    private float growRatio = 0.5f;
     public float massGrowRate = 0.2f;
     private GameObject playerCharacter;
     public Color MyColor;
