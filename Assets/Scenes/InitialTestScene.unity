@@ -200,13 +200,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 80447089}
-  m_LocalRotation: {x: -0.4539194, y: -0.01254735, z: 0.00093703414, w: -0.8909539}
-  m_LocalPosition: {x: -1.9, y: 23, z: -22.04}
+  m_LocalRotation: {x: -0.6251715, y: -0.007779645, z: 0.0017661061, w: -0.78044665}
+  m_LocalPosition: {x: 1.2, y: 39.27, z: -9.79}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 53.985, y: 2.096, z: 0.947}
+  m_LocalEulerAnglesHint: {x: 77.383, y: 2.607, z: 1.829}
 --- !u!114 &80447093
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -724,6 +724,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 378446724455757942, guid: 3e2c36a2634710c45b7c7b596017ab2f, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5393f4ff36688364e94b78532d226253, type: 2}
     m_RemovedComponents:
     - {fileID: 378446724226986321, guid: 3e2c36a2634710c45b7c7b596017ab2f, type: 3}
     - {fileID: 378446723893145216, guid: 3e2c36a2634710c45b7c7b596017ab2f, type: 3}
@@ -901,6 +905,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 378446724455757942, guid: 3e2c36a2634710c45b7c7b596017ab2f, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5f2fecccb15517f478ffb59f992a6387, type: 2}
     m_RemovedComponents:
     - {fileID: 378446724226986321, guid: 3e2c36a2634710c45b7c7b596017ab2f, type: 3}
     - {fileID: 378446723893145216, guid: 3e2c36a2634710c45b7c7b596017ab2f, type: 3}
@@ -1295,6 +1303,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 378446724455757942, guid: 3e2c36a2634710c45b7c7b596017ab2f, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 369ded4a9c1982c4f985fdcfadb99b6e, type: 2}
     m_RemovedComponents:
     - {fileID: 378446724226986321, guid: 3e2c36a2634710c45b7c7b596017ab2f, type: 3}
     - {fileID: 378446723893145216, guid: 3e2c36a2634710c45b7c7b596017ab2f, type: 3}

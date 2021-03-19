@@ -17,50 +17,55 @@ public class DynamicCamera : MonoBehaviour
 
     private float findMiddleX()
     {
-        float mostRight = -1000;
+        float mostRight = 0;//-1000;
         float mostLeft = 1000;
+        int count = 0;
         for (int i = 0; i < gm.players.Length; i++)
         {
             if (!gm.playersScripts[i].getIsOut())
             {
-                if (mostRight < gm.players[i].transform.position.x)
-                {
-                    mostRight = gm.players[i].transform.position.x;
-                }
+                //if (mostRight < gm.players[i].transform.position.x)
+                //{
 
-                if (mostLeft > gm.players[i].transform.position.x)
-                {
-                    mostLeft = gm.players[i].transform.position.x;
-                }
+                count++;
+                mostRight += gm.players[i].transform.position.x;
+                //}
+
+                //if (mostLeft > gm.players[i].transform.position.x)
+                //{
+                 //   mostLeft = gm.players[i].transform.position.x;
+               // }
             }
 
         }
 
-        return (mostLeft + mostRight) / 2;
+        return mostRight / count;
 
     }
     
     private float findMiddleZ()
     {
-        float mostUp = -1000;
+        float mostUp = 0;//-1000;
         float mostDown = 1000;
+        int count = 0;
         for (int i = 0 ; i < gm.players.Length ;  i++) 
         {
             if (!gm.playersScripts[i].getIsOut())
             {
-                if (mostUp < gm.players[i].transform.position.z)
-                {
-                    mostUp = gm.players[i].transform.position.z;
-                }
+                //if (mostUp < gm.players[i].transform.position.z)
+                //{
+                count++;
+                    mostUp += gm.players[i].transform.position.z;
+                //}
 
-                if (mostDown > gm.players[i].transform.position.z)
-                {
-                    mostDown = gm.players[i].transform.position.z;
-                }
+                //if (mostDown > gm.players[i].transform.position.z)
+                //{
+                //    mostDown = gm.players[i].transform.position.z;
+                //}
             }
         }
 
-        return (mostUp + mostDown) / 2;
+        return (mostUp / count); //+ mostDown) / 2;
 
     }
 
@@ -96,7 +101,7 @@ public class DynamicCamera : MonoBehaviour
 
             }
         }
-        if(zoomDir > -minZoom)
+        if(zoomDir > minZoom)
         {
                 zoomDir--;
         }
