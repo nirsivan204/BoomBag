@@ -1121,6 +1121,8 @@ MonoBehaviour:
   charTypes: 00000000010000000200000000000000
   colorChanger: {fileID: 1692728270}
   playersScripts: []
+  liveOrDead: 
+  humanOrAI: 01010100
 --- !u!4 &1293597159
 Transform:
   m_ObjectHideFlags: 0

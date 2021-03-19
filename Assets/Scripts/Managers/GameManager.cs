@@ -16,8 +16,9 @@ public class GameManager : MonoBehaviour
     public GameObject colorChanger;
     public AbstractPlayer[] playersScripts;
     private int numPlayersAlive;
-    private bool[] liveOrDead;
+    public bool[] liveOrDead;
     public IntEvent winEvent;
+    public bool[] humanOrAI;
     // Start is called before the first frame update
     void Awake()
     {
@@ -52,12 +53,14 @@ public class GameManager : MonoBehaviour
             }
             if (playerScript)
             {
-                playerScript.enabled = true;
+                playerScript.setIsHuman(humanOrAI[i]);
                 playerScript.setPlayerIndex(i);
                 playerScript.setGameManager(this);
                 playersScripts[i] = playerScript;
-                }
-                else
+                playerScript.enabled = true;
+
+            }
+            else
             {
                 print("ERROR in creating player " + i);
             }

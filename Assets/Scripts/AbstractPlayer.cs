@@ -18,10 +18,10 @@ public class AbstractPlayer : MonoBehaviour
     private float movementX = 0;
     private float movementY = 0;
     protected bool grounded = true;
-    private int size = 4;
+    private int size = 6;
     [SerializeField] private int maxGrow = 10;
     [SerializeField] private int minGrow = 4;
-    private float growRatio = 0.5f;
+    private float growRatio = 0.25f;
     public float massGrowRate = 0.2f;
     private GameObject playerCharacter;
     public Color MyColor;
@@ -32,6 +32,8 @@ public class AbstractPlayer : MonoBehaviour
     private const float ENERGY_COST = 10;
     public IntEvent playerOut;
     protected bool isOut = false;
+    bool isHumanPlayer = true;
+    private GameObject AITarget;
     void Awake()
     {
         playerCharacter = transform.Find("Character").gameObject;
@@ -41,6 +43,12 @@ public class AbstractPlayer : MonoBehaviour
         rb.mass = size * massGrowRate;
         playerMeshRenderer = playerCharacter.GetComponent<MeshRenderer>();
         playerOut = new IntEvent();
+        if (!isHumanPlayer)
+        {
+            GetComponent<PlayerInput>().enabled = false;
+            chooseTarget();
+            Invoke("aiCalculateMove", 0.5f);
+        }
         init();
     }
 
@@ -55,6 +63,10 @@ public class AbstractPlayer : MonoBehaviour
         Vector2 movementVector = movementValue.Get<Vector2>();
         movementX = movementVector.x;
         movementY = movementVector.y;
+        if (isHumanPlayer)
+        {
+            print(movementX + "," +movementY);
+        }
     }
 
     private void OnFire()
@@ -71,15 +83,56 @@ public class AbstractPlayer : MonoBehaviour
 
     }
 
+    private void chooseTarget()
+    {
+        int res = playerIndex;
+        int count = 0;
+        if (isOut)
+        {
+            AITarget  = gameObject;
+        }
+        while ((res == playerIndex || !gameManager.liveOrDead[res]) && !isOut)
+        {
+            res = UnityEngine.Random.Range(0, gameManager.players.Length);
+            count++;
+            if(count > 100)
+            {
+                print("ERROR in chooseTarget in " + gameObject);
+                break;
+            }
+        }
+        AITarget = gameManager.players[res];
+        Invoke("chooseTarget", 5);
+
+
+    }
+    private void aiCalculateMove()
+    {
+        Vector3 attackLine = (AITarget.transform.position - transform.position);
+        attackLine = new Vector3(attackLine.x, 0, attackLine.z);
+        movementX = attackLine.x/ attackLine.magnitude;
+        movementY = attackLine.z/ attackLine.magnitude;
+        Invoke("aiCalculateMove", 0.1f);
+    }
+
     void FixedUpdate()
     {
         if (!isOut)
         {
+            //if (!isHumanPlayer)
+            //{
+            //    aiCalculateMove();
+            //}
             Vector3 movement = new Vector3(movementX, 0, movementY);
             if (rb)
             {
                 rb.AddForce(movement * speed, ForceMode.Acceleration);
             }
+            //if (!isHumanPlayer)
+            //{
+            //    movementX = 0;
+            //    movementY = 0;
+           // }
 
             if (energy < MAX_ENERGY)
             {
@@ -115,6 +168,7 @@ public class AbstractPlayer : MonoBehaviour
                 print(gameObject + "out");
                 playerOut.Invoke(playerIndex);
                 isOut = true;
+                //enabled = false;
             }
         }
     }
@@ -176,5 +230,15 @@ public class AbstractPlayer : MonoBehaviour
     {
         Vector3 screenPoint = Camera.main.WorldToViewportPoint(transform.position);
         return (screenPoint.z > mergin && screenPoint.x > mergin && screenPoint.x < 1- mergin && screenPoint.y > mergin && screenPoint.y < 1- mergin);
+    }
+
+    public void setIsHuman(bool isHuman)
+    {
+        isHumanPlayer = isHuman;
+    }
+
+    public bool getIsHuman()
+    {
+        return isHumanPlayer;
     }
 }
