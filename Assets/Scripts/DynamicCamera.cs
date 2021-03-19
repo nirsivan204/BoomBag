@@ -14,19 +14,26 @@ public class DynamicCamera : MonoBehaviour
     float updateZoomDelay = 0.01f;
     int minZoom = -500;
     int maxZoom = 800;
+    private GameObject winner;
 
     private float findMiddleX()
     {
         float mostRight = 0;//-1000;
         float mostLeft = 1000;
         int count = 0;
-        for (int i = 0; i < gm.players.Length; i++)
+        int i = 0;
+        GameObject player = null;
+        if (winner)
+        {
+            return winner.transform.position.x;
+        }
+        for (; i < gm.players.Length; i++)
         {
             if (!gm.playersScripts[i].getIsOut())
             {
                 //if (mostRight < gm.players[i].transform.position.x)
                 //{
-
+                player = gm.players[i];
                 count++;
                 mostRight += gm.players[i].transform.position.x;
                 //}
@@ -36,6 +43,12 @@ public class DynamicCamera : MonoBehaviour
                  //   mostLeft = gm.players[i].transform.position.x;
                // }
             }
+
+        }
+        if (count == 1)
+        {
+            winner = player;
+
 
         }
 
@@ -48,14 +61,22 @@ public class DynamicCamera : MonoBehaviour
         float mostUp = 0;//-1000;
         float mostDown = 1000;
         int count = 0;
-        for (int i = 0 ; i < gm.players.Length ;  i++) 
+        int i = 0;
+        GameObject player = null;
+        if (winner)
+        {
+            return winner.transform.position.z;
+        }
+        for ( ; i < gm.players.Length ;  i++) 
         {
             if (!gm.playersScripts[i].getIsOut())
             {
                 //if (mostUp < gm.players[i].transform.position.z)
                 //{
+                player = gm.players[i];
                 count++;
-                    mostUp += gm.players[i].transform.position.z;
+                mostUp += gm.players[i].transform.position.z;
+
                 //}
 
                 //if (mostDown > gm.players[i].transform.position.z)
@@ -63,6 +84,12 @@ public class DynamicCamera : MonoBehaviour
                 //    mostDown = gm.players[i].transform.position.z;
                 //}
             }
+        }
+        if (count == 1)
+        {
+            winner = player;
+
+
         }
 
         return (mostUp / count); //+ mostDown) / 2;
