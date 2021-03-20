@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 [RequireComponent (typeof (Rigidbody))]
 [RequireComponent (typeof (CapsuleCollider))]
  
-public class RigidPlayer : AbstractPlayer
+public class AvoiderPlayer : AbstractPlayer
 {
 	bool canUseAbility = true;
 	protected override void useAbility()
@@ -13,16 +13,21 @@ public class RigidPlayer : AbstractPlayer
 		{
 			canUseAbility = false;
 			overSpeedAllowed = true;
-			speed += 10;
-			Invoke("endAbility", 5f);
+			//prev_vel = rb.GetPointVelocity(rb.centerOfMass);
+			speed += 200;
+			Invoke("endAbility", 0.3f);
+			
 			print("DASH");
 		}
+		//speed += 10;
+		//Invoke("endAbility", 3f);
 	}
 
 	protected void endAbility()
 	{
+		speed -= 200;
+		//rb.velocity = Vector3.zero;
 		overSpeedAllowed = false;
-		speed -= 10;
 		canUseAbility = true;
 
 	}

@@ -8,11 +8,7 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
-    public TMP_Text winLoseCondition;
-    private static bool player1Win; 
-    private static bool player2Win;
-    public GameObject player1;
-    public GameObject player2;
+    public TMP_Text winText;
     public GameObject baseGround;
     public GameManager gm;
 
@@ -23,21 +19,13 @@ public class UIManager : MonoBehaviour
 
     void Update()
     {
-            //if (player1.transform.position.y < baseGround.transform.position.y) //Check if Player1 is off the ground
-            //{
-            //    winLoseCondition.SetText("Player 1 wins!");
-           // }
-
-            //else if (player2.transform.position.y <  baseGround.transform.position.y) // Check if Player2 is off the ground
-           // {
-           //     winLoseCondition.SetText("Player 2 wins!");
-           // }
 
     }
 
     public void setWinText(int winnerIndex)
     {
-        winLoseCondition.SetText("Player "+ winnerIndex + " wins!");
+
+        winText.SetText("Player "+ winnerIndex + " wins!");
     }
 
 }
