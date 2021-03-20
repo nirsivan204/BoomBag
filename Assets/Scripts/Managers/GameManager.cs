@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour
 
                     break;
                 case CharTypes.Avoider:
-                    //playerScript = players[i].AddComponent<RigidPlayer>();
+                    playerScript = players[i].AddComponent<AvoiderPlayer>();
                     //to do : decide on meshRenderer
 
                     break;
@@ -95,7 +95,13 @@ public class GameManager : MonoBehaviour
         liveOrDead[playerIndex] = false;
         if (numPlayersAlive == 1)
         {
-            winEvent.Invoke(playerIndex);
+            for (int i=0; i<players.Length ; i++)
+            {
+                if (liveOrDead[i])
+                {
+                    winEvent.Invoke(i+1);
+                }
+            }
         }
     }
 }

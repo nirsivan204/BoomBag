@@ -34,6 +34,8 @@ public class AbstractPlayer : MonoBehaviour
     protected bool isOut = false;
     bool isHumanPlayer = true;
     private GameObject AITarget;
+    public float maxSpeed = 20;
+    public bool overSpeedAllowed = false;
     void Awake()
     {
         playerCharacter = transform.Find("Character").gameObject;
@@ -63,10 +65,6 @@ public class AbstractPlayer : MonoBehaviour
         Vector2 movementVector = movementValue.Get<Vector2>();
         movementX = movementVector.x;
         movementY = movementVector.y;
-        if (isHumanPlayer)
-        {
-            print(movementX + "," +movementY);
-        }
     }
 
     private void OnFire()
@@ -124,15 +122,16 @@ public class AbstractPlayer : MonoBehaviour
             //    aiCalculateMove();
             //}
             Vector3 movement = new Vector3(movementX, 0, movementY);
-            if (rb)
+            rb.AddForce(movement * speed, ForceMode.Acceleration);
+            if (!overSpeedAllowed && rb.velocity.magnitude > maxSpeed)
             {
-                rb.AddForce(movement * speed, ForceMode.Acceleration);
+                rb.velocity = rb.velocity.normalized * maxSpeed;
             }
             //if (!isHumanPlayer)
             //{
             //    movementX = 0;
             //    movementY = 0;
-           // }
+            // }
 
             if (energy < MAX_ENERGY)
             {
@@ -165,9 +164,9 @@ public class AbstractPlayer : MonoBehaviour
             }
             else if (otherPlayer.gameObject.tag == "Out")
             {
-                print(gameObject + "out");
+                print(gameObject + "out, player index = " + playerIndex);
                 playerOut.Invoke(playerIndex);
-                isOut = true;
+                //isOut = true;
                 //enabled = false;
             }
         }
