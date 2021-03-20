@@ -13,17 +13,16 @@ public class RigidPlayer : AbstractPlayer
 		{
 			canUseAbility = false;
 			overSpeedAllowed = true;
-			speed += 10;
+			speed += 20;
 			Invoke("endAbility", 5f);
-			print("DASH");
+			print("RIGID");
 		}
 	}
 
 	protected void endAbility()
 	{
 		overSpeedAllowed = false;
-		speed -= 10;
+		speed -= 20;
 		canUseAbility = true;
-
 	}
 }

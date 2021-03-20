@@ -1118,7 +1118,7 @@ MonoBehaviour:
   - {fileID: 1561978745}
   - {fileID: 358470365}
   - {fileID: 1408915952}
-  charTypes: 00000000010000000200000003000000
+  charTypes: 03000000010000000200000000000000
   colorChanger: {fileID: 1692728270}
   playersScripts: []
   liveOrDead: 

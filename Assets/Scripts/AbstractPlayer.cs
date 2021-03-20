@@ -33,7 +33,8 @@ public class AbstractPlayer : MonoBehaviour
     public IntEvent playerOut;
     protected bool isOut = false;
     bool isHumanPlayer = true;
-    private GameObject AITarget;
+    private GameObject AITargetGameObj;
+    private AbstractPlayer AITargetScript;
     public float maxSpeed = 20;
     public bool overSpeedAllowed = false;
     void Awake()
@@ -87,9 +88,10 @@ public class AbstractPlayer : MonoBehaviour
         int count = 0;
         if (isOut)
         {
-            AITarget  = gameObject;
+            AITargetGameObj = gameObject;
+            AITargetScript = this;
         }
-        while ((res == playerIndex || !gameManager.liveOrDead[res]) && !isOut)
+        while (res == playerIndex || !gameManager.liveOrDead[res])
         {
             res = UnityEngine.Random.Range(0, gameManager.players.Length);
             count++;
@@ -99,18 +101,26 @@ public class AbstractPlayer : MonoBehaviour
                 break;
             }
         }
-        AITarget = gameManager.players[res];
+        AITargetGameObj = gameManager.players[res];
+        AITargetScript = gameManager.playersScripts[res];
         Invoke("chooseTarget", 5);
 
 
     }
     private void aiCalculateMove()
     {
-        Vector3 attackLine = (AITarget.transform.position - transform.position);
+        if (AITargetScript.isOut)
+        {
+            chooseTarget();
+        }
+        Vector3 attackLine = (AITargetGameObj.transform.position - transform.position);
         attackLine = new Vector3(attackLine.x, 0, attackLine.z);
         movementX = attackLine.x/ attackLine.magnitude;
         movementY = attackLine.z/ attackLine.magnitude;
-        Invoke("aiCalculateMove", 0.1f);
+        if (!isOut)
+        {
+            Invoke("aiCalculateMove", 0.1f);
+        }
     }
 
     void FixedUpdate()
@@ -123,9 +133,9 @@ public class AbstractPlayer : MonoBehaviour
             //}
             Vector3 movement = new Vector3(movementX, 0, movementY);
             rb.AddForce(movement * speed, ForceMode.Acceleration);
-            if (!overSpeedAllowed && rb.velocity.magnitude > maxSpeed)
+            if (!overSpeedAllowed)
             {
-                rb.velocity = rb.velocity.normalized * maxSpeed;
+                rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxSpeed);
             }
             //if (!isHumanPlayer)
             //{
@@ -166,7 +176,7 @@ public class AbstractPlayer : MonoBehaviour
             {
                 print(gameObject + "out, player index = " + playerIndex);
                 playerOut.Invoke(playerIndex);
-                //isOut = true;
+                isOut = true;
                 //enabled = false;
             }
         }
