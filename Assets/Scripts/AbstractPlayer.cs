@@ -22,7 +22,7 @@ public class AbstractPlayer : MonoBehaviour
     [SerializeField] private int maxGrow = 10;
     [SerializeField] private int minGrow = 4;
     private float growRatio = 0.25f;
-    public float massGrowRate = 500;//0.2f;
+    public float massGrowRate = 0.2f;
     private GameObject playerCharacter;
     public Color MyColor;
     private MeshRenderer playerMeshRenderer;
@@ -37,6 +37,7 @@ public class AbstractPlayer : MonoBehaviour
     private AbstractPlayer AITargetScript;
     public float maxSpeed = 20;
     public bool overSpeedAllowed = false;
+    public float bumpForce = 450;
     void Awake()
     {
         playerCharacter = transform.Find("Character").gameObject;
@@ -135,22 +136,12 @@ public class AbstractPlayer : MonoBehaviour
     {
         if (!isOut)
         {
-            //if (!isHumanPlayer)
-            //{
-            //    aiCalculateMove();
-            //}
             Vector3 movement = new Vector3(movementX, 0, movementY);
-            rb.AddForce(movement * speed, ForceMode.Acceleration);
+            rb.AddForce(movement * speed * rb.mass);
             if (!overSpeedAllowed)
             {
                 rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxSpeed);
             }
-            //if (!isHumanPlayer)
-            //{
-            //    movementX = 0;
-            //    movementY = 0;
-            // }
-
             if (energy < MAX_ENERGY)
             {
                 energy += Time.deltaTime;
@@ -165,6 +156,8 @@ public class AbstractPlayer : MonoBehaviour
         AbstractPlayer other = otherPlayer.gameObject.GetComponent<AbstractPlayer>();
         if (other)
         {
+            rb.constraints |= RigidbodyConstraints.FreezePositionY;
+            rb.AddExplosionForce(bumpForce * other.getMass(), (other.transform.position + transform.position) / 2, 100, 0);//, ForceMode.Acceleration); or other.size??maybe cancel mass at all??
             if (other.getColor() == MyColor)
             {
                 grow();
@@ -185,12 +178,19 @@ public class AbstractPlayer : MonoBehaviour
                 print(gameObject + "out, player index = " + playerIndex);
                 playerOut.Invoke(playerIndex);
                 isOut = true;
-                //enabled = false;
             }
         }
     }
 
-    public void grow()
+    private void OnCollisionExit(Collision otherPlayer)
+    {
+        AbstractPlayer other = otherPlayer.gameObject.GetComponent<AbstractPlayer>();
+        if (other)
+        {
+            rb.constraints &= ~RigidbodyConstraints.FreezePositionY;
+        }
+    }
+        public void grow()
     {
         if (size < maxGrow)
         {
@@ -257,5 +257,10 @@ public class AbstractPlayer : MonoBehaviour
     public bool getIsHuman()
     {
         return isHumanPlayer;
+    }
+
+    public float getMass()
+    {
+        return rb.mass;
     }
 }
