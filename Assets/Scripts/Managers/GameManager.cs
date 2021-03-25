@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     public bool[] liveOrDead;
     public IntEvent winEvent;
     public bool[] humanOrAI;
+    [SerializeField] bool colorChangerEnable;
     // Start is called before the first frame update
     void Awake()
     {
@@ -67,7 +68,7 @@ public class GameManager : MonoBehaviour
             numPlayersAlive++;
             liveOrDead[i] = true;
         }
-        colorChanger.SetActive(true);
+        colorChanger.SetActive(colorChangerEnable);
 
     }
 

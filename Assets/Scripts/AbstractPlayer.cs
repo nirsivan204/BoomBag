@@ -22,7 +22,7 @@ public class AbstractPlayer : MonoBehaviour
     [SerializeField] private int maxGrow = 10;
     [SerializeField] private int minGrow = 4;
     private float growRatio = 0.25f;
-    public float massGrowRate = 0.2f;
+    public float massGrowRate = 500;//0.2f;
     private GameObject playerCharacter;
     public Color MyColor;
     private MeshRenderer playerMeshRenderer;
@@ -115,8 +115,16 @@ public class AbstractPlayer : MonoBehaviour
         }
         Vector3 attackLine = (AITargetGameObj.transform.position - transform.position);
         attackLine = new Vector3(attackLine.x, 0, attackLine.z);
-        movementX = attackLine.x/ attackLine.magnitude;
-        movementY = attackLine.z/ attackLine.magnitude;
+        if (attackLine.magnitude <= 0)
+        {
+            movementX = 0;
+            movementY = 0;
+        }
+        else
+        {
+            movementX = attackLine.x / attackLine.magnitude;
+            movementY = attackLine.z / attackLine.magnitude;
+        }
         if (!isOut)
         {
             Invoke("aiCalculateMove", 0.1f);
