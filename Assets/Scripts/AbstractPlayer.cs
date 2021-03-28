@@ -18,11 +18,12 @@ public class AbstractPlayer : MonoBehaviour
     private float movementX = 0;
     private float movementY = 0;
     protected bool grounded = true;
-    private int size = 6;
-    [SerializeField] private int maxGrow = 10;
+    private int size; //= startSize in start;
+    [SerializeField] private int maxGrow = 20;
     [SerializeField] private int minGrow = 4;
-    private float growRatio = 0.25f;
-    public float massGrowRate = 0.2f;
+    private float growRatio = 1.05f;  // must be less than startSize/(startSize - minGrow)
+    public float massGrowRate = 1.05f; // must be less than startSize/(startSize - minGrow)
+    private int startSize = 6;
     private GameObject playerCharacter;
     public Color MyColor;
     private MeshRenderer playerMeshRenderer;
@@ -44,9 +45,9 @@ public class AbstractPlayer : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         MyColor = playerCharacter.GetComponent<MeshRenderer>().material.color;
         rb.freezeRotation = true;
-        rb.mass = size * massGrowRate;
         playerMeshRenderer = playerCharacter.GetComponent<MeshRenderer>();
         playerOut = new IntEvent();
+        size = startSize;
         if (!isHumanPlayer)
         {
             GetComponent<PlayerInput>().enabled = false;
@@ -195,9 +196,7 @@ public class AbstractPlayer : MonoBehaviour
         if (size < maxGrow)
         {
             size++;
-            float newSize = size * growRatio;
-            transform.localScale = new Vector3(newSize, newSize, newSize);
-            rb.mass = size * massGrowRate;
+            setNewSize();
         }
     }
 
@@ -206,10 +205,19 @@ public class AbstractPlayer : MonoBehaviour
         if (size > minGrow)
         {
             size--;
-            float newSize = size * growRatio;
-            transform.localScale = new Vector3(newSize, newSize, newSize);
-            rb.mass = size * massGrowRate;
+            setNewSize();
         }
+    }
+
+    private void setNewSize()
+    {
+        //float newSize = size * growRatio * sizeNormalizer;
+        float multiplyCoefficient = (float)size / startSize - 1;
+        float newSize = 1 + growRatio * multiplyCoefficient;
+        transform.localScale = new Vector3(newSize, newSize, newSize);
+        rb.mass = 1 + massGrowRate * multiplyCoefficient;
+        print("mass " + rb.mass);
+
     }
 
     public void setColor(Color color)
