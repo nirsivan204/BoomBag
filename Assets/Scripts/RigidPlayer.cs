@@ -2,7 +2,7 @@
 using UnityEngine.InputSystem;
 
 [RequireComponent (typeof (Rigidbody))]
-[RequireComponent (typeof (CapsuleCollider))]
+[RequireComponent (typeof (BoxCollider))]
  
 public class RigidPlayer : AbstractPlayer
 {
@@ -12,8 +12,9 @@ public class RigidPlayer : AbstractPlayer
 		if (canUseAbility)
 		{
 			canUseAbility = false;
-			overSpeedAllowed = true;
-			speed += 20;
+			//overSpeedAllowed = true;
+			//speed += 20;
+			isRigid = true;
 			Invoke("endAbility", 5f);
 			print("RIGID");
 		}
@@ -21,8 +22,10 @@ public class RigidPlayer : AbstractPlayer
 
 	protected void endAbility()
 	{
-		overSpeedAllowed = false;
-		speed -= 20;
+		//overSpeedAllowed = false;
+		//speed -= 20;
+		isRigid = false;
+
 		canUseAbility = true;
 	}
 }

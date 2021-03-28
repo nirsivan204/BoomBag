@@ -85,7 +85,7 @@ public class DynamicCamera : MonoBehaviour
                 //}
             }
         }
-        if (count == 1)
+        if (count <= 1)
         {
             winner = player;
 

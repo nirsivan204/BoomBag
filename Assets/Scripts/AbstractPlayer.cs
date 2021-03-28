@@ -7,23 +7,24 @@ using UnityEngine.InputSystem;
 
 
 [RequireComponent(typeof(Rigidbody))]
-[RequireComponent(typeof(CapsuleCollider))]
+[RequireComponent(typeof(BoxCollider))]
 
 public class AbstractPlayer : MonoBehaviour
 {
     protected int playerIndex;
     protected GameManager gameManager;
-    public float speed = 30.0f;
+    public float speed = 80.0f;
     protected Rigidbody rb;
+    public float drag = 0;
     private float movementX = 0;
     private float movementY = 0;
     protected bool grounded = true;
     private int size; //= startSize in start;
     [SerializeField] private int maxGrow = 20;
-    [SerializeField] private int minGrow = 4;
-    private float growRatio = 1.05f;  // must be less than startSize/(startSize - minGrow)
+    [SerializeField] private int minGrow = 1;
+    private float growRatio = 1.4f;  // must be less than startSize/(startSize - minGrow)
     public float massGrowRate = 1.05f; // must be less than startSize/(startSize - minGrow)
-    private int startSize = 6;
+    private int startSize = 2;
     private GameObject playerCharacter;
     public Color MyColor;
     private MeshRenderer playerMeshRenderer;
@@ -38,16 +39,20 @@ public class AbstractPlayer : MonoBehaviour
     private AbstractPlayer AITargetScript;
     public float maxSpeed = 20;
     public bool overSpeedAllowed = false;
-    public float bumpForce = 450;
+    public float bumpForce = 800;
+    protected bool isRigid = false;
+    
     void Awake()
     {
         playerCharacter = transform.Find("Character").gameObject;
         rb = GetComponent<Rigidbody>();
+        rb.drag = drag;
         MyColor = playerCharacter.GetComponent<MeshRenderer>().material.color;
         rb.freezeRotation = true;
         playerMeshRenderer = playerCharacter.GetComponent<MeshRenderer>();
         playerOut = new IntEvent();
         size = startSize;
+        transform.localScale = new Vector3(startSize, startSize, startSize);
         if (!isHumanPlayer)
         {
             GetComponent<PlayerInput>().enabled = false;
@@ -158,7 +163,15 @@ public class AbstractPlayer : MonoBehaviour
         if (other)
         {
             rb.constraints |= RigidbodyConstraints.FreezePositionY;
-            rb.AddExplosionForce(bumpForce * other.getMass(), (other.transform.position + transform.position) / 2, 100, 0);//, ForceMode.Acceleration); or other.size??maybe cancel mass at all??
+            if (!isRigid)
+            {
+                rb.AddExplosionForce(bumpForce * other.getMass(), (other.transform.position + transform.position) / 2, 100, 0);//, ForceMode.Acceleration); or other.size??maybe cancel mass at all??
+            }
+            else
+            {
+                Vector3 collisionForce = otherPlayer.impulse;
+                rb.AddForce(collisionForce, ForceMode.Impulse);
+            }
             if (other.getColor() == MyColor)
             {
                 grow();
@@ -213,7 +226,7 @@ public class AbstractPlayer : MonoBehaviour
     {
         //float newSize = size * growRatio * sizeNormalizer;
         float multiplyCoefficient = (float)size / startSize - 1;
-        float newSize = 1 + growRatio * multiplyCoefficient;
+        float newSize = startSize + growRatio * multiplyCoefficient;
         transform.localScale = new Vector3(newSize, newSize, newSize);
         rb.mass = 1 + massGrowRate * multiplyCoefficient;
         print("mass " + rb.mass);
