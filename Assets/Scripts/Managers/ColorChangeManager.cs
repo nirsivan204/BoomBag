@@ -5,8 +5,10 @@ public class ColorChangeManager : MonoBehaviour
     private Color[] meshColors;
     public GameManager gameManager;
     private AbstractPlayer[] PlayersScripts;
-    public float time;
-    public float repeatingTime;
+//    public int time;
+    public int repeatingTime;
+    public UIManager UIManager;
+    public int timeToShowCount;
     
     public void Awake()
     {
@@ -24,9 +26,19 @@ public class ColorChangeManager : MonoBehaviour
         {
             PlayersScripts[i] = gameManager.players[i].GetComponent<AbstractPlayer>();
         }
-
-        InvokeRepeating("ColorChanger", time, repeatingTime);
+        startCount();
     }
+
+    private void startCount()
+    {
+        Invoke("startShowCount", repeatingTime - timeToShowCount);
+    }
+
+    private void startShowCount()
+    {
+        UIManager.startCounter(timeToShowCount, "COLOR MIX!",false, ColorChanger);
+    }
+
 
     public void ColorChanger()
     {
@@ -34,5 +46,6 @@ public class ColorChangeManager : MonoBehaviour
         {
             script.setColor(meshColors[Random.Range(0, meshColors.Length)]);
         }
+        startCount();
     }
 }

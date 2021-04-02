@@ -20,7 +20,9 @@ public class GameManager : MonoBehaviour
     public IntEvent winEvent;
     public bool[] humanOrAI;
     public GameObject dummyPlayer;
+    public UIManager UIMgr;
     [SerializeField] bool colorChangerEnable;
+    public int startCountTime = 3;
     // Start is called before the first frame update
     void Awake()
     {
@@ -69,27 +71,33 @@ public class GameManager : MonoBehaviour
             numPlayersAlive++;
             liveOrDead[i] = true;
         }
-        colorChanger.SetActive(colorChangerEnable);
         dummyPlayer.SetActive(false);
     }
 
     void Start()
     {
-        for(int i=0; i< players.Length; i++)
+        for (int i = 0; i < players.Length; i++)
         {
             players[i].SetActive(true);
             playersScripts[i].playerOut.AddListener(playerDied);
         }
-
-
-
+        UIMgr.startCounter(startCountTime, "GO!!!!", true, startGame);
     }
 
-    // Update is called once per frame
-    void Update()
+
+    private void startGame()
     {
-        
+        colorChanger.SetActive(colorChangerEnable);
+        for (int i = 0; i < players.Length; i++)
+        {
+            playersScripts[i].setCanMove(true);
+        }
     }
+    // Update is called once per frame
+    //void Update()
+    //{
+
+    //}
 
     private void playerDied(int playerIndex)
     {

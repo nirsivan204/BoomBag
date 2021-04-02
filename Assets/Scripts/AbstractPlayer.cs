@@ -41,6 +41,7 @@ public class AbstractPlayer : MonoBehaviour
     public bool overSpeedAllowed = false;
     public float bumpForce = 800;
     protected bool isRigid = false;
+    private bool canMove = false;
     
     void Awake()
     {
@@ -97,6 +98,7 @@ public class AbstractPlayer : MonoBehaviour
         {
             AITargetGameObj = gameObject;
             AITargetScript = this;
+            return;
         }
         while (res == playerIndex || !gameManager.liveOrDead[res])
         {
@@ -140,7 +142,7 @@ public class AbstractPlayer : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (!isOut)
+        if (canMove)
         {
             Vector3 movement = new Vector3(movementX, 0, movementY);
             rb.AddForce(movement * speed * rb.mass);
@@ -187,11 +189,12 @@ public class AbstractPlayer : MonoBehaviour
             {
                 grounded = true;
             }
-            else if (otherPlayer.gameObject.tag == "Out")
+            else if (otherPlayer.gameObject.tag == "Out" && !isOut)
             {
                 print(gameObject + "out, player index = " + playerIndex);
                 playerOut.Invoke(playerIndex);
                 isOut = true;
+                canMove = false;
             }
         }
     }
@@ -283,5 +286,10 @@ public class AbstractPlayer : MonoBehaviour
     public float getMass()
     {
         return rb.mass;
+    }
+
+    public void setCanMove(bool Move)
+    {
+        canMove = Move;
     }
 }
