@@ -27,7 +27,7 @@ public class AbstractPlayer : MonoBehaviour
     private int startSize = 2;
     private GameObject playerCharacter;
     public Color MyColor;
-    private MeshRenderer playerMeshRenderer;
+    protected MeshRenderer playerMeshRenderer;
     // Energy units are equivalent to seconds:
     public float energy = 4;
     public const float MAX_ENERGY = 15;
@@ -88,6 +88,11 @@ public class AbstractPlayer : MonoBehaviour
     }
 
     protected virtual void useAbility()
+    {
+
+    }
+
+    protected virtual void showAbilityEffect()
     {
 
     }
@@ -258,7 +263,7 @@ public class AbstractPlayer : MonoBehaviour
         numSequentialInverts--;
     }
 
-    public void setColor(Color color)
+    public virtual void setColor(Color color)
     {
         MyColor = color;
         playerMeshRenderer.material.color = color;
