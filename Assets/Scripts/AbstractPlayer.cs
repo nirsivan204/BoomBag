@@ -42,7 +42,9 @@ public class AbstractPlayer : MonoBehaviour
     public float bumpForce = 800;
     protected bool isRigid = false;
     private bool canMove = false;
-    
+    private int invertFactor = 1;
+    private int numSequentialInverts = 0;
+
     void Awake()
     {
         playerCharacter = transform.Find("Character").gameObject;
@@ -71,7 +73,7 @@ public class AbstractPlayer : MonoBehaviour
 
     private void OnMove(InputValue movementValue)
     {
-        Vector2 movementVector = movementValue.Get<Vector2>();
+        Vector2 movementVector = movementValue.Get<Vector2>();//*invertFactor;
         movementX = movementVector.x;
         movementY = movementVector.y;
     }
@@ -145,7 +147,7 @@ public class AbstractPlayer : MonoBehaviour
         if (canMove)
         {
             Vector3 movement = new Vector3(movementX, 0, movementY);
-            rb.AddForce(movement * speed * rb.mass);
+            rb.AddForce(movement * speed * rb.mass * invertFactor);
             if (!overSpeedAllowed)
             {
                 rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxSpeed);
@@ -207,20 +209,20 @@ public class AbstractPlayer : MonoBehaviour
             rb.constraints &= ~RigidbodyConstraints.FreezePositionY;
         }
     }
-        public void grow()
+        public void grow(int times = 1)
     {
         if (size < maxGrow)
         {
-            size++;
+            size = Math.Min(maxGrow,size + times);
             setNewSize();
         }
     }
 
-    public void shrink()
+    public void shrink(int times = 1)
     {
         if (size > minGrow)
         {
-            size--;
+            size = Math.Max(minGrow, size - times);
             setNewSize();
         }
     }
@@ -234,6 +236,26 @@ public class AbstractPlayer : MonoBehaviour
         rb.mass = 1 + massGrowRate * multiplyCoefficient;
         print("mass " + rb.mass);
 
+    }
+
+    public void invertControls(float time)
+    {
+    
+        if (invertFactor == -1)
+        {
+            numSequentialInverts++;
+        }
+        invertFactor *= -1;
+        Invoke("unInvertControls", time);
+    }
+
+    public void unInvertControls()
+    {
+        if (numSequentialInverts == 0)
+        {
+            invertFactor = 1;
+        }
+        numSequentialInverts--;
     }
 
     public void setColor(Color color)
@@ -292,4 +314,10 @@ public class AbstractPlayer : MonoBehaviour
     {
         canMove = Move;
     }
+
+    public void setEnergy(float energy)
+    {
+        this.energy = energy;
+    }
+
 }
