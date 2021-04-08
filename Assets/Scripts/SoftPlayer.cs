@@ -8,10 +8,13 @@ using UnityEngine.InputSystem;
 public class SoftPlayer : AbstractPlayer {
     bool canUseAbility = true;
     private Collider[] playersColliders;
-
+    private AudioSource audioSource;
+    private bool isTransparent = false;
 
     protected override void init()
     {
+        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.clip = AssetsManager.AM.ghostSound;
         playersColliders = new Collider[gameManager.players.Length];
         for (int i =0; i < gameManager.players.Length; i++)
         {
@@ -32,6 +35,8 @@ public class SoftPlayer : AbstractPlayer {
                 Physics.IgnoreCollision(playersColliders[playerIndex], playersColliders[i], false);
             }
         }
+
+        setTransparent(false);
         canUseAbility = true;
 
 
@@ -47,10 +52,36 @@ public class SoftPlayer : AbstractPlayer {
                     Physics.IgnoreCollision(playersColliders[playerIndex], playersColliders[i]);
                 }
             }
-
+            audioSource.Play();
+            setTransparent(true);
             Invoke("endAbility", 5f);
             canUseAbility = false;
             print("GHOST");
         }
     }
+
+    public override void setColor(Color color)
+    {
+        base.setColor(color);
+        if (isTransparent)
+        {
+            setTransparent(isTransparent);
+        }
+    }
+
+    private void setTransparent(bool transparent)
+    {
+        Color c = playerMeshRenderer.material.color;
+        if (transparent)
+        {
+            c.a = 0.5f;
+        }
+        else
+        {
+            c.a = 1;
+        }
+        playerMeshRenderer.material.color = c;
+        isTransparent = transparent;
+    }
+
 }

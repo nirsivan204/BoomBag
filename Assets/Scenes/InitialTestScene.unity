@@ -1396,7 +1396,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6380616bd2774264fbfcc0292c09fd3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
+  type: 4
   explosionEffect: {fileID: 0}
   explosionRadius: 4
 --- !u!4 &902946791
@@ -1619,7 +1619,7 @@ MonoBehaviour:
   - {fileID: 1561978745}
   - {fileID: 358470365}
   - {fileID: 1408915952}
-  charTypes: 02000000030000000000000001000000
+  charTypes: 01000000000000000000000000000000
   colorChanger: {fileID: 1692728270}
   playersScripts: []
   liveOrDead: 
