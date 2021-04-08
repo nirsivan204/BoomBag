@@ -52,6 +52,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "MilkRise",
+                    "type": "Button",
+                    "id": "8e99cb39-08ff-4e86-8718-4cb5f5ba4574",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -164,6 +172,17 @@
                     "action": "Tilt",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "5b16986d-bf32-442a-a4d4-f4dc3ba39a63",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "MilkRise",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }

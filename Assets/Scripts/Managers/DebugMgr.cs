@@ -4,10 +4,11 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
-public class DebugManager : MonoBehaviour
+public class DebugMgr : MonoBehaviour
 {
     public GameObject player1;
     public GameObject player2;
+    public GameManager gm;
     // Start is called before the first frame update
     void Start()
     {
@@ -43,6 +44,11 @@ public class DebugManager : MonoBehaviour
     {
         //Resets the Scene on button press
         SceneManager.LoadScene("InitialTestScene");
+    }
+
+    private void OnMilkRise()
+    {
+        gm.milkRiseStart();
     }
 
     

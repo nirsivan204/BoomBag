@@ -23,6 +23,11 @@ public class GameManager : MonoBehaviour
     public UIManager UIMgr;
     [SerializeField] bool colorChangerEnable;
     public int startCountTime = 3;
+    public GameObject milk;
+    public bool isMilkRising = false;
+    public const float MILK_RISE_RATE = 1;
+    public const float MILK_RISE_SPEED = 2;
+    private Vector3 milkTarget;
     // Start is called before the first frame update
     void Awake()
     {
@@ -94,10 +99,20 @@ public class GameManager : MonoBehaviour
         }
     }
     // Update is called once per frame
-    //void Update()
-    //{
+    void Update()
+    {
+        if (isMilkRising)
+        {
+            float step = MILK_RISE_SPEED * Time.deltaTime; // calculate distance to move
+            milk.transform.position = Vector3.MoveTowards(milk.transform.position, milkTarget, step);
+            if (Vector3.Distance(milk.transform.position, milkTarget) < 0.001f)
+            {
+                isMilkRising = false;
+                print("here");
+            }
+        }
 
-    //}
+    }
 
     private void playerDied(int playerIndex)
     {
@@ -113,5 +128,18 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void milkRiseStart()
+    {
+        isMilkRising = true;
+        milkTarget = milk.transform.position + Vector3.up * MILK_RISE_RATE;
+        print("milkTarget" + milkTarget);
+        print("milk");
+    }
+
+    private void milkRiseStop()
+    {
+        isMilkRising = false;
     }
 }
