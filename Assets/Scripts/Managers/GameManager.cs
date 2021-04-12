@@ -142,4 +142,18 @@ public class GameManager : MonoBehaviour
     {
         isMilkRising = false;
     }
+
+    public Vector3 calculateTorque(Vector3 point)
+    {
+        Vector3 result = Vector3.zero;
+        foreach(AbstractPlayer player in playersScripts)
+        {
+            if (player && !player.getIsOut())
+            {
+                result += (player.transform.position-point) * player.getMass();
+            }
+        }
+        return result;
+    }
+
 }

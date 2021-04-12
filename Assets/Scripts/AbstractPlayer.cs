@@ -312,7 +312,11 @@ public class AbstractPlayer : MonoBehaviour
 
     public float getMass()
     {
-        return rb.mass;
+        if (rb)
+        {
+            return rb.mass;
+        }
+        return 0;
     }
 
     public void setCanMove(bool Move)

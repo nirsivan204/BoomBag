@@ -8,12 +8,16 @@ public class TiltManager : MonoBehaviour
     private float timer, tiltAngle, tiltTime;
     private bool isTilting;
     private Vector3 tiltVector;
-    // private const float MAX_TILT = 0.1f;
+    public GameManager gm;
+     private const float MAX_TILT = 20f;
+    public GameObject middle1;
+    public GameObject middle2;
 
     void Start()
     {
         grounds = GameObject.FindGameObjectsWithTag("Arena");
         timer = 0;
+        calculateTilt();
     }
 
 #if DEBUG
@@ -25,12 +29,30 @@ public class TiltManager : MonoBehaviour
     }
 #endif
 
+    private void massTilt(Vector2 vector, float mass)
+    {
+        
+        startTilt(new Vector3(vector.x, vector.y, 0), 0.1f * mass, 0.1f);  // 2d y is placed in 3d z.
+    }
+
+
+    Quaternion lastRotation;
     // Tilt angle around axis (unless it's more then MAX_TILT).
     void tilt(Vector3 axis, float angle)
 	{
         foreach (GameObject ground in grounds)
         {
-            ground.transform.Rotate(axis, angle, Space.World);
+            Vector3 resultingUpVector = middle2.transform.position - middle1.transform.position;
+            print(Vector3.Angle(Vector3.up, resultingUpVector));
+            if(Vector3.Angle(Vector3.up, resultingUpVector) < MAX_TILT)
+            {
+                lastRotation = ground.transform.rotation;
+                ground.transform.Rotate(axis, angle, Space.World);
+            }
+            else
+            {
+                ground.transform.rotation = lastRotation;
+            }
         }
         // TODO: Add max tilt.
     }
@@ -42,6 +64,14 @@ public class TiltManager : MonoBehaviour
         tiltAngle = angle;
         tiltTime = time;
         isTilting = true;
+    }
+
+
+    private void calculateTilt()
+    {
+        Vector3 torque = Vector3.ProjectOnPlane(gm.calculateTorque(grounds[0].transform.position),Vector3.up);
+        startTilt(new Vector3(-torque.z, 0, torque.x), -0.005f * torque.magnitude, 0.05f);  // 2d y is placed in 3d z.
+        Invoke("calculateTilt", 0.1f) ;
     }
 
     // Currently tilting is done by changing the transform. It is more correct to do it by applying force on a rigid body. But the ground being a rigid body has its problems...
