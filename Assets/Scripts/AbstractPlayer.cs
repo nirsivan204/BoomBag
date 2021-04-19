@@ -198,12 +198,22 @@ public class AbstractPlayer : MonoBehaviour
             }
             else if (otherPlayer.gameObject.tag == "Out" && !isOut)
             {
-                print(gameObject + "out, player index = " + playerIndex);
-                playerOut.Invoke(playerIndex);
-                isOut = true;
-                canMove = false;
+                die();
             }
         }
+    }
+
+    private void die()
+    {
+        print(gameObject + "out, player index = " + playerIndex);
+        playerOut.Invoke(playerIndex);
+        isOut = true;
+        canMove = false;
+        //if (transform.position.magnitude < 40)
+        //{
+        //    rb.AddForce(200*transform.position,);
+        //}
+        GetComponent<Collider>().enabled = false;
     }
 
     private void OnCollisionExit(Collision otherPlayer)

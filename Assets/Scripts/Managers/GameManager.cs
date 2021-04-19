@@ -11,6 +11,11 @@ public class GameManager : MonoBehaviour
 {
     public GameObject[] players;
 
+    public enum ArenaTypes { CHEERIOS, UGI, FLAT }
+    public ArenaTypes arena;
+    public bool isTilting;
+    public GameObject[] arenas;
+
     public enum CharTypes { Rigid, Soft, Jumper, Avoider };
     public CharTypes[] charTypes;
     public GameObject colorChanger;
@@ -31,6 +36,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        arenas[0].SetActive(false);
         numPlayersAlive = 0;
         winEvent = new IntEvent();
         playersScripts = new AbstractPlayer[players.Length];
@@ -77,8 +83,30 @@ public class GameManager : MonoBehaviour
             liveOrDead[i] = true;
         }
         dummyPlayer.SetActive(false);
+        initArena();
     }
 
+    private void initArena()
+    {
+        GameObject arenaChosen = null;
+        switch (arena)
+        {
+            case ArenaTypes.CHEERIOS:
+                arenaChosen = arenas[0];
+                break;
+            case ArenaTypes.UGI:
+                arenaChosen = arenas[1];
+                break;
+            case ArenaTypes.FLAT:
+                arenaChosen = arenas[2];
+                break;
+        }
+        arenaChosen.SetActive(true);
+        if (isTilting)
+        {
+            arenaChosen.GetComponent<TiltManager>().enabled = true;
+        }
+    }
     void Start()
     {
         for (int i = 0; i < players.Length; i++)
