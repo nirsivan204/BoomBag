@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 // This does not work currently - however it shows how bad I am at coding, which is remarkable on it's own.
 
@@ -18,25 +19,39 @@ public class UIManager : MonoBehaviour
     private Animator animator;
     string counterMsg;
     public delegate void FuncToCall();
-    bool middleCount;
+    // bool middleCount;
     private FuncToCall funcToCall;
+    private List<Image> energyBars;
 
 
     void Start()
     {
         gm.winEvent.AddListener(setWinText);
         animator = GetComponent<Animator>();
+
+        energyBars = new List<Image>();
+        foreach (Transform child in transform.Find("energyBars"))
+		{
+            energyBars.Add(child.Find("energy").gameObject.GetComponent<Image>());
+        }
         //startCounter(5, "GO!!");
     }
 
     void Update()
     {
-
+        if (energyBars != null)
+        {
+            int i = 0;
+            foreach (var energyBar in energyBars)
+			{
+                energyBar.fillAmount = gm.playersScripts[i].energy / AbstractPlayer.MAX_ENERGY;
+                i++;
+            }
+        }
     }
 
     public void setWinText(int winnerIndex)
     {
-
         winText.SetText("Player "+ winnerIndex + " wins!");
     }
 
@@ -73,8 +88,7 @@ public class UIManager : MonoBehaviour
                 funcToCall();
             }
         }
-    }
-
+	}
 
     private IEnumerator deleteText(TMP_Text textToDelete)
     {
