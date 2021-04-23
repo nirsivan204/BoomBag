@@ -11,6 +11,7 @@ using UnityEngine.InputSystem;
 
 public class AbstractPlayer : MonoBehaviour
 {
+    private float GRAVITY_SCALE = 10;
     protected int playerIndex;
     protected GameManager gameManager;
     public float speed = 80.0f;
@@ -53,7 +54,7 @@ public class AbstractPlayer : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.drag = drag;
         MyColor = playerCharacter.GetComponent<MeshRenderer>().material.color;
-        rb.constraints |= RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+        //rb.constraints |= RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
         playerMeshRenderer = playerCharacter.GetComponent<MeshRenderer>();
         playerOut = new IntEvent();
         size = startSize;
@@ -158,6 +159,16 @@ public class AbstractPlayer : MonoBehaviour
         {
             Vector3 movement = new Vector3(movementX, 0, movementY);
             rb.AddForce(movement * speed * rb.mass * invertFactor);
+            rb.AddForce(Vector3.down * GRAVITY_SCALE);
+            if (rb.velocity.magnitude > 0.5)
+            {
+                Vector3 heading = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+                transform.LookAt(transform.position + heading);
+
+
+                //Quaternion targetRotation = Quaternion.LookRotation(heading); can work also
+                //transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, Time.fixedDeltaTime * 100);
+            }
             if (!overSpeedAllowed)
             {
                 rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxSpeed);
@@ -218,10 +229,6 @@ public class AbstractPlayer : MonoBehaviour
         canMove = false;
         audioSource.clip = drownSound;
         audioSource.Play();
-        //if (transform.position.magnitude < 40)
-        //{
-        //    rb.AddForce(200*transform.position,);
-        //}
         GetComponent<Collider>().enabled = false;
     }
 
