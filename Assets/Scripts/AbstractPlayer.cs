@@ -20,7 +20,7 @@ public class AbstractPlayer : MonoBehaviour
     private float movementY = 0;
     protected bool grounded = true;
     private int size; //= startSize in start;
-    [SerializeField] private int maxGrow = 20;
+    [SerializeField] private int maxGrow = 10;
     [SerializeField] private int minGrow = 1;
     private float growRatio = 1.4f;  // must be less than startSize/(startSize - minGrow)
     public float massGrowRate = 1.05f; // must be less than startSize/(startSize - minGrow)
@@ -51,7 +51,7 @@ public class AbstractPlayer : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.drag = drag;
         MyColor = playerCharacter.GetComponent<MeshRenderer>().material.color;
-        rb.freezeRotation = true;
+        rb.constraints |= RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
         playerMeshRenderer = playerCharacter.GetComponent<MeshRenderer>();
         playerOut = new IntEvent();
         size = startSize;
