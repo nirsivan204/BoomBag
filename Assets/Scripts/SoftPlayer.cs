@@ -8,13 +8,11 @@ using UnityEngine.InputSystem;
 public class SoftPlayer : AbstractPlayer {
     bool canUseAbility = true;
     private Collider[] playersColliders;
-    private AudioSource audioSource;
     private bool isTransparent = false;
-
+    private AudioClip ghostSound;
     protected override void init()
     {
-        audioSource = gameObject.AddComponent<AudioSource>();
-        audioSource.clip = AssetsManager.AM.ghostSound;
+        ghostSound = AssetsManager.AM.ghostSound;
         playersColliders = new Collider[gameManager.players.Length];
         for (int i =0; i < gameManager.players.Length; i++)
         {
@@ -52,14 +50,18 @@ public class SoftPlayer : AbstractPlayer {
                     Physics.IgnoreCollision(playersColliders[playerIndex], playersColliders[i]);
                 }
             }
-            audioSource.Play();
-            setTransparent(true);
+            showAbilityEffect();
             Invoke("endAbility", 5f);
             canUseAbility = false;
-            print("GHOST");
         }
     }
 
+    protected override void showAbilityEffect()
+    {
+        audioSource.clip = ghostSound;
+        audioSource.Play();
+        setTransparent(true);
+    }
     public override void setColor(Color color)
     {
         base.setColor(color);

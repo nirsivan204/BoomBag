@@ -20,5 +20,8 @@ public class AssetsManager : MonoBehaviour
 
     public AudioClip jumpSound;
     public AudioClip ghostSound;
+    public AudioClip explosionSound;
+    public AudioClip bumpSound;
+    public AudioClip drownSound;
 
 }

@@ -44,7 +44,9 @@ public class AbstractPlayer : MonoBehaviour
     private bool canMove = false;
     private int invertFactor = 1;
     private int numSequentialInverts = 0;
-
+    protected AudioSource audioSource;
+    private AudioClip bumpSound;
+    private AudioClip drownSound;
     void Awake()
     {
         playerCharacter = transform.Find("Character").gameObject;
@@ -62,6 +64,9 @@ public class AbstractPlayer : MonoBehaviour
             chooseTarget();
             Invoke("aiCalculateMove", 0.5f);
         }
+        audioSource = GetComponent<AudioSource>();
+        bumpSound = AssetsManager.AM.bumpSound;
+        drownSound = AssetsManager.AM.drownSound;
         init();
     }
 
@@ -174,6 +179,8 @@ public class AbstractPlayer : MonoBehaviour
             rb.constraints |= RigidbodyConstraints.FreezePositionY;
             if (!isRigid)
             {
+                audioSource.clip = bumpSound;
+                audioSource.Play();
                 rb.AddExplosionForce(bumpForce * other.getMass(), (other.transform.position + transform.position) / 2, 100, 0);//, ForceMode.Acceleration); or other.size??maybe cancel mass at all??
             }
             else
@@ -209,6 +216,8 @@ public class AbstractPlayer : MonoBehaviour
         playerOut.Invoke(playerIndex);
         isOut = true;
         canMove = false;
+        audioSource.clip = drownSound;
+        audioSource.Play();
         //if (transform.position.magnitude < 40)
         //{
         //    rb.AddForce(200*transform.position,);

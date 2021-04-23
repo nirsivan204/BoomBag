@@ -7,11 +7,10 @@ using UnityEngine.InputSystem;
 public class JumperPlayer : AbstractPlayer
 {
 	private float jumpForce = 400;
-	private AudioSource audioSource;
+	private AudioClip jumpSound;
 	protected override void init()
 	{
-		audioSource = gameObject.AddComponent<AudioSource>();
-		audioSource.clip = AssetsManager.AM.jumpSound;
+		jumpSound = AssetsManager.AM.jumpSound;
 	}
 	protected override void useAbility()
 	{
@@ -26,6 +25,7 @@ public class JumperPlayer : AbstractPlayer
 
 	protected override void showAbilityEffect()
     {
+		audioSource.clip = jumpSound;
 		audioSource.Play();
 	}
 
