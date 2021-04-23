@@ -43,6 +43,7 @@ public class GameManager : MonoBehaviour
         liveOrDead = new bool[players.Length];
         for (int i = 0; i < players.Length; i++)
         {
+            players[i].SetActive(false);
             AbstractPlayer playerScript = null;
             switch (charTypes[i])
             {

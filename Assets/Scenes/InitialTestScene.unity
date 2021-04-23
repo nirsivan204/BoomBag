@@ -908,7 +908,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 378446723893145222, guid: 3e2c36a2634710c45b7c7b596017ab2f, type: 3}
       propertyPath: m_Constraints
-      value: 80
+      value: 112
       objectReference: {fileID: 0}
     - target: {fileID: 378446723893145229, guid: 3e2c36a2634710c45b7c7b596017ab2f, type: 3}
       propertyPath: m_Name
@@ -920,7 +920,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 378446723893145229, guid: 3e2c36a2634710c45b7c7b596017ab2f, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 378446723893145229, guid: 3e2c36a2634710c45b7c7b596017ab2f, type: 3}
       propertyPath: m_TagString
@@ -1676,6 +1676,10 @@ PrefabInstance:
       propertyPath: m_NeverAutoSwitchControlSchemes
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 378446723893145222, guid: 3e2c36a2634710c45b7c7b596017ab2f, type: 3}
+      propertyPath: m_Constraints
+      value: 112
+      objectReference: {fileID: 0}
     - target: {fileID: 378446723893145229, guid: 3e2c36a2634710c45b7c7b596017ab2f, type: 3}
       propertyPath: m_Name
       value: Player_2
@@ -1686,7 +1690,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 378446723893145229, guid: 3e2c36a2634710c45b7c7b596017ab2f, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 378446723893145229, guid: 3e2c36a2634710c45b7c7b596017ab2f, type: 3}
       propertyPath: m_TagString
@@ -1906,13 +1910,17 @@ PrefabInstance:
       propertyPath: m_NeverAutoSwitchControlSchemes
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 378446723893145222, guid: 3e2c36a2634710c45b7c7b596017ab2f, type: 3}
+      propertyPath: m_Constraints
+      value: 112
+      objectReference: {fileID: 0}
     - target: {fileID: 378446723893145229, guid: 3e2c36a2634710c45b7c7b596017ab2f, type: 3}
       propertyPath: m_Name
       value: Player_3
       objectReference: {fileID: 0}
     - target: {fileID: 378446723893145229, guid: 3e2c36a2634710c45b7c7b596017ab2f, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 378446723893145229, guid: 3e2c36a2634710c45b7c7b596017ab2f, type: 3}
       propertyPath: m_TagString
@@ -2668,7 +2676,7 @@ MonoBehaviour:
   - {fileID: 721739603}
   - {fileID: 649067119}
   - {fileID: 1045231695}
-  charTypes: 01000000010000000100000001000000
+  charTypes: 02000000020000000200000002000000
   colorChanger: {fileID: 1692728270}
   playersScripts: []
   liveOrDead: 
@@ -2881,35 +2889,39 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: fbb9017809280014bab06aa2434c8d83, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.5079826
+      value: 0.5431406
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: fbb9017809280014bab06aa2434c8d83, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.48679107
+      value: -0.56946653
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: fbb9017809280014bab06aa2434c8d83, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.5129891
+      value: -0.40944406
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: fbb9017809280014bab06aa2434c8d83, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.49176246
+      value: -0.4615862
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: fbb9017809280014bab06aa2434c8d83, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: -87.57
+      value: -85.266
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: fbb9017809280014bab06aa2434c8d83, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -90.333
+      value: 78.732
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: fbb9017809280014bab06aa2434c8d83, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: -0.238
+      value: -154.845
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: fbb9017809280014bab06aa2434c8d83, type: 3}
       propertyPath: m_Name
       value: Concept_CH_Jelly_7_RigOnly_For_Unity
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: fbb9017809280014bab06aa2434c8d83, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: fbb9017809280014bab06aa2434c8d83, type: 3}
       propertyPath: m_TagString
@@ -3291,6 +3303,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -944628639613478452, guid: d2838885d01d74b4e846195c6ea06cd1, type: 3}
     - target: {fileID: 378446723893145219, guid: 3e2c36a2634710c45b7c7b596017ab2f, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 378446723893145219, guid: 3e2c36a2634710c45b7c7b596017ab2f, type: 3}
       propertyPath: m_DefaultControlScheme
       value: 
       objectReference: {fileID: 0}
@@ -3298,13 +3314,17 @@ PrefabInstance:
       propertyPath: m_NeverAutoSwitchControlSchemes
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 378446723893145222, guid: 3e2c36a2634710c45b7c7b596017ab2f, type: 3}
+      propertyPath: m_Constraints
+      value: 112
+      objectReference: {fileID: 0}
     - target: {fileID: 378446723893145229, guid: 3e2c36a2634710c45b7c7b596017ab2f, type: 3}
       propertyPath: m_Name
       value: Player_4
       objectReference: {fileID: 0}
     - target: {fileID: 378446723893145229, guid: 3e2c36a2634710c45b7c7b596017ab2f, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 378446723893145229, guid: 3e2c36a2634710c45b7c7b596017ab2f, type: 3}
       propertyPath: m_TagString
