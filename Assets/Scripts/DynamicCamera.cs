@@ -14,12 +14,12 @@ public class DynamicCamera : MonoBehaviour
     float updateZoomDelay = 0.01f;
     int minZoom = -500;
     int maxZoom = 800;
+    float cameraSpeed = 50;
     private GameObject winner;
 
     private float findMiddleX()
     {
-        float mostRight = 0;//-1000;
-        float mostLeft = 1000;
+        float avrX = 0;
         int count = 0;
         int i = 0;
         GameObject player = null;
@@ -31,17 +31,9 @@ public class DynamicCamera : MonoBehaviour
         {
             if (!gm.playersScripts[i].getIsOut())
             {
-                //if (mostRight < gm.players[i].transform.position.x)
-                //{
                 player = gm.players[i];
                 count++;
-                mostRight += gm.players[i].transform.position.x;
-                //}
-
-                //if (mostLeft > gm.players[i].transform.position.x)
-                //{
-                 //   mostLeft = gm.players[i].transform.position.x;
-               // }
+                avrX += gm.players[i].transform.position.x;
             }
 
         }
@@ -52,14 +44,13 @@ public class DynamicCamera : MonoBehaviour
 
         }
 
-        return mostRight / count;
+        return avrX / count;
 
     }
     
     private float findMiddleZ()
     {
-        float mostUp = 0;//-1000;
-        float mostDown = 1000;
+        float avgZ = 0;
         int count = 0;
         int i = 0;
         GameObject player = null;
@@ -71,18 +62,9 @@ public class DynamicCamera : MonoBehaviour
         {
             if (!gm.playersScripts[i].getIsOut())
             {
-                //if (mostUp < gm.players[i].transform.position.z)
-                //{
                 player = gm.players[i];
                 count++;
-                mostUp += gm.players[i].transform.position.z;
-
-                //}
-
-                //if (mostDown > gm.players[i].transform.position.z)
-                //{
-                //    mostDown = gm.players[i].transform.position.z;
-                //}
+                avgZ += gm.players[i].transform.position.z;
             }
         }
         if (count <= 1)
@@ -92,7 +74,7 @@ public class DynamicCamera : MonoBehaviour
 
         }
 
-        return (mostUp / count); //+ mostDown) / 2;
+        return (avgZ / count);
 
     }
 
@@ -102,11 +84,10 @@ public class DynamicCamera : MonoBehaviour
         Invoke("zoom", updateZoomDelay);
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
-        transform.position = new Vector3(cameraInitialPosition.x + findMiddleX(), cameraInitialPosition.y + (zoomFactor * zoomDir), cameraInitialPosition.z + findMiddleZ());
-        //Vector3 screenPoint = Camera.WorldToViewportPoint(targetPoint.position);
-        //bool onScreen = screenPoint.z > 0 && screenPoint.x > 0 && screenPoint.x < 1 && screenPoint.y > 0 && screenPoint.y < 1;
+        Vector3 target = new Vector3(cameraInitialPosition.x + findMiddleX(), cameraInitialPosition.y + (zoomFactor * zoomDir), cameraInitialPosition.z + findMiddleZ());
+        transform.position = Vector3.MoveTowards(transform.position, target, cameraSpeed * Time.fixedDeltaTime);
     }
     int counter = 0;
     private void zoom()
@@ -116,10 +97,6 @@ public class DynamicCamera : MonoBehaviour
         {
             if (!player.getIsOut() && !player.isInFrame(desiredMergin))
             {
-/*                if (zoomDir < 0)
-                {
-                    zoomDir = 0;
-                }*/
                 if (zoomDir < maxZoom)
                 {
                     zoomDir++;
@@ -132,11 +109,6 @@ public class DynamicCamera : MonoBehaviour
         {
                 zoomDir--;
         }
-/*        if (zoomDir > 0)
-        {
-            zoomDir = 0;
-        }*/
-        //zoomDir--;
     }
 
 }
