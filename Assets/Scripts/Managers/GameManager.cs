@@ -10,7 +10,8 @@ public class IntEvent : UnityEvent<int>
 public class GameManager : MonoBehaviour
 {
     public GameObject[] players;
-
+    public GameObject pickup;
+    public bool createPickups;
     public enum ArenaTypes { CHEERIOS, UGI, FLAT }
     public ArenaTypes arena;
     public bool isTilting;
@@ -126,6 +127,15 @@ public class GameManager : MonoBehaviour
         {
             playersScripts[i].setCanMove(true);
         }
+        if (createPickups)
+        {
+            InvokeRepeating("createPickup", 3, 10);
+        }
+    }
+
+    private void createPickup()
+    {
+
     }
     // Update is called once per frame
     void Update()

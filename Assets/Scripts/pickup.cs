@@ -9,16 +9,21 @@ public class pickup : MonoBehaviour
     public const float INVERT_TIME = 5;
     public const float EXPLOSION_FORCE = 40000;
     private MeshRenderer mesh;
-    private Collider collider;
-
+    private Collider col;
+    private bool isInstantiate = false;
     public GameObject explosionEffect;
     public float explosionRadius;
     private AudioSource audioSource;
+    private bool isTypeSet = false; 
     private void Start()
     {
         mesh = GetComponentInChildren<MeshRenderer>();
-        collider = GetComponent<Collider>();
+        col = GetComponent<Collider>();
         audioSource = GetComponent<AudioSource>();
+        if (!isTypeSet)
+        {
+            print("warning: type not set!");
+        }
         switch (type)
         {
             case Pickups.pickupsTypes.BOMB:
@@ -37,7 +42,7 @@ public class pickup : MonoBehaviour
     private void vanish()
     {
         mesh.enabled = false;
-        collider.enabled = false;
+        col.enabled = false;
         Invoke("destroy",1);
     }
     private void destroy()
@@ -84,5 +89,12 @@ public class pickup : MonoBehaviour
                 rb.AddExplosionForce(EXPLOSION_FORCE, transform.position, explosionRadius);
             }
         }
+    }
+
+    //must be called before activating the pickup gameobject
+    public void setType(Pickups.pickupsTypes typeToSet)
+    {
+        type = typeToSet;
+        isTypeSet = true;
     }
 }
