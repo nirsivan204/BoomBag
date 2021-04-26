@@ -34,6 +34,13 @@ public class GameManager : MonoBehaviour
     public const float MILK_RISE_RATE = 1;
     public const float MILK_RISE_SPEED = 2;
     private Vector3 milkTarget;
+    private GameObject arenaChosen = null;
+    public GameObject pickupBounderies;
+    private float xBoundery;
+    private float yBoundery;
+    private float zBoundery;
+
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -90,7 +97,7 @@ public class GameManager : MonoBehaviour
 
     private void initArena()
     {
-        GameObject arenaChosen = null;
+        
         switch (arena)
         {
             case ArenaTypes.CHEERIOS:
@@ -108,7 +115,28 @@ public class GameManager : MonoBehaviour
         {
             arenaChosen.GetComponent<TiltManager>().enabled = true;
         }
+        if (createPickups)
+        {
+            calculateBounderiesOfPickups();
+
+        }
     }
+
+    private void calculateBounderiesOfPickups()
+    {
+
+
+     //   return center + new Vector3(
+     //       (Random.value - 0.5f) * pickupBounderies.transform.localScale.x,
+     //       pickupBounderies.transform.position.y,
+    //        (Random.value - 0.5f) * pickupBounderies.transform.localScale.z)
+    //);
+        xBoundery = pickupBounderies.transform.localScale.x;
+        yBoundery = pickupBounderies.transform.position.y;
+        zBoundery = pickupBounderies.transform.localScale.z;
+    }
+
+
     void Start()
     {
         for (int i = 0; i < players.Length; i++)
@@ -129,13 +157,23 @@ public class GameManager : MonoBehaviour
         }
         if (createPickups)
         {
-            InvokeRepeating("createPickup", 3, 10);
+            InvokeRepeating("createPickup", 10, 10);
         }
     }
-
+    private Vector3 getRandomLocation()
+    {
+        return new Vector3((Random.value - 0.5f) * xBoundery, yBoundery, (Random.value - 0.5f) * zBoundery);
+    }
     private void createPickup()
     {
-
+        Pickup.pickupsTypes type = Pickup.getRandomType();
+        Vector3 randLocation = getRandomLocation();
+        GameObject pickupClone = Instantiate(pickup, randLocation,Quaternion.identity);
+        pickupClone.transform.parent = arenaChosen.transform;
+        Pickup script = pickupClone.GetComponent<Pickup>();
+        script.setType(type);
+        print(type);
+        pickupClone.SetActive(true);
     }
     // Update is called once per frame
     void Update()

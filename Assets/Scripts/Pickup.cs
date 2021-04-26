@@ -3,9 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class pickup : MonoBehaviour
+public class Pickup : MonoBehaviour
 {
-    public Pickups.pickupsTypes type;
+    public enum pickupsTypes { ENLARGE, SHRINK, INVERTER, FULLPOWER, BOMB }
+    public static int numOfTypes = 5;
+
+    public pickupsTypes type;
     public const float INVERT_TIME = 5;
     public const float EXPLOSION_FORCE = 40000;
     private MeshRenderer mesh;
@@ -26,7 +29,7 @@ public class pickup : MonoBehaviour
         }
         switch (type)
         {
-            case Pickups.pickupsTypes.BOMB:
+            case pickupsTypes.BOMB:
                 audioSource.clip = AssetsManager.AM.explosionSound;
                 break;
         }
@@ -35,8 +38,12 @@ public class pickup : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        doEffect(other.GetComponent<AbstractPlayer>());
-        vanish();
+        AbstractPlayer player = other.GetComponent<AbstractPlayer>();
+        if (player)
+        {
+            doEffect(other.GetComponent<AbstractPlayer>());
+            vanish();
+        }
     }
 
     private void vanish()
@@ -57,19 +64,19 @@ public class pickup : MonoBehaviour
         print(player + " pickup "+ type);
         switch (type)
         {
-            case Pickups.pickupsTypes.ENLARGE:
+            case pickupsTypes.ENLARGE:
                 player.grow(5);
                 break;
-            case Pickups.pickupsTypes.SHRINK:
+            case pickupsTypes.SHRINK:
                 player.shrink(5);
                 break;
-            case Pickups.pickupsTypes.FULLPOWER:
+            case pickupsTypes.FULLPOWER:
                 player.setEnergy(AbstractPlayer.MAX_ENERGY);
                 break;
-            case Pickups.pickupsTypes.INVERTER:
+            case pickupsTypes.INVERTER:
                 player.invertControls(INVERT_TIME);
                 break;
-            case Pickups.pickupsTypes.BOMB:
+            case pickupsTypes.BOMB:
                 explode();
                 break;
         }
@@ -92,9 +99,14 @@ public class pickup : MonoBehaviour
     }
 
     //must be called before activating the pickup gameobject
-    public void setType(Pickups.pickupsTypes typeToSet)
+    public void setType(pickupsTypes typeToSet)
     {
         type = typeToSet;
         isTypeSet = true;
+    }
+
+    public static pickupsTypes getRandomType()
+    {
+        return (pickupsTypes)UnityEngine.Random.Range(0, numOfTypes);
     }
 }
