@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 378446723893145218}
   - component: {fileID: 378446723893145222}
-  - component: {fileID: 378446723893145216}
   - component: {fileID: 378446723893145219}
   - component: {fileID: 2766986862827008347}
   - component: {fileID: 6119098867602439242}
@@ -52,28 +51,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &378446723893145216
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 378446723893145229}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38d302a91e8e977408fe91865b120be6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 10
-  drag: 0
-  maxGrow: 7
-  minGrow: 1
-  massGrowRate: 0.2
-  MyColor: {r: 0, g: 0, b: 0, a: 0}
-  energy: 4
-  maxSpeed: 20
-  overSpeedAllowed: 0
-  bumpForce: 800
 --- !u!114 &378446723893145219
 MonoBehaviour:
   m_ObjectHideFlags: 0
