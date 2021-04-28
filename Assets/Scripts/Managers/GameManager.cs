@@ -169,10 +169,15 @@ public class GameManager : MonoBehaviour
         Pickup.pickupsTypes type = Pickup.getRandomType();
         Vector3 randLocation = getRandomLocation();
         GameObject pickupClone = Instantiate(pickup, randLocation,Quaternion.identity);
+        Vector3 scaleTmp = pickupClone.transform.localScale;
+        scaleTmp.x /= arenaChosen.transform.localScale.x;
+        scaleTmp.y /= arenaChosen.transform.localScale.y;
+        scaleTmp.z /= arenaChosen.transform.localScale.z;
         pickupClone.transform.parent = arenaChosen.transform;
+        pickupClone.transform.localScale = scaleTmp;
+        pickupClone.transform.localRotation = Quaternion.identity;
         Pickup script = pickupClone.GetComponent<Pickup>();
         script.setType(type);
-        print(type);
         pickupClone.SetActive(true);
     }
     // Update is called once per frame
