@@ -31,7 +31,7 @@ public class AbstractPlayer : MonoBehaviour
     protected MeshRenderer playerMeshRenderer;
     // Energy units are equivalent to seconds:
     public float energy = 4;
-    public const float MAX_ENERGY = 15;
+    public const float MAX_ENERGY = 10;
     private const float ENERGY_COST = 10;
     public IntEvent playerOut;
     protected bool isOut = false;
