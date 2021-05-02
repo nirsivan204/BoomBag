@@ -23,5 +23,7 @@ public class AssetsManager : MonoBehaviour
     public AudioClip explosionSound;
     public AudioClip bumpSound;
     public AudioClip drownSound;
+    public AudioClip countdownClip;
+    public AudioClip BGMusic;
 
 }
