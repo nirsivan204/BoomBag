@@ -48,3 +48,5 @@ MonoBehaviour:
   explosionSound: {fileID: 8300000, guid: a5dec197dcefaaf46bfa30f7e7ba071d, type: 3}
   bumpSound: {fileID: 8300000, guid: bafa44dfc46c9ac46b019e8bc43e7f4d, type: 3}
   drownSound: {fileID: 8300000, guid: 28adef07d759e0e4db1032690d1926ab, type: 3}
+  countdownClip: {fileID: 8300000, guid: 8355f36579b21a44cabc14f1af821f84, type: 3}
+  BGMusic: {fileID: 8300000, guid: 345b665bdf71b684787e0a9c9006e7c1, type: 3}

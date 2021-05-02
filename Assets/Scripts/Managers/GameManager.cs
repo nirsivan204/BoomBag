@@ -39,6 +39,7 @@ public class GameManager : MonoBehaviour
     private float xBoundery;
     private float yBoundery;
     private float zBoundery;
+    private AudioSource audioSource;
 
 
     // Start is called before the first frame update
@@ -139,16 +140,19 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         for (int i = 0; i < players.Length; i++)
         {
             players[i].SetActive(true);
             playersScripts[i].playerOut.AddListener(playerDied);
         }
         UIMgr.startCounter(startCountTime, "GO!!!!", true, startGame);
+        audioSource.clip = AssetsManager.AM.countdownClip;
+        audioSource.Play();
     }
 
 
-    private void startGame()
+private void startGame()
     {
         colorChanger.SetActive(colorChangerEnable);
         for (int i = 0; i < players.Length; i++)
@@ -159,6 +163,8 @@ public class GameManager : MonoBehaviour
         {
             InvokeRepeating("createPickup", 10, 10);
         }
+        audioSource.clip = AssetsManager.AM.BGMusic;
+        StartCoroutine(MusicUtil.FadeIn(audioSource, 3));
     }
     private Vector3 getRandomLocation()
     {
