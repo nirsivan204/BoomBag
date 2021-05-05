@@ -1389,7 +1389,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 486702631}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 3.4, z: 0}
+  m_LocalPosition: {x: 0, y: 5.3, z: 0}
   m_LocalScale: {x: 40, y: 1, z: 40}
   m_Children: []
   m_Father: {fileID: 1293597159}
@@ -1967,7 +1967,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b6ba54718c2a5fe4e893136796ddb941, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.88
+      value: 3.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b6ba54718c2a5fe4e893136796ddb941, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2084,7 +2084,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f24811625abacc64789bc44fb4e49468, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 1.1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f24811625abacc64789bc44fb4e49468, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3090,14 +3090,14 @@ MonoBehaviour:
   - {fileID: 358470365}
   - {fileID: 1408915952}
   pickup: {fileID: 902946788}
-  createPickups: 0
+  createPickups: 1
   arena: 0
   isTilting: 1
   arenas:
   - {fileID: 721739603}
   - {fileID: 649067119}
   - {fileID: 1045231695}
-  charTypes: 00000000010000000200000003000000
+  charTypes: 02000000010000000200000003000000
   colorChanger: {fileID: 1692728270}
   playersScripts: []
   liveOrDead: 
@@ -3106,7 +3106,7 @@ MonoBehaviour:
   UIMgr: {fileID: 1589721686}
   colorChangerEnable: 1
   startCountTime: 3
-  milk: {fileID: 0}
+  milk: {fileID: 437889667}
   isMilkRising: 0
   pickupBounderies: {fileID: 486702631}
 --- !u!4 &1293597159
@@ -4268,7 +4268,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh21078
+  m_Name: pb_Mesh24034
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -5456,6 +5456,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2823444835841339161, guid: a6c5910fc7b80404a8ba1b3ea2c7ff07, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8350452539876961320, guid: a6c5910fc7b80404a8ba1b3ea2c7ff07, type: 3}
       propertyPath: m_Name
       value: pickable
@@ -5507,6 +5511,10 @@ PrefabInstance:
     - target: {fileID: 8350452539876961323, guid: a6c5910fc7b80404a8ba1b3ea2c7ff07, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8350452540209223615, guid: a6c5910fc7b80404a8ba1b3ea2c7ff07, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a6c5910fc7b80404a8ba1b3ea2c7ff07, type: 3}

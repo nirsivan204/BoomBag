@@ -161,7 +161,7 @@ private void startGame()
         }
         if (createPickups)
         {
-            InvokeRepeating("createPickup", 10, 10);
+            InvokeRepeating("createPickup", 5, 10);
         }
         audioSource.clip = AssetsManager.AM.BGMusic;
         StartCoroutine(MusicUtil.FadeIn(audioSource, 3));
@@ -177,11 +177,12 @@ private void startGame()
         GameObject pickupClone = Instantiate(pickup, randLocation,Quaternion.identity);
         Vector3 scaleTmp = pickupClone.transform.localScale;
         scaleTmp.x /= arenaChosen.transform.localScale.x;
-        scaleTmp.y /= arenaChosen.transform.localScale.y;
-        scaleTmp.z /= arenaChosen.transform.localScale.z;
+        scaleTmp.y /= arenaChosen.transform.localScale.z;
+        scaleTmp.z /= arenaChosen.transform.localScale.y;
         pickupClone.transform.parent = arenaChosen.transform;
         pickupClone.transform.localScale = scaleTmp;
-        pickupClone.transform.localRotation = Quaternion.identity;
+        pickupClone.transform.localRotation = Quaternion.Euler(90,0,0);
+
         Pickup script = pickupClone.GetComponent<Pickup>();
         script.setType(type);
         pickupClone.SetActive(true);
