@@ -89,7 +89,6 @@ public class DynamicCamera : MonoBehaviour
         Vector3 target = new Vector3(cameraInitialPosition.x + findMiddleX(), cameraInitialPosition.y + (zoomFactor * zoomDir), cameraInitialPosition.z + findMiddleZ());
         transform.position = Vector3.MoveTowards(transform.position, target, cameraSpeed * Time.fixedDeltaTime);
     }
-    int counter = 0;
     private void zoom()
     {
         Invoke("zoom", updateZoomDelay);

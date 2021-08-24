@@ -48,6 +48,7 @@ public class AbstractPlayer : MonoBehaviour
     protected AudioSource audioSource;
     private AudioClip bumpSound;
     private AudioClip drownSound;
+    public SimpleTouchController touchController;
     void Awake()
     {
         playerCharacter = transform.Find("Character").gameObject;
@@ -68,13 +69,24 @@ public class AbstractPlayer : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         bumpSound = AssetsManager.AM.bumpSound;
         drownSound = AssetsManager.AM.drownSound;
+
         init();
     }
 
+    private void Start()
+    {
+        touchController.TouchEvent += Controller_TouchEvent;
+    }
 
     protected virtual void init()
     {
 
+    }
+
+    void Controller_TouchEvent(Vector2 value)
+    {
+        movementX = value.normalized.x;
+        movementY = value.normalized.y;
     }
 
     private void OnMove(InputValue movementValue)

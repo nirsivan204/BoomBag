@@ -91,6 +91,17 @@
                 },
                 {
                     "name": "",
+                    "id": "b55b29da-f0e9-4ba6-8e25-8044b1728e38",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "05f6913d-c316-48b2-a6bb-e225f14c7960",
                     "path": "<Keyboard>/q",
                     "interactions": "",

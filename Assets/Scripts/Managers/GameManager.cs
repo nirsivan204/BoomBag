@@ -41,6 +41,7 @@ public class GameManager : MonoBehaviour
     private float zBoundery;
     private AudioSource audioSource;
 
+    public SimpleTouchController touchController;
 
     // Start is called before the first frame update
     void Awake()
@@ -145,6 +146,7 @@ public class GameManager : MonoBehaviour
         {
             players[i].SetActive(true);
             playersScripts[i].playerOut.AddListener(playerDied);
+            playersScripts[i].touchController = touchController;
         }
         UIMgr.startCounter(startCountTime, "GO!!!!", true, startGame);
         audioSource.clip = AssetsManager.AM.countdownClip;
