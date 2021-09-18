@@ -10,11 +10,11 @@ public class DynamicCamera : MonoBehaviour
     private float zoomFactor = 0.01f;
     private int zoomDir = 0;
 
-    float desiredMergin = 0.1f;
-    float updateZoomDelay = 0.01f;
-    int minZoom = -500;
-    int maxZoom = 800;
-    float cameraSpeed = 50;
+   public float desiredMergin = 0.1f;
+   public  float updateZoomDelay = 0.01f;
+   public  int minZoom = -500;
+   public  int maxZoom = 800;
+   public  float cameraSpeed = 50;
     private GameObject winner;
 
     private float findMiddleX()
