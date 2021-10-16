@@ -49,7 +49,7 @@ AudioMixerController:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Players
-  m_OutputGroup: {fileID: 0}
+  m_OutputGroup: {fileID: -2382819718517572617, guid: a2a5c514e408a4830a44b430491b8a7b, type: 2}
   m_MasterGroup: {fileID: 24300002}
   m_Snapshots:
   - {fileID: 24500006}
@@ -57,7 +57,9 @@ AudioMixerController:
   m_SuspendThreshold: -80
   m_EnableSuspend: 1
   m_UpdateMode: 0
-  m_ExposedParameters: []
+  m_ExposedParameters:
+  - guid: 5d4a5920667eb4598a15fe008045d464
+    name: MovementPitch
   m_AudioMixerGroupViews:
   - guids:
     - 711a02519a7c6427fa62393ab53cf087
@@ -114,7 +116,8 @@ AudioMixerSnapshotController:
   m_Name: Snapshot
   m_AudioMixer: {fileID: 24100000}
   m_SnapshotID: 7a4bd83d8828a414fb5b37b8bee1c755
-  m_FloatValues: {}
+  m_FloatValues:
+    715dcfb1e5eda4127b3e32a6eb47d3d6: 0
   m_TransitionOverrides: {}
 --- !u!243 &1353709254875534987
 AudioMixerGroupController:
