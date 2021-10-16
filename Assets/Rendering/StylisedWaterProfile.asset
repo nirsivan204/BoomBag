@@ -20,7 +20,7 @@ MonoBehaviour:
     min: 0
   intensity:
     m_OverrideState: 1
-    m_Value: 50.71
+    m_Value: 57.4
     min: 0
   scatter:
     m_OverrideState: 1
@@ -50,7 +50,7 @@ MonoBehaviour:
     m_Value: {fileID: 0}
   dirtIntensity:
     m_OverrideState: 0
-    m_Value: 0
+    m_Value: 133.25
     min: 0
 --- !u!114 &-7038551774075560804
 MonoBehaviour:
@@ -394,7 +394,7 @@ MonoBehaviour:
   m_AdvancedMode: 0
   shadows:
     m_OverrideState: 1
-    m_Value: {x: 0.8888071, y: 0.9316723, z: 1, w: -0.13208584}
+    m_Value: {x: 0.8888071, y: 0.9316723, z: 1, w: 0.24215747}
   midtones:
     m_OverrideState: 1
     m_Value: {x: 1, y: 0.98375386, z: 0.92834294, w: -0.088057235}
