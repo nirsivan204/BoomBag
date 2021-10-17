@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     public GameObject[] players;
     public GameObject pickup;
     public bool createPickups;
+    public bool isMobileGame;
     public enum ArenaTypes { CHEERIOS, UGI, FLAT }
     public ArenaTypes arena;
     public bool isTilting;
@@ -19,7 +20,7 @@ public class GameManager : MonoBehaviour
 
     public enum CharTypes { Rigid, Soft, Jumper, Avoider };
     public CharTypes[] charTypes;
-    public GameObject colorChanger;
+    public ColorChangeManager colorChanger;
     public AbstractPlayer[] playersScripts;
     private int numPlayersAlive;
     public bool[] liveOrDead;
@@ -28,6 +29,8 @@ public class GameManager : MonoBehaviour
     public GameObject dummyPlayer;
     public UIManager UIMgr;
     [SerializeField] bool colorChangerEnable;
+    [SerializeField] bool isTeams;
+
     public int startCountTime = 3;
     public GameObject milk;
     public bool isMilkRising = false;
@@ -42,7 +45,7 @@ public class GameManager : MonoBehaviour
     private AudioSource audioSource;
 
     public SimpleTouchController touchController;
-
+    public AbstractPlayer mobilePlayer;
     // Start is called before the first frame update
     void Awake()
     {
@@ -84,7 +87,6 @@ public class GameManager : MonoBehaviour
                 playerScript.setGameManager(this);
                 playersScripts[i] = playerScript;
                 playerScript.enabled = true;
-
             }
             else
             {
@@ -92,6 +94,17 @@ public class GameManager : MonoBehaviour
             }
             numPlayersAlive++;
             liveOrDead[i] = true;
+        }
+        if(isMobileGame)
+        {
+            for(int i = 0; i < humanOrAI.Length;i++) 
+            {
+                if (humanOrAI[i])
+                {
+                    mobilePlayer = playersScripts[i];
+                    break;
+                }
+            }
         }
         dummyPlayer.SetActive(false);
         initArena();
@@ -146,7 +159,11 @@ public class GameManager : MonoBehaviour
         {
             players[i].SetActive(true);
             playersScripts[i].playerOut.AddListener(playerDied);
-            playersScripts[i].touchController = touchController;
+
+        }
+        if (isMobileGame && mobilePlayer)
+        {
+            mobilePlayer.touchController = touchController;
         }
         UIMgr.startCounter(startCountTime, "GO!!!!", true, startGame);
         audioSource.clip = AssetsManager.AM.countdownClip;
@@ -156,7 +173,9 @@ public class GameManager : MonoBehaviour
 
 private void startGame()
     {
-        colorChanger.SetActive(colorChangerEnable);
+        colorChanger.gameObject.SetActive(colorChangerEnable);
+        colorChanger.isTeams = isTeams;
+        colorChanger.UIManager = UIMgr;
         for (int i = 0; i < players.Length; i++)
         {
             playersScripts[i].setCanMove(true);
@@ -219,6 +238,10 @@ private void startGame()
                 }
             }
         }
+        if(numPlayersAlive == 2 && isTeams)
+        {
+            colorChanger.isTeams = false;
+        }
     }
 
     public void milkRiseStart()
@@ -245,6 +268,11 @@ private void startGame()
             }
         }
         return result;
+    }
+
+    public void mobilePlayerPressedAction()
+    {
+        mobilePlayer.OnFire();
     }
 
 }

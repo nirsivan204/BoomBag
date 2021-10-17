@@ -22,7 +22,7 @@ public class UIManager : MonoBehaviour
     // bool middleCount;
     private FuncToCall funcToCall;
     private List<Image> energyBars;
-
+    [SerializeField] private Button actionButton;
 
     void Start()
     {
@@ -34,7 +34,11 @@ public class UIManager : MonoBehaviour
 		{
             energyBars.Add(child.Find("energy").gameObject.GetComponent<Image>());
         }
-        //startCounter(5, "GO!!");
+
+        if (actionButton)
+        {
+            actionButton.onClick.AddListener(gm.mobilePlayerPressedAction);
+        }
     }
 
     void Update()
@@ -46,6 +50,21 @@ public class UIManager : MonoBehaviour
 			{
                 energyBar.fillAmount = gm.playersScripts[i].energy / AbstractPlayer.MAX_ENERGY;
                 i++;
+            }
+            if (actionButton && gm.isMobileGame && gm.mobilePlayer)
+            {
+                ColorBlock colors = actionButton.colors;
+                if (gm.mobilePlayer.energy > AbstractPlayer.ENERGY_COST)
+                {
+
+                    colors.pressedColor = Color.green;
+                }
+                else
+                {
+                    colors.pressedColor = Color.red;
+                }
+                actionButton.colors = colors;
+
             }
         }
     }

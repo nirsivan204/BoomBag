@@ -2,6 +2,7 @@
 
 public class ColorChangeManager : MonoBehaviour
 {
+    public bool isTeams = true;
     private Color[] meshColors;
     public GameManager gameManager;
     private AbstractPlayer[] PlayersScripts;
@@ -42,9 +43,35 @@ public class ColorChangeManager : MonoBehaviour
 
     public void ColorChanger()
     {
-        foreach (AbstractPlayer script in PlayersScripts)
+        if (isTeams)
         {
-            script.setColor(meshColors[Random.Range(0, meshColors.Length)]);
+            int firstRandomPlayer = Random.Range(0, PlayersScripts.Length);
+            int secondRandomPlayer = firstRandomPlayer;
+            while (secondRandomPlayer== firstRandomPlayer)
+            {
+                secondRandomPlayer = Random.Range(0, PlayersScripts.Length);
+            }
+            for (int i=0; i < PlayersScripts.Length; i++ )
+            {
+                AbstractPlayer script = PlayersScripts[i];
+                if(i == firstRandomPlayer|| i == secondRandomPlayer)
+                {
+                    script.setColor(meshColors[1]);
+
+                }
+                else
+                {
+                    script.setColor(meshColors[2]);
+                }
+            }
+
+        }
+        else
+        {
+            foreach (AbstractPlayer script in PlayersScripts)
+            {
+                script.setColor(meshColors[Random.Range(0, meshColors.Length)]);
+            }
         }
         startCount();
     }

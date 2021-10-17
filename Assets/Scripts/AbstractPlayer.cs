@@ -32,7 +32,7 @@ public class AbstractPlayer : MonoBehaviour
     // Energy units are equivalent to seconds:
     public float energy = 4;
     public const float MAX_ENERGY = 10;
-    private const float ENERGY_COST = 10;
+    public const float ENERGY_COST = 10;
     public IntEvent playerOut;
     protected bool isOut = false;
     bool isHumanPlayer = true;
@@ -75,7 +75,10 @@ public class AbstractPlayer : MonoBehaviour
 
     private void Start()
     {
-        touchController.TouchEvent += Controller_TouchEvent;
+        if (touchController)
+        {
+            touchController.TouchEvent += Controller_TouchEvent;
+        }
     }
 
     protected virtual void init()
@@ -96,7 +99,7 @@ public class AbstractPlayer : MonoBehaviour
         movementY = movementVector.y;
     }
 
-    private void OnFire()
+    public void OnFire()
     {
         if (energy >= ENERGY_COST)
         {
@@ -235,7 +238,7 @@ public class AbstractPlayer : MonoBehaviour
 
     private void die()
     {
-        print(gameObject + "out, player index = " + playerIndex);
+        //print(gameObject + "out, player index = " + playerIndex);
         playerOut.Invoke(playerIndex);
         isOut = true;
         canMove = false;
@@ -277,7 +280,7 @@ public class AbstractPlayer : MonoBehaviour
         float newSize = startSize + growRatio * multiplyCoefficient;
         transform.localScale = new Vector3(newSize, newSize, newSize);
         rb.mass = 1 + massGrowRate * multiplyCoefficient;
-        print("mass " + rb.mass);
+        //print("mass " + rb.mass);
 
     }
 
