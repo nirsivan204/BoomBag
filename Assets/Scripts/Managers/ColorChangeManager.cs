@@ -27,7 +27,7 @@ public class ColorChangeManager : MonoBehaviour
         {
             PlayersScripts[i] = gameManager.players[i].GetComponent<AbstractPlayer>();
         }
-        startCount();
+        ColorChanger();
     }
 
     private void startCount()
