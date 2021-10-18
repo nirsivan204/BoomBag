@@ -101,7 +101,7 @@ public class AbstractPlayer : MonoBehaviour
 
     public void OnFire()
     {
-        if (energy >= ENERGY_COST)
+        if (!isOut && energy >= ENERGY_COST)
         {
             energy -= ENERGY_COST;
             useAbility();

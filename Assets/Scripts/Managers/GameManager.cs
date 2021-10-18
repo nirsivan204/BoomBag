@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class IntEvent : UnityEvent<int>
 {
@@ -27,7 +28,9 @@ public class GameManager : MonoBehaviour
     public IntEvent winEvent;
     public bool[] humanOrAI;
     public GameObject dummyPlayer;
-    public UIManager UIMgr;
+    public UIManager mobileUIMgr;
+    public UIManager PCUIMgr;
+    private UIManager UIMgr;
     [SerializeField] bool colorChangerEnable;
     [SerializeField] bool isTeams;
 
@@ -105,7 +108,13 @@ public class GameManager : MonoBehaviour
                     break;
                 }
             }
+            UIMgr = mobileUIMgr;
         }
+        else
+        {
+            UIMgr = PCUIMgr;
+        }
+        UIMgr.gameObject.SetActive(true);
         dummyPlayer.SetActive(false);
         initArena();
     }
@@ -275,4 +284,8 @@ private void startGame()
         mobilePlayer.OnFire();
     }
 
+    public void restartGame()
+    {
+        SceneManager.LoadScene(0);
+    }
 }

@@ -23,10 +23,14 @@ public class UIManager : MonoBehaviour
     private FuncToCall funcToCall;
     private List<Image> energyBars;
     [SerializeField] private Button actionButton;
+    [SerializeField] private Button startButton;
+    [SerializeField] private Button restartButton;
+
 
     void Start()
     {
-        gm.winEvent.AddListener(setWinText);
+        gm.winEvent.AddListener(gameFinish);
+        restartButton.onClick.AddListener(gm.restartGame);
         animator = GetComponent<Animator>();
 
         energyBars = new List<Image>();
@@ -67,6 +71,12 @@ public class UIManager : MonoBehaviour
 
             }
         }
+    }
+
+    private void gameFinish(int winnerIndex)
+    {
+        setWinText(winnerIndex);
+        restartButton.gameObject.SetActive(true);
     }
 
     public void setWinText(int winnerIndex)
