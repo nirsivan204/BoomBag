@@ -49,6 +49,9 @@ public class AbstractPlayer : MonoBehaviour
     private AudioClip bumpSound;
     private AudioClip drownSound;
     public SimpleTouchController touchController;
+    private AudioClip shrinksound;
+    private AudioClip growsound;
+   
     void Awake()
     {
         playerCharacter = transform.Find("Character").gameObject;
@@ -69,6 +72,8 @@ public class AbstractPlayer : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         bumpSound = AssetsManager.AM.bumpSound;
         drownSound = AssetsManager.AM.drownSound;
+        shrinksound = AssetsManager.AM.growsound;
+        growsound = AssetsManager.AM.shrinksound;
 
         init();
     }
@@ -261,7 +266,10 @@ public class AbstractPlayer : MonoBehaviour
         {
             size = Math.Min(maxGrow,size + times);
             setNewSize();
+            audioSource.clip = growsound;
+            audioSource.Play();
         }
+        
     }
 
     public void shrink(int times = 1)
@@ -270,6 +278,8 @@ public class AbstractPlayer : MonoBehaviour
         {
             size = Math.Max(minGrow, size - times);
             setNewSize();
+            audioSource.clip = shrinksound;
+            audioSource.Play();
         }
     }
 

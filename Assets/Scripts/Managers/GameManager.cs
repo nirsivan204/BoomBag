@@ -194,7 +194,8 @@ private void startGame()
             InvokeRepeating("createPickup", 5, 10);
         }
         audioSource.clip = AssetsManager.AM.BGMusic;
-        StartCoroutine(MusicUtil.FadeIn(audioSource, 3));
+        audioSource.Play();
+        // StartCoroutine(MusicUtil.FadeIn(audioSource, 3));
     }
     private Vector3 getRandomLocation()
     {

@@ -25,5 +25,9 @@ public class AssetsManager : MonoBehaviour
     public AudioClip drownSound;
     public AudioClip countdownClip;
     public AudioClip BGMusic;
+    public AudioClip growsound;
+    public AudioClip shrinksound;
+    public AudioClip walksound;
+
 
 }

@@ -43,14 +43,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90a4cdf097699a24a8fdf90f1f78a7da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpSound: {fileID: 8300000, guid: a3b8b63f98196d440821621f7342161c, type: 3}
+  jumpSound: {fileID: 8300000, guid: 707845b4973b02446b5c75fce3d41238, type: 3}
   ghostSound: {fileID: 8300000, guid: 589aae53698fb9f428b66e84e1314aa9, type: 3}
   explosionSound: {fileID: 8300000, guid: a5dec197dcefaaf46bfa30f7e7ba071d, type: 3}
   bumpSound: {fileID: 8300000, guid: bafa44dfc46c9ac46b019e8bc43e7f4d, type: 3}
   drownSound: {fileID: 8300000, guid: 28adef07d759e0e4db1032690d1926ab, type: 3}
-  countdownClip: {fileID: 8300000, guid: 8355f36579b21a44cabc14f1af821f84, type: 3}
-  BGMusic: {fileID: 8300000, guid: 345b665bdf71b684787e0a9c9006e7c1, type: 3}
-  bombMesh: {fileID: -849867405023671905, guid: e869a8014f9827446911251337c07903, type: 3}
-  enlargeMesh: {fileID: -8803937527578110353, guid: 9af2eba84bf6c9d4fa24a945dc497085, type: 3}
-  shrinkMesh: {fileID: -8803937527578110353, guid: 20edf5b634ef1cf4486ce2772f13b834, type: 3}
-  bottleMesh: {fileID: -91095939373562586, guid: 971d59f0822142f459863993639fbd3c, type: 3}
+  countdownClip: {fileID: 8300000, guid: 3a690ec7d88879041867afa314bc6294, type: 3}
+  BGMusic: {fileID: 8300000, guid: 807c83820a82e524caaec9e1b0d86f2a, type: 3}
+  growsound: {fileID: 8300000, guid: d9eb8a7acca859a4fb3ed65b0ca7c6e7, type: 3}
+  shrinksound: {fileID: 8300000, guid: 2cfa48c29185e294f8e84a6f2a5f0d69, type: 3}
+  walksound: {fileID: 8300000, guid: c4ce432d87e7a485bb98af7648f98ddc, type: 3}
