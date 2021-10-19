@@ -250,6 +250,7 @@ public class AbstractPlayer : MonoBehaviour
         audioSource.clip = drownSound;
         audioSource.Play();
         GetComponent<Collider>().enabled = false;
+        GetComponent<Rigidbody>().AddForce(Vector3.down*10);
     }
 
     private void OnCollisionExit(Collision otherPlayer)
@@ -259,6 +260,8 @@ public class AbstractPlayer : MonoBehaviour
         {
             rb.constraints &= ~RigidbodyConstraints.FreezePositionY;
         }
+        canMove = false;
+        StartCoroutine(setCanMove(true,0.25f));
     }
         public void grow(int times = 1)
     {
@@ -370,8 +373,9 @@ public class AbstractPlayer : MonoBehaviour
         return 0;
     }
 
-    public void setCanMove(bool Move)
+    public IEnumerator setCanMove(bool Move, float seconds)
     {
+        yield return new WaitForSeconds(seconds);
         canMove = Move;
     }
 

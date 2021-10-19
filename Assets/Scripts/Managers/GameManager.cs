@@ -187,7 +187,7 @@ private void startGame()
         colorChanger.UIManager = UIMgr;
         for (int i = 0; i < players.Length; i++)
         {
-            playersScripts[i].setCanMove(true);
+            StartCoroutine(playersScripts[i].setCanMove(true,0));
         }
         if (createPickups)
         {
