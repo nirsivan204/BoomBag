@@ -11,7 +11,7 @@ using UnityEngine.InputSystem;
 
 public class AbstractPlayer : MonoBehaviour
 {
-    private float GRAVITY_SCALE = 10;
+    private float GRAVITY_SCALE = 11;
     protected int playerIndex;
     protected GameManager gameManager;
     public float speed = 80.0f;
@@ -21,11 +21,11 @@ public class AbstractPlayer : MonoBehaviour
     private float movementY = 0;
     protected bool grounded = true;
     private int size; //= startSize in start;
-    [SerializeField] private int maxGrow = 10;
-    [SerializeField] private int minGrow = 1;
+    [SerializeField] private int maxGrow = 8;
+    [SerializeField] private int minGrow = 3;
     private float growRatio = 1.4f;  // must be less than startSize/(startSize - minGrow)
     public float massGrowRate = 1.05f; // must be less than startSize/(startSize - minGrow)
-    private int startSize = 2;
+    private int startSize = 3;
     private GameObject playerCharacter;
     public Color MyColor;
     protected MeshRenderer playerMeshRenderer;
@@ -40,7 +40,7 @@ public class AbstractPlayer : MonoBehaviour
     private AbstractPlayer AITargetScript;
     public float maxSpeed = 20;
     public bool overSpeedAllowed = false;
-    public float bumpForce = 800;
+    public float bumpForce = 1100;
     protected bool isRigid = false;
     private bool canMove = false;
     private int invertFactor = 1;
