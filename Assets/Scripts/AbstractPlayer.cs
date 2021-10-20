@@ -51,7 +51,11 @@ public class AbstractPlayer : MonoBehaviour
     public SimpleTouchController touchController;
     private AudioClip shrinksound;
     private AudioClip growsound;
-   
+    [SerializeField] private float holeFactor = 550;
+    private float delayAfterBump = 0.10f;
+    private float ArenaRadius = 32;
+    private int outsideFactor = 50;
+
     void Awake()
     {
         playerCharacter = transform.Find("Character").gameObject;
@@ -125,24 +129,36 @@ public class AbstractPlayer : MonoBehaviour
 
     private void chooseTarget()
     {
-        int res = playerIndex;
-        int count = 0;
         if (isOut)
         {
             AITargetGameObj = gameObject;
             AITargetScript = this;
             return;
         }
-        while (res == playerIndex || !gameManager.liveOrDead[res])
-        {
-            res = UnityEngine.Random.Range(0, gameManager.players.Length);
-            count++;
-            if(count > 100)
+        int res = playerIndex;
+        /*todo:
+         * 
+         * make waves mode;
+         * 
+         */
+        //if (gameManager.mobilePlayer && !gameManager.mobilePlayer.isOut) // if one against all
+        //{
+        //    res = gameManager.mobilePlayer.playerIndex;
+       // }
+        //else
+       // {
+            int count = 0;
+            while (res == playerIndex || !gameManager.liveOrDead[res])
             {
-                print("ERROR in chooseTarget in " + gameObject);
-                break;
+                res = UnityEngine.Random.Range(0, gameManager.players.Length);
+                count++;
+                if (count > 100)
+                {
+                    print("ERROR in chooseTarget in " + gameObject);
+                    break;
+                }
             }
-        }
+       // }
         AITargetGameObj = gameManager.players[res];
         AITargetScript = gameManager.playersScripts[res];
         Invoke("chooseTarget", 5);
@@ -155,8 +171,24 @@ public class AbstractPlayer : MonoBehaviour
         {
             chooseTarget();
         }
-        Vector3 attackLine = (AITargetGameObj.transform.position - transform.position);
-        attackLine = new Vector3(attackLine.x, 0, attackLine.z);
+        Vector3 attackLine = -transform.position;
+        if (ArenaRadius - transform.position.magnitude > 1) //if we are far enough from the edge
+        {
+            attackLine = (AITargetGameObj.transform.position - transform.position);
+            attackLine = new Vector3(attackLine.x, 0, attackLine.z);//(transform.position-Vector3.up * transform.position.z)*holeFactor;
+            if (!isTargetBetweenMeAndMiddle())
+            {
+                attackLine += holeFactor * transform.position / transform.position.sqrMagnitude;
+            }
+            if (!isTargetBetweenMeAndOutside())
+            {
+                attackLine += outsideFactor * -1 * transform.position.normalized / (ArenaRadius - transform.position.magnitude);
+            }
+        }
+        else
+        {
+            print("else");
+        }
         if (attackLine.magnitude <= 0)
         {
             movementX = 0;
@@ -173,13 +205,25 @@ public class AbstractPlayer : MonoBehaviour
         }
     }
 
+    private bool isTargetBetweenMeAndOutside()
+    {
+        return AITargetGameObj.transform.position.magnitude > transform.position.magnitude &&
+           Vector3.Angle(AITargetGameObj.transform.position, transform.position) < 90;
+    }
+
+    private bool isTargetBetweenMeAndMiddle()
+    {
+        return AITargetGameObj.transform.position.magnitude < transform.position.magnitude &&
+           Vector3.Angle(AITargetGameObj.transform.position- transform.position, -transform.position) < 90;
+    }
+
     void FixedUpdate()
     {
+        rb.AddForce(Vector3.down * GRAVITY_SCALE);
         if (canMove)
         {
             Vector3 movement = new Vector3(movementX, 0, movementY);
             rb.AddForce(movement * speed * rb.mass * invertFactor);
-            rb.AddForce(Vector3.down * GRAVITY_SCALE);
             if (rb.velocity.magnitude > 0.5)
             {
                 Vector3 heading = new Vector3(rb.velocity.x, 0, rb.velocity.z);
@@ -227,6 +271,8 @@ public class AbstractPlayer : MonoBehaviour
             {
                 shrink();
             }
+            canMove = false;
+            StartCoroutine(setCanMove(true, delayAfterBump));
         }
         else
         {
@@ -260,8 +306,7 @@ public class AbstractPlayer : MonoBehaviour
         {
             rb.constraints &= ~RigidbodyConstraints.FreezePositionY;
         }
-        canMove = false;
-        StartCoroutine(setCanMove(true,0.25f));
+
     }
         public void grow(int times = 1)
     {
