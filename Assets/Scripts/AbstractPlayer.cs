@@ -11,7 +11,7 @@ using UnityEngine.InputSystem;
 
 public class AbstractPlayer : MonoBehaviour
 {
-    private float GRAVITY_SCALE = 11;
+    private float GRAVITY_SCALE = 20;
     protected int playerIndex;
     protected GameManager gameManager;
     public float speed = 80.0f;
@@ -55,6 +55,7 @@ public class AbstractPlayer : MonoBehaviour
     private float delayAfterBump = 0.10f;
     private float ArenaRadius = 32;
     private int outsideFactor = 50;
+    private float HoleRadius = 15;
 
     void Awake()
     {
@@ -171,23 +172,30 @@ public class AbstractPlayer : MonoBehaviour
         {
             chooseTarget();
         }
-        Vector3 attackLine = -transform.position;
+        Vector3 attackLine = Vector3.zero;
         if (ArenaRadius - transform.position.magnitude > 1) //if we are far enough from the edge
         {
-            attackLine = (AITargetGameObj.transform.position - transform.position);
-            attackLine = new Vector3(attackLine.x, 0, attackLine.z);//(transform.position-Vector3.up * transform.position.z)*holeFactor;
-            if (!isTargetBetweenMeAndMiddle())
+            if(transform.position.magnitude > HoleRadius) //if we are far enough from the hole
             {
-                attackLine += holeFactor * transform.position / transform.position.sqrMagnitude;
+                attackLine = (AITargetGameObj.transform.position - transform.position);
+                attackLine = new Vector3(attackLine.x, 0, attackLine.z);//(transform.position-Vector3.up * transform.position.z)*holeFactor;
+                if (!isTargetBetweenMeAndMiddle())
+                {
+                    //attackLine += holeFactor * transform.position / transform.position.sqrMagnitude;
+                }
+                if (!isTargetBetweenMeAndOutside())
+                {
+                    //attackLine += outsideFactor * -1 * transform.position.normalized / (ArenaRadius - transform.position.magnitude);
+                }
             }
-            if (!isTargetBetweenMeAndOutside())
+            else
             {
-                attackLine += outsideFactor * -1 * transform.position.normalized / (ArenaRadius - transform.position.magnitude);
+                attackLine = transform.position;
             }
         }
         else
         {
-            print("else");
+            attackLine = -transform.position;
         }
         if (attackLine.magnitude <= 0)
         {
