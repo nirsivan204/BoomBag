@@ -19,6 +19,9 @@ public class GameManager : MonoBehaviour
     public bool isTilting;
     public GameObject[] arenas;
 
+    [SerializeField] GameObject mobileCamera;
+    [SerializeField] GameObject pcCamera;
+
     public enum CharTypes { Rigid, Soft, Jumper, Avoider };
     public CharTypes[] charTypes;
     public ColorChangeManager colorChanger;
@@ -109,10 +112,12 @@ public class GameManager : MonoBehaviour
                 }
             }
             UIMgr = mobileUIMgr;
+            mobileCamera.SetActive(true);
         }
         else
         {
             UIMgr = PCUIMgr;
+            pcCamera.SetActive(true);
         }
         UIMgr.gameObject.SetActive(true);
         dummyPlayer.SetActive(false);

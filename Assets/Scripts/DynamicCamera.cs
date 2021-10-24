@@ -6,6 +6,7 @@ using UnityEngine;
 public class DynamicCamera : MonoBehaviour
 {
     public GameManager gm;
+    [SerializeField] private bool isMobile;
     private Vector3 cameraInitialPosition;
     private float zoomFactor = 0.01f;
     private int zoomDir = 0;
@@ -40,10 +41,11 @@ public class DynamicCamera : MonoBehaviour
         if (count == 1)
         {
             winner = player;
-
-
         }
-
+        if (count == 0)
+        {
+            return 0;
+        }
         return avrX / count;
 
     }
@@ -70,8 +72,10 @@ public class DynamicCamera : MonoBehaviour
         if (count <= 1)
         {
             winner = player;
-
-
+        }
+        if (count == 0)
+        {
+            return 0;
         }
 
         return (avgZ / count);
@@ -86,28 +90,38 @@ public class DynamicCamera : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Vector3 target = new Vector3(cameraInitialPosition.x + findMiddleX(), cameraInitialPosition.y + (zoomFactor * zoomDir), cameraInitialPosition.z + findMiddleZ());
+        Vector3 target = cameraInitialPosition;
+        if (isMobile && !gm.mobilePlayer.getIsOut())
+        {
+            Vector3 mobilePlayerPos = gm.mobilePlayer.transform.position;
+            target = cameraInitialPosition + new Vector3(mobilePlayerPos.x, mobilePlayerPos.y + 5, mobilePlayerPos.z);
+        }
+        else
+        {
+            target = cameraInitialPosition + new Vector3( findMiddleX(), zoomFactor * zoomDir, findMiddleZ());
+        }
         transform.position = Vector3.MoveTowards(transform.position, target, cameraSpeed * Time.fixedDeltaTime);
     }
     private void zoom()
     {
         Invoke("zoom", updateZoomDelay);
-        foreach (AbstractPlayer player in gm.playersScripts)
+        if (!isMobile || gm.mobilePlayer.getIsOut())
         {
-            if (!player.getIsOut() && !player.isInFrame(desiredMergin))
+            foreach (AbstractPlayer player in gm.playersScripts)
             {
-                if (zoomDir < maxZoom)
+                if (!player.getIsOut() && !player.isInFrame(desiredMergin))
                 {
-                    zoomDir++;
-                    return;
+                    if (zoomDir < maxZoom)
+                    {
+                        zoomDir++;
+                        return;
+                    }
                 }
-
+            }
+            if (zoomDir > minZoom)
+            {
+                zoomDir--;
             }
         }
-        if(zoomDir > minZoom)
-        {
-                zoomDir--;
-        }
     }
-
 }
