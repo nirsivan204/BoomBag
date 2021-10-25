@@ -11,7 +11,7 @@ using UnityEngine.InputSystem;
 
 public class AbstractPlayer : MonoBehaviour
 {
-    private float GRAVITY_SCALE = 20;
+    private float GRAVITY_SCALE = 10;
     protected int playerIndex;
     protected GameManager gameManager;
     public float speed = 80.0f;
@@ -55,7 +55,7 @@ public class AbstractPlayer : MonoBehaviour
     private float delayAfterBump = 0.10f;
     private float ArenaRadius = 32;
     private int outsideFactor = 50;
-    private float HoleRadius = 15;
+    private float HoleRadius = 10;
 
     void Awake()
     {
@@ -85,7 +85,7 @@ public class AbstractPlayer : MonoBehaviour
 
     private void Start()
     {
-        if (touchController)
+        if (touchController && gameManager.isMobileGame)
         {
             touchController.TouchEvent += Controller_TouchEvent;
         }
