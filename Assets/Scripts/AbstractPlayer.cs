@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 
 
 [RequireComponent(typeof(Rigidbody))]
-[RequireComponent(typeof(BoxCollider))]
+//[RequireComponent(typeof(BoxCollider))]
 
 public class AbstractPlayer : MonoBehaviour
 {

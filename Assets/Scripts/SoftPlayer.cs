@@ -3,7 +3,6 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent (typeof (Rigidbody))]
-[RequireComponent (typeof (BoxCollider))]
  
 public class SoftPlayer : AbstractPlayer {
     bool canUseAbility = true;

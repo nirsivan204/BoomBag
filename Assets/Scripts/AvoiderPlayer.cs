@@ -2,7 +2,6 @@
 using UnityEngine.InputSystem;
 
 [RequireComponent (typeof (Rigidbody))]
-[RequireComponent (typeof (BoxCollider))]
  
 public class AvoiderPlayer : AbstractPlayer
 {
