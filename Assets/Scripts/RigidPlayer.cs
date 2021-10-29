@@ -14,6 +14,8 @@ public class RigidPlayer : AbstractPlayer
 			//overSpeedAllowed = true;
 			//speed += 20;
 			isRigid = true;
+			gameManager.AudioManagerRef.Play_Sound(AudioManager.SoundTypes.Rigid);
+			playerMeshRenderer.material.color = Color.black;
 			Invoke("endAbility", 5f);
 			print("RIGID");
 		}
@@ -24,7 +26,7 @@ public class RigidPlayer : AbstractPlayer
 		//overSpeedAllowed = false;
 		//speed -= 20;
 		isRigid = false;
-
+		playerMeshRenderer.material.color = MyColor;
 		canUseAbility = true;
 	}
 }

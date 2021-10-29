@@ -15,8 +15,8 @@ public class AvoiderPlayer : AbstractPlayer
 			//prev_vel = rb.GetPointVelocity(rb.centerOfMass);
 			speed += 200;
 			Invoke("endAbility", 0.3f);
-			
-			print("DASH");
+			gameManager.AudioManagerRef.Play_Sound(AudioManager.SoundTypes.Dash);
+			//print("DASH");
 		}
 		//speed += 10;
 		//Invoke("endAbility", 3f);

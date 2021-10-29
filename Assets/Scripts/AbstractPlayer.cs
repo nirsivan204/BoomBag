@@ -23,7 +23,7 @@ public class AbstractPlayer : MonoBehaviour
     private int size; //= startSize in start;
     [SerializeField] private int maxGrow = 8;
     [SerializeField] private int minGrow = 1;
-    private float growRatio = 1.8f;  // must be less than startSize/(startSize - minGrow)
+    private float growRatio = 4f;  // must be less than startSize/(startSize - minGrow)
     public float massGrowRate = 1.05f; // must be less than startSize/(startSize - minGrow)
     private int startSize = 5;
     private GameObject playerCharacter;
@@ -377,7 +377,10 @@ public class AbstractPlayer : MonoBehaviour
     public virtual void setColor(Color color)
     {
         MyColor = color;
-        playerMeshRenderer.material.color = color;
+        if (!isRigid)
+        {
+            playerMeshRenderer.material.color = color;
+        }
     }
 
     public Color getColor()

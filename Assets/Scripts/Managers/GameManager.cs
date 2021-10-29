@@ -260,10 +260,10 @@ private void startGame()
                 }
             }
         }
-        if(numPlayersAlive == 2 && isTeams)
-        {
-            colorChanger.isTeams = false;
-        }
+        //if(numPlayersAlive == 2 && isTeams)
+       // {
+       //     colorChanger.isTeams = false;
+       // }
     }
 
     public void milkRiseStart()
