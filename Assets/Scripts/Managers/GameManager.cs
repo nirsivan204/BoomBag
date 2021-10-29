@@ -10,6 +10,16 @@ public class IntEvent : UnityEvent<int>
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField]
+    AudioManager audioManagerRef;
+    public AudioManager AudioManagerRef
+    {
+        get
+        {
+            return audioManagerRef;
+        }
+    }
+
     public GameObject[] players;
     public GameObject pickup;
     public bool createPickups;
@@ -168,7 +178,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        audioSource = GetComponent<AudioSource>();
+        AudioManagerRef.Init(this);
         for (int i = 0; i < players.Length; i++)
         {
             players[i].SetActive(true);
@@ -180,8 +190,7 @@ public class GameManager : MonoBehaviour
             mobilePlayer.touchController = touchController;
         }
         UIMgr.startCounter(startCountTime, "GO!!!!", true, startGame);
-        audioSource.clip = AssetsManager.AM.countdownClip;
-        audioSource.Play();
+        AudioManagerRef.Play_Sound(AudioManager.SoundTypes.Countdown);
     }
 
 
@@ -198,8 +207,7 @@ private void startGame()
         {
             InvokeRepeating("createPickup", 5, 10);
         }
-        audioSource.clip = AssetsManager.AM.BGMusic;
-        audioSource.Play();
+        AudioManagerRef.Play_Sound(AudioManager.SoundTypes.BG_Music);
         // StartCoroutine(MusicUtil.FadeIn(audioSource, 3));
     }
     private Vector3 getRandomLocation()
@@ -236,7 +244,6 @@ private void startGame()
                 print("here");
             }
         }
-
     }
 
     private void playerDied(int playerIndex)

@@ -262,8 +262,9 @@ public class AbstractPlayer : MonoBehaviour
             rb.constraints |= RigidbodyConstraints.FreezePositionY;
             if (!isRigid)
             {
-                audioSource.clip = bumpSound;
-                audioSource.Play();
+                gameManager.AudioManagerRef.Play_Sound(AudioManager.SoundTypes.Bump);
+                //audioSource.clip = bumpSound;
+                //audioSource.Play();
                 rb.AddExplosionForce(bumpForce * other.getMass(), (other.transform.position + transform.position) / 2, 100, 0);//, ForceMode.Acceleration); or other.size??maybe cancel mass at all??
             }
             else
@@ -322,8 +323,9 @@ public class AbstractPlayer : MonoBehaviour
         {
             size = Math.Min(maxGrow,size + times);
             setNewSize();
-            audioSource.clip = growsound;
-            audioSource.Play();
+            gameManager.AudioManagerRef.Play_Sound(AudioManager.SoundTypes.Grow);
+//            audioSource.clip = growsound;
+//            audioSource.Play();
         }
         
     }
@@ -334,8 +336,9 @@ public class AbstractPlayer : MonoBehaviour
         {
             size = Math.Max(minGrow, size - times);
             setNewSize();
-            audioSource.clip = shrinksound;
-            audioSource.Play();
+            gameManager.AudioManagerRef.Play_Sound(AudioManager.SoundTypes.Shrink);
+            //audioSource.clip = shrinksound;
+            //audioSource.Play();
         }
     }
 

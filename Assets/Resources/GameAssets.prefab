@@ -51,5 +51,5 @@ MonoBehaviour:
   countdownClip: {fileID: 8300000, guid: 10014572563e0c74a8f8b8649674f748, type: 3}
   BGMusic: {fileID: 8300000, guid: 807c83820a82e524caaec9e1b0d86f2a, type: 3}
   growsound: {fileID: 8300000, guid: d9eb8a7acca859a4fb3ed65b0ca7c6e7, type: 3}
-  shrinksound: {fileID: 8300000, guid: 2cfa48c29185e294f8e84a6f2a5f0d69, type: 3}
+  shrinksound: {fileID: 8300000, guid: c15cdd766e28a9045af9558e12423874, type: 3}
   walksound: {fileID: 8300000, guid: c4ce432d87e7a485bb98af7648f98ddc, type: 3}
