@@ -22,10 +22,10 @@ public class AbstractPlayer : MonoBehaviour
     protected bool grounded = true;
     private int size; //= startSize in start;
     [SerializeField] private int maxGrow = 8;
-    [SerializeField] private int minGrow = 3;
-    private float growRatio = 1.4f;  // must be less than startSize/(startSize - minGrow)
+    [SerializeField] private int minGrow = 1;
+    private float growRatio = 1.8f;  // must be less than startSize/(startSize - minGrow)
     public float massGrowRate = 1.05f; // must be less than startSize/(startSize - minGrow)
-    private int startSize = 3;
+    private int startSize = 5;
     private GameObject playerCharacter;
     public Color MyColor;
     protected MeshRenderer playerMeshRenderer;
@@ -347,7 +347,8 @@ public class AbstractPlayer : MonoBehaviour
         //float newSize = size * growRatio * sizeNormalizer;
         float multiplyCoefficient = (float)size / startSize - 1;
         float newSize = startSize + growRatio * multiplyCoefficient;
-        transform.localScale = new Vector3(newSize, newSize, newSize);
+       // transform.localScale = new Vector3(newSize, newSize, newSize);
+		LeanTween.scale (gameObject,  new Vector3(newSize, newSize, newSize), 0.2f).setEase(LeanTweenType.easeSpring);
         rb.mass = 1 + massGrowRate * multiplyCoefficient;
         //print("mass " + rb.mass);
 

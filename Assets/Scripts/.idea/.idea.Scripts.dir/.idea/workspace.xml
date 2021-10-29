@@ -20,7 +20,12 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/SoftPlayer.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Managers/AssetsManager.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Managers/AssetsManager.cs" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <changedPaths>
+      <option value="$PROJECT_DIR$/AbstractPlayer.cs" />
+    </changedPaths>
   </component>
   <component name="ProjectId" id="1zX3CkTvPblhsoP0138UI3CKmjK" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -43,13 +48,14 @@
       <option name="presentableId" value="Default" />
       <updated>1634280481974</updated>
       <workItem from="1634280493427" duration="257000" />
+      <workItem from="1635499354157" duration="792000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
-  <component name="UnityProjectConfiguration" hasMinimizedUI="null" />
+  <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
   <component name="UnityUnitTestConfiguration" currentTestLauncher="NUnit" />
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
