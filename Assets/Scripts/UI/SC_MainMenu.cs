@@ -33,6 +33,7 @@ public class SC_MainMenu : MonoBehaviour
         // Show Credits Menu
         mainMenu.SetActive(false);
         creditsMenu.SetActive(true);
+        characterSelect.SetActive((false));
     }
 
     public void MainMenuButton()
@@ -40,5 +41,6 @@ public class SC_MainMenu : MonoBehaviour
         // Show Main Menu
         mainMenu.SetActive(true);
         creditsMenu.SetActive(false);
+        characterSelect.SetActive((false));
     }
 }
