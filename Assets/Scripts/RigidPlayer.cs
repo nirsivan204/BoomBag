@@ -14,7 +14,7 @@ public class RigidPlayer : AbstractPlayer
 			//overSpeedAllowed = true;
 			//speed += 20;
 			isRigid = true;
-			gameManager.AudioManagerRef.Play_Sound(AudioManager.SoundTypes.Rigid);
+			gameManager.AudioManagerRef.Play_Sound(AudioManager.SoundTypes.Rigid , player_index: playerIndex);
 			playerMeshRenderer.material.color = Color.black;
 			Invoke("endAbility", 5f);
 			print("RIGID");

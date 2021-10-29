@@ -59,7 +59,7 @@ public class SoftPlayer : AbstractPlayer {
     {
         //audioSource.clip = ghostSound;
         //audioSource.Play();
-        gameManager.AudioManagerRef.Play_Sound(AudioManager.SoundTypes.Ghost);
+        gameManager.AudioManagerRef.Play_Sound(AudioManager.SoundTypes.Ghost , player_index: playerIndex);
         setTransparent(true);
     }
     public override void setColor(Color color)

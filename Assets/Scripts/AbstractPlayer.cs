@@ -56,6 +56,7 @@ public class AbstractPlayer : MonoBehaviour
     private float ArenaRadius = 32;
     private int outsideFactor = 50;
     private float HoleRadius = 10;
+    private bool isPlayingMovementSound;
 
     void Awake()
     {
@@ -75,10 +76,10 @@ public class AbstractPlayer : MonoBehaviour
             Invoke("aiCalculateMove", 0.5f);
         }
         audioSource = GetComponent<AudioSource>();
-        bumpSound = AssetsManager.AM.bumpSound;
-        drownSound = AssetsManager.AM.drownSound;
-        shrinksound = AssetsManager.AM.growsound;
-        growsound = AssetsManager.AM.shrinksound;
+        //bumpSound = AssetsManager.AM.bumpSound;
+        //drownSound = AssetsManager.AM.drownSound;
+        //shrinksound = AssetsManager.AM.growsound;
+        //growsound = AssetsManager.AM.shrinksound;
 
         init();
     }
@@ -249,6 +250,27 @@ public class AbstractPlayer : MonoBehaviour
             {
                 energy += Time.deltaTime;
             }
+            if(rb.velocity.magnitude > 2)
+            {
+                if (isPlayingMovementSound)
+                {
+                    float normal = Mathf.InverseLerp(0, maxSpeed, rb.velocity.magnitude);
+                    float pitch = Mathf.Lerp(1, 2, normal);
+                    audioSource.pitch = pitch;
+                }
+                else
+                {
+                    gameManager.AudioManagerRef.Play_Sound(AudioManager.SoundTypes.Movement, true, player_index: playerIndex);
+                    isPlayingMovementSound = true;
+                }
+            }
+            else
+            {
+                audioSource.Stop(); // to do: stop using audiomanager
+                isPlayingMovementSound = false;
+                audioSource.pitch = 1;
+
+            }
         }
 
 
@@ -262,7 +284,7 @@ public class AbstractPlayer : MonoBehaviour
             rb.constraints |= RigidbodyConstraints.FreezePositionY;
             if (!isRigid)
             {
-                gameManager.AudioManagerRef.Play_Sound(AudioManager.SoundTypes.Bump);
+                //gameManager.AudioManagerRef.Play_Sound(AudioManager.SoundTypes.Bump);
                 //audioSource.clip = bumpSound;
                 //audioSource.Play();
                 rb.AddExplosionForce(bumpForce * other.getMass(), (other.transform.position + transform.position) / 2, 100, 0);//, ForceMode.Acceleration); or other.size??maybe cancel mass at all??
@@ -302,8 +324,9 @@ public class AbstractPlayer : MonoBehaviour
         playerOut.Invoke(playerIndex);
         isOut = true;
         canMove = false;
-        audioSource.clip = drownSound;
-        audioSource.Play();
+        gameManager.AudioManagerRef.Play_Sound(AudioManager.SoundTypes.Player_Death, player_index: playerIndex);
+        //audioSource.clip = drownSound;
+        //audioSource.Play();
         GetComponent<Collider>().enabled = false;
         GetComponent<Rigidbody>().AddForce(Vector3.down*10);
     }
@@ -327,7 +350,11 @@ public class AbstractPlayer : MonoBehaviour
 //            audioSource.clip = growsound;
 //            audioSource.Play();
         }
-        
+        else
+        {
+            gameManager.AudioManagerRef.Play_Sound(AudioManager.SoundTypes.Bump);
+        }
+
     }
 
     public void shrink(int times = 1)
@@ -339,6 +366,10 @@ public class AbstractPlayer : MonoBehaviour
             gameManager.AudioManagerRef.Play_Sound(AudioManager.SoundTypes.Shrink);
             //audioSource.clip = shrinksound;
             //audioSource.Play();
+        }
+        else
+        {
+            gameManager.AudioManagerRef.Play_Sound(AudioManager.SoundTypes.Bump);
         }
     }
 

@@ -24,7 +24,7 @@ public class JumperPlayer : AbstractPlayer
 
 	protected override void showAbilityEffect()
     {
-		gameManager.AudioManagerRef.Play_Sound(AudioManager.SoundTypes.Jump);
+		gameManager.AudioManagerRef.Play_Sound(AudioManager.SoundTypes.Jump, player_index: playerIndex);
 
 		//audioSource.clip = jumpSound;
 		//audioSource.Play();

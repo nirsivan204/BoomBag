@@ -71,11 +71,13 @@ public class AudioManager : MonoBehaviour
         
     }
 
-    public void Play_Sound(SoundTypes soundType)
+    public void Play_Sound(SoundTypes soundType, bool isLoop = false, int player_index = 0)
     {
         AudioClip clip = Get_AudioClip_Of(soundType);
 
-        AudioSource source = Get_AudioSource_Of(soundType);
+        AudioSource source = Get_AudioSource_Of(soundType, player_index);
+
+        source.loop = isLoop;
 
         Play_Sound(clip, source);
 
@@ -84,11 +86,13 @@ public class AudioManager : MonoBehaviour
     private void Play_Sound(AudioClip clip, AudioSource source)
     {
         source.clip = clip;
+        source.pitch = 1;
+
         source.Play();
     }
 
 
-    private AudioSource Get_AudioSource_Of(SoundTypes soundType ,int player_index=0)
+    private AudioSource Get_AudioSource_Of(SoundTypes soundType ,int player_index)
     {
         switch (soundType)
         {
@@ -103,7 +107,7 @@ public class AudioManager : MonoBehaviour
             case SoundTypes.Dash:
                 return Get_AudioSource_By_Type(AudioSourceTypes.Player1 + player_index);
             case SoundTypes.Click_01:
-                break;
+                return Get_AudioSource_By_Type(AudioSourceTypes.UI);
             case SoundTypes.Bump:
             case SoundTypes.Shrink:
             case SoundTypes.Grow:
