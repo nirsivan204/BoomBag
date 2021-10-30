@@ -1,17 +1,34 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class SC_MainMenu : MonoBehaviour
 {
     public GameObject mainMenu;
     public GameObject creditsMenu;
     public GameObject characterSelect;
-    
+    public TMP_Dropdown m_Dropdown;
+    public static TextMeshPro m_Text;
+    private bool isMobile;
     // Start is called before the first frame update
     void Start()
     {
-        MainMenuButton();
+        //Add listener for when the value of the Dropdown changes, to take action
+        m_Dropdown.onValueChanged.AddListener(delegate {
+            DropdownValueChanged(m_Dropdown);
+        });
+
+        //Initialise the Text to say the first value of the Dropdown
+        //m_Text.text = "First Value : " + m_Dropdown.value; MainMenuButton();
+    }
+
+    private void DropdownValueChanged(TMP_Dropdown m_Dropdown)
+    {
+            Debug.Log("char " + (GameManager.CharTypes)m_Dropdown.value);
+        gameParams.characterArray.SetValue( (GameManager.CharTypes)m_Dropdown.value,0);
     }
 
     public void PlayNowButton()

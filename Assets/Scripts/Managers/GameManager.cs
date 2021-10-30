@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject pcCamera;
 
     public enum CharTypes { Rigid, Soft, Jumper, Avoider };
-    public CharTypes[] charTypes;
+    public CharTypes[] charTypes = { CharTypes.Rigid, CharTypes.Soft, CharTypes.Jumper, CharTypes.Avoider };
     public ColorChangeManager colorChanger;
     public AbstractPlayer[] playersScripts;
     private int numPlayersAlive;
@@ -65,6 +65,8 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        getGameParams();
+
         arenas[0].SetActive(false);
         numPlayersAlive = 0;
         winEvent = new IntEvent();
@@ -132,6 +134,11 @@ public class GameManager : MonoBehaviour
         UIMgr.gameObject.SetActive(true);
         dummyPlayer.SetActive(false);
         initArena();
+    }
+
+    private void getGameParams()
+    {
+        charTypes = gameParams.characterArray;
     }
 
     private void initArena()
