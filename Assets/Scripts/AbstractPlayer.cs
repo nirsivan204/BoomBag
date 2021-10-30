@@ -53,13 +53,12 @@ public class AbstractPlayer : MonoBehaviour
     private AudioClip growsound;
     [SerializeField] private float holeFactor = 550;
     private float delayAfterBump = 0.15f;
-    private float ArenaRadius = 32;
+    private float ArenaRadius = 40;
     private int outsideFactor = 50;
-    private float HoleRadius = 10;
+    private float HoleRadius = 15;
     private bool isPlayingMovementSound;
-  
 
-    
+
 
     void Awake()
     {
@@ -178,9 +177,9 @@ public class AbstractPlayer : MonoBehaviour
             chooseTarget();
         }
         Vector3 attackLine = Vector3.zero;
-        if (ArenaRadius - transform.position.magnitude > 1) //if we are far enough from the edge
+        if (ArenaRadius - (transform.position - transform.position.y*Vector3.up).magnitude > 1) //if we are far enough from the edge
         {
-            if(transform.position.magnitude > HoleRadius) //if we are far enough from the hole
+            if((transform.position - transform.position.y * Vector3.up).magnitude > HoleRadius) //if we are far enough from the hole
             {
                 attackLine = (AITargetGameObj.transform.position - transform.position);
                 attackLine = new Vector3(attackLine.x, 0, attackLine.z);//(transform.position-Vector3.up * transform.position.z)*holeFactor;
@@ -254,7 +253,8 @@ public class AbstractPlayer : MonoBehaviour
             {
                 energy += Time.deltaTime;
             }
-            if(rb.velocity.magnitude > 2)
+            //code for playing movement by pitch
+/*            if(rb.velocity.magnitude > 2)
             {
                 if (isPlayingMovementSound)
                 {
@@ -274,7 +274,7 @@ public class AbstractPlayer : MonoBehaviour
                 isPlayingMovementSound = false;
                 audioSource.pitch = 1;
 
-            }
+            }*/
         }
 
 

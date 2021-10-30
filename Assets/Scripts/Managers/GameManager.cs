@@ -138,7 +138,11 @@ public class GameManager : MonoBehaviour
 
     private void getGameParams()
     {
-        charTypes = gameParams.characterArray;
+        if (gameParams.isInit)
+        {
+            charTypes = gameParams.characterArray;
+
+        }
     }
 
     private void initArena()

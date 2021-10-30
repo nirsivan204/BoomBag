@@ -3342,11 +3342,11 @@ MonoBehaviour:
     m_Options:
     - m_Text: Bruiser
       m_Image: {fileID: 0}
+    - m_Text: Ghost
+      m_Image: {fileID: 0}
     - m_Text: Jumper
       m_Image: {fileID: 0}
     - m_Text: Dodger
-      m_Image: {fileID: 0}
-    - m_Text: Ghost
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:

@@ -10,12 +10,14 @@ public static class gameParams
     static Dropdown m_Dropdown;
     public static Text m_Text;
     private static bool isMobile;
+    public static bool isInit = false;
 
     public static GameManager.CharTypes[] characterArray { get; set; } = { 0, 0, 0, 0 };
     public static int[] isHumansArray { get; set; }
 
     static public void init()
     {
+        isInit = true;
         //Add listener for when the value of the Dropdown changes, to take action
     }
 }

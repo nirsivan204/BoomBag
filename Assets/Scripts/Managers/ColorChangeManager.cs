@@ -10,7 +10,12 @@ public class ColorChangeManager : MonoBehaviour
     public int repeatingTime;
     public UIManager UIManager;
     public int timeToShowCount;
-    
+    [SerializeField] public Material transparentMat;
+    [SerializeField] public Material regulatMat;
+
+    public Material TransparentMat { get => transparentMat; set => transparentMat = value; }
+    public Material RegulatMat { get => regulatMat; set => regulatMat = value; }
+
     public void Awake()
     {
         // Set Hex colors to Color name in array

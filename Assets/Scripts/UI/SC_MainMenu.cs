@@ -16,6 +16,7 @@ public class SC_MainMenu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        gameParams.init();
         //Add listener for when the value of the Dropdown changes, to take action
         m_Dropdown.onValueChanged.AddListener(delegate {
             DropdownValueChanged(m_Dropdown);
