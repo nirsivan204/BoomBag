@@ -25,7 +25,7 @@ public class AbstractPlayer : MonoBehaviour
     [SerializeField] private int minGrow = 1;
     private float growRatio = 4f;  // must be less than startSize/(startSize - minGrow)
     public float massGrowRate = 1.05f; // must be less than startSize/(startSize - minGrow)
-    private int startSize = 5;
+    private int startSize = 4;
     private GameObject playerCharacter;
     public Color MyColor;
     protected MeshRenderer playerMeshRenderer;
@@ -52,11 +52,14 @@ public class AbstractPlayer : MonoBehaviour
     private AudioClip shrinksound;
     private AudioClip growsound;
     [SerializeField] private float holeFactor = 550;
-    private float delayAfterBump = 0.10f;
+    private float delayAfterBump = 0.15f;
     private float ArenaRadius = 32;
     private int outsideFactor = 50;
     private float HoleRadius = 10;
     private bool isPlayingMovementSound;
+  
+
+    
 
     void Awake()
     {
@@ -90,6 +93,7 @@ public class AbstractPlayer : MonoBehaviour
         {
             touchController.TouchEvent += Controller_TouchEvent;
         }
+      
     }
 
     protected virtual void init()
@@ -329,6 +333,7 @@ public class AbstractPlayer : MonoBehaviour
         //audioSource.Play();
         GetComponent<Collider>().enabled = false;
         GetComponent<Rigidbody>().AddForce(Vector3.down*10);
+
     }
 
     private void OnCollisionExit(Collision otherPlayer)
