@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     }
 
     public GameObject[] players;
+    public GameObject[] prefabsForPlayers;
     public GameObject pickup;
     public bool createPickups;
     public bool isMobileGame;
@@ -76,6 +77,26 @@ public class GameManager : MonoBehaviour
         {
             players[i].SetActive(false);
             AbstractPlayer playerScript = null;
+
+            ////////// Set Prefab to Player //////////
+            // List of prefab names, and te names of the parts inside them that should change color:
+            Dictionary<string, string> prefabToMainPartMap = new Dictionary<string, string>()
+            {
+                {"the_being", "Chair"},
+                {"Mouse3D_10_combinedMeshInSphere_ForUnity", "Bizo_MAIN"},
+                {"ss_guppy_no_modifier", "Lifebuoy"},
+                {"Concept_CH_Jelly_7_RigOnly_For_Unity", ""},
+                {"SlimePBR", "Slime"}
+            };
+            // Instantiate prefab and set its names to our standards. Then set it to the player (by choosing a parent):
+            var pref = Instantiate(prefabsForPlayers[i], new Vector3(0, 0, 0), Quaternion.identity);
+            print(pref.name);
+            print(prefabsForPlayers[i].name);
+            pref.transform.Find(prefabToMainPartMap[prefabsForPlayers[i].name]).name = "Character";
+            pref.name = "Body";
+            pref.transform.parent = players[i].transform;
+            pref.transform.localPosition = new Vector3(0, 0, 0);
+
             switch (charTypes[i])
             {
                 case CharTypes.Rigid:

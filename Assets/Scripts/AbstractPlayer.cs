@@ -28,7 +28,7 @@ public class AbstractPlayer : MonoBehaviour
     private int startSize = 4;
     private GameObject playerCharacter;
     public Color MyColor;
-    protected MeshRenderer playerMeshRenderer;
+    protected Renderer playerMeshRenderer;
     // Energy units are equivalent to seconds:
     public float energy = 4;
     public const float MAX_ENERGY = 10;
@@ -62,12 +62,13 @@ public class AbstractPlayer : MonoBehaviour
 
     void Awake()
     {
-        playerCharacter = transform.Find("Character").gameObject;
+        playerCharacter = transform.Find("Body").gameObject.transform.Find("Character").gameObject;
         rb = GetComponent<Rigidbody>();
         rb.drag = drag;
-        MyColor = playerCharacter.GetComponent<MeshRenderer>().material.color;
+        playerMeshRenderer = playerCharacter.GetComponent<Renderer>();
+        MyColor = playerMeshRenderer.material.color;
         //rb.constraints |= RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
-        playerMeshRenderer = playerCharacter.GetComponent<MeshRenderer>();
+        
         playerOut = new IntEvent();
         size = startSize;
         transform.localScale = new Vector3(startSize, startSize, startSize);
