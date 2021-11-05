@@ -45,7 +45,7 @@ public class AbstractPlayer : MonoBehaviour
     private bool canMove = false;
     private int invertFactor = 1;
     private int numSequentialInverts = 0;
-    protected AudioSource audioSource;
+    public AudioSource audioSource;
     private AudioClip bumpSound;
     private AudioClip drownSound;
     public SimpleTouchController touchController;
@@ -77,7 +77,7 @@ public class AbstractPlayer : MonoBehaviour
             chooseTarget();
             Invoke("aiCalculateMove", 0.5f);
         }
-        audioSource = GetComponent<AudioSource>();
+        audioSource = GetComponentsInChildren<AudioSource>()[1];
         //bumpSound = AssetsManager.AM.bumpSound;
         //drownSound = AssetsManager.AM.drownSound;
         //shrinksound = AssetsManager.AM.growsound;
@@ -254,12 +254,12 @@ public class AbstractPlayer : MonoBehaviour
                 energy += Time.deltaTime;
             }
             //code for playing movement by pitch
-/*            if(rb.velocity.magnitude > 2)
+            if(rb.velocity.magnitude > 2)
             {
                 if (isPlayingMovementSound)
                 {
                     float normal = Mathf.InverseLerp(0, maxSpeed, rb.velocity.magnitude);
-                    float pitch = Mathf.Lerp(1, 2, normal);
+                    float pitch = Mathf.Lerp(MinMovementSoundPitch, MaxMovementSoundPitch, normal);
                     audioSource.pitch = pitch;
                 }
                 else
@@ -274,12 +274,15 @@ public class AbstractPlayer : MonoBehaviour
                 isPlayingMovementSound = false;
                 audioSource.pitch = 1;
 
-            }*/
+            }
         }
 
 
     }
 
+    public float MinMovementSoundPitch = 0.9f;
+    public float MaxMovementSoundPitch = 1.1f;
+    
     private void OnCollisionEnter(Collision otherPlayer)
     {
         AbstractPlayer other = otherPlayer.gameObject.GetComponent<AbstractPlayer>();

@@ -63,7 +63,12 @@ public class AudioManager : MonoBehaviour
         Player4,
         Gameplay,
         Music,
-        Atmosphere
+        Atmosphere,
+        Player1Movement,
+        Player2Movement,
+        Player3Movement,
+        Player4Movement
+        
     }
 
     internal void Init(GameManager gameManager)
@@ -99,6 +104,7 @@ public class AudioManager : MonoBehaviour
             case SoundTypes.None:
                 break;
             case SoundTypes.Movement:
+                return Get_AudioSource_By_Type(AudioSourceTypes.Player1Movement + player_index);
             case SoundTypes.Player_Spawn:
             case SoundTypes.Player_Death:
             case SoundTypes.Ghost:
