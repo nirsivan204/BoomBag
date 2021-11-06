@@ -20,6 +20,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public float SNOW_HEIGHT;
+
     public GameObject[] players;
     public GameObject[] prefabsForPlayers;
     public GameObject pickup;
@@ -137,7 +139,14 @@ public class GameManager : MonoBehaviour
             numPlayersAlive++;
             liveOrDead[i] = true;
         }
-        if(isMobileGame)
+        for (int i = 0; i < players.Length; i++)
+        {
+            players[i].SetActive(true);
+            playersScripts[i].init();
+            playersScripts[i].playerOut.AddListener(playerDied);
+        }
+
+        if (isMobileGame)
         {
             for(int i = 0; i < humanOrAI.Length;i++) 
             {
@@ -156,6 +165,11 @@ public class GameManager : MonoBehaviour
             pcCamera.SetActive(true);
         }
         UIMgr.gameObject.SetActive(true);
+
+        colorChanger.gameObject.SetActive(colorChangerEnable);
+        colorChanger.isTeams = isTeams;
+        colorChanger.UIManager = UIMgr;
+
         dummyPlayer.SetActive(false);
         initArena();
     }
@@ -213,27 +227,26 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        colorChanger.ColorChanger();
         AudioManagerRef.Init(this);
-        for (int i = 0; i < players.Length; i++)
-        {
-            players[i].SetActive(true);
-            playersScripts[i].playerOut.AddListener(playerDied);
+   //     for (int i = 0; i < players.Length; i++)
+  //      {
+ //           players[i].SetActive(true);
+//            playersScripts[i].playerOut.AddListener(playerDied);
 
-        }
+       // }
         if (isMobileGame && mobilePlayer)
         {
             mobilePlayer.touchController = touchController;
         }
         UIMgr.startCounter(startCountTime, "GO!!!!", true, startGame);
         AudioManagerRef.Play_Sound(AudioManager.SoundTypes.Countdown);
+        PM.Play_Effect(ParticlesManager.ParticleTypes.Snow,Vector3.up*SNOW_HEIGHT);
     }
 
 
 private void startGame()
     {
-        colorChanger.gameObject.SetActive(colorChangerEnable);
-        colorChanger.isTeams = isTeams;
-        colorChanger.UIManager = UIMgr;
         for (int i = 0; i < players.Length; i++)
         {
             StartCoroutine(playersScripts[i].setCanMove(true,0));

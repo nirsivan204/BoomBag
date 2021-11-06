@@ -60,13 +60,13 @@ public class AbstractPlayer : MonoBehaviour
 
 
 
-    void Awake()
+/*    void Awake()
     {
         playerCharacter = transform.Find("Body").gameObject.transform.Find("Character").gameObject;
         rb = GetComponent<Rigidbody>();
         rb.drag = drag;
-        playerMeshRenderer = playerCharacter.GetComponent<Renderer>();
-        MyColor = playerMeshRenderer.material.color;
+        //playerMeshRenderer = playerCharacter.GetComponent<Renderer>();
+        //MyColor = playerMeshRenderer.material.color;
         //rb.constraints |= RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
         
         playerOut = new IntEvent();
@@ -85,19 +85,36 @@ public class AbstractPlayer : MonoBehaviour
         //growsound = AssetsManager.AM.shrinksound;
 
         init();
-    }
+    }*/
 
-    private void Start()
+
+    public virtual void init()
     {
+
+        playerCharacter = transform.Find("Body").gameObject.transform.Find("Character").gameObject;
+        rb = GetComponent<Rigidbody>();
+        rb.drag = drag;
+        //playerMeshRenderer = playerCharacter.GetComponent<Renderer>();
+        //MyColor = playerMeshRenderer.material.color;
+        //rb.constraints |= RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+
+        playerOut = new IntEvent();
+        size = startSize;
+        transform.localScale = new Vector3(startSize, startSize, startSize);
+        if (!isHumanPlayer)
+        {
+            GetComponent<PlayerInput>().enabled = false;
+            chooseTarget();
+            Invoke("aiCalculateMove", 0.5f);
+        }
+        audioSource = GetComponentsInChildren<AudioSource>()[1];
+        playerMeshRenderer = playerCharacter.GetComponent<Renderer>();
+        MyColor = playerMeshRenderer.material.color;
         if (touchController && gameManager.isMobileGame)
         {
             touchController.TouchEvent += Controller_TouchEvent;
         }
-      
-    }
-
-    protected virtual void init()
-    {
+        isInit = true;
 
     }
 
@@ -232,58 +249,60 @@ public class AbstractPlayer : MonoBehaviour
 
     void FixedUpdate()
     {
-        rb.AddForce(Vector3.down * GRAVITY_SCALE);
-        if (canMove)
+        if (isInit)
         {
-            Vector3 movement = new Vector3(movementX, 0, movementY);
-            rb.AddForce(movement * speed * rb.mass * invertFactor);
-            if (rb.velocity.magnitude > 0.5)
+            rb.AddForce(Vector3.down * GRAVITY_SCALE);
+            if (canMove)
             {
-                Vector3 heading = new Vector3(rb.velocity.x, 0, rb.velocity.z);
-                transform.LookAt(transform.position + heading);
-
-
-                //Quaternion targetRotation = Quaternion.LookRotation(heading); can work also
-                //transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, Time.fixedDeltaTime * 100);
-            }
-            if (!overSpeedAllowed)
-            {
-                rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxSpeed);
-            }
-            if (energy < MAX_ENERGY)
-            {
-                energy += Time.deltaTime;
-            }
-            //code for playing movement by pitch
-            if(rb.velocity.magnitude > 2)
-            {
-                if (isPlayingMovementSound)
+                Vector3 movement = new Vector3(movementX, 0, movementY);
+                rb.AddForce(movement * speed * rb.mass * invertFactor);
+                if (rb.velocity.magnitude > 0.5)
                 {
-                    float normal = Mathf.InverseLerp(0, maxSpeed, rb.velocity.magnitude);
-                    float pitch = Mathf.Lerp(MinMovementSoundPitch, MaxMovementSoundPitch, normal);
-                    audioSource.pitch = pitch;
+                    Vector3 heading = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+                    transform.LookAt(transform.position + heading);
+
+
+                    //Quaternion targetRotation = Quaternion.LookRotation(heading); can work also
+                    //transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, Time.fixedDeltaTime * 100);
+                }
+                if (!overSpeedAllowed)
+                {
+                    rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxSpeed);
+                }
+                if (energy < MAX_ENERGY)
+                {
+                    energy += Time.deltaTime;
+                }
+                //code for playing movement by pitch
+                if (rb.velocity.magnitude > 2)
+                {
+                    if (isPlayingMovementSound)
+                    {
+                        float normal = Mathf.InverseLerp(0, maxSpeed, rb.velocity.magnitude);
+                        float pitch = Mathf.Lerp(MinMovementSoundPitch, MaxMovementSoundPitch, normal);
+                        audioSource.pitch = pitch;
+                    }
+                    else
+                    {
+                        gameManager.AudioManagerRef.Play_Sound(AudioManager.SoundTypes.Movement, true, player_index: playerIndex);
+                        isPlayingMovementSound = true;
+                    }
                 }
                 else
                 {
-                    gameManager.AudioManagerRef.Play_Sound(AudioManager.SoundTypes.Movement, true, player_index: playerIndex);
-                    isPlayingMovementSound = true;
+                    audioSource.Stop(); // to do: stop using audiomanager
+                    isPlayingMovementSound = false;
+                    audioSource.pitch = 1;
+
                 }
             }
-            else
-            {
-                audioSource.Stop(); // to do: stop using audiomanager
-                isPlayingMovementSound = false;
-                audioSource.pitch = 1;
-
-            }
         }
-
-
     }
 
     public float MinMovementSoundPitch = 0.9f;
     public float MaxMovementSoundPitch = 1.1f;
-    
+    private bool isInit = false;
+
     private void OnCollisionEnter(Collision otherPlayer)
     {
         AbstractPlayer other = otherPlayer.gameObject.GetComponent<AbstractPlayer>();

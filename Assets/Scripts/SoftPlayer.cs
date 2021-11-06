@@ -8,10 +8,11 @@ public class SoftPlayer : AbstractPlayer {
     bool canUseAbility = true;
     private Collider[] playersColliders;
     private bool isTransparent = false;
-    private AudioClip ghostSound;
-    protected override void init()
+    //private AudioClip ghostSound;
+    public override void init()
     {
-        ghostSound = AssetsManager.AM.ghostSound;
+        //ghostSound = AssetsManager.AM.ghostSound;
+        base.init();
         playersColliders = new Collider[gameManager.players.Length];
         for (int i =0; i < gameManager.players.Length; i++)
         {

@@ -58,4 +58,8 @@ public class ParticlesManager : MonoBehaviour
         return null;
     }
 
+    internal void Play_Effect(ParticleTypes snow, object p)
+    {
+        throw new NotImplementedException();
+    }
 }

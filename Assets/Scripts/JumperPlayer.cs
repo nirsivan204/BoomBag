@@ -7,8 +7,9 @@ public class JumperPlayer : AbstractPlayer
 {
 	private float jumpForce = 2000;
 	//private AudioClip jumpSound;
-	protected override void init()
+	public override void init()
 	{
+		base.init();
 		//jumpSound = AssetsManager.AM.jumpSound;
 	}
 	protected override void useAbility()

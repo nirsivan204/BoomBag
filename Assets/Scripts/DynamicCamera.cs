@@ -91,7 +91,7 @@ public class DynamicCamera : MonoBehaviour
     private void FixedUpdate()
     {
         Vector3 target = cameraInitialPosition;
-        if (isMobile && !gm.mobilePlayer.getIsOut())
+        if (isMobile && gm.mobilePlayer && !gm.mobilePlayer.getIsOut())
         {
             Vector3 mobilePlayerPos = gm.mobilePlayer.transform.position;
             target = cameraInitialPosition + new Vector3(mobilePlayerPos.x, mobilePlayerPos.y + 5, mobilePlayerPos.z);

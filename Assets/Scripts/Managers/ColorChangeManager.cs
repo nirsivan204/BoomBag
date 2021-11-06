@@ -12,6 +12,7 @@ public class ColorChangeManager : MonoBehaviour
     public int timeToShowCount;
     [SerializeField] public Material transparentMat;
     [SerializeField] public Material regulatMat;
+    private bool isFirstColorChange = true;
 
     public Material TransparentMat { get => transparentMat; set => transparentMat = value; }
     public Material RegulatMat { get => regulatMat; set => regulatMat = value; }
@@ -32,7 +33,6 @@ public class ColorChangeManager : MonoBehaviour
         {
             PlayersScripts[i] = gameManager.players[i].GetComponent<AbstractPlayer>();
         }
-        ColorChanger();
     }
 
     private void startCount()
@@ -48,6 +48,14 @@ public class ColorChangeManager : MonoBehaviour
 
     public void ColorChanger()
     {
+        if (!isFirstColorChange)
+        {
+            gameManager.AudioManagerRef.Play_Sound(AudioManager.SoundTypes.ColorChange);
+        }
+        else
+        {
+            isFirstColorChange = false;
+        }
         if (isTeams)
         {
             int firstRandomPlayer = Random.Range(0, PlayersScripts.Length);
