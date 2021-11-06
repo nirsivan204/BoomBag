@@ -63,6 +63,9 @@ public class GameManager : MonoBehaviour
 
     public SimpleTouchController touchController;
     public AbstractPlayer mobilePlayer;
+
+
+    public ParticlesManager PM;
     // Start is called before the first frame update
     void Awake()
     {

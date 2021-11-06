@@ -302,6 +302,9 @@ public class AbstractPlayer : MonoBehaviour
                 Vector3 collisionForce = otherPlayer.impulse;
                 rb.AddForce(collisionForce, ForceMode.Impulse);
             }
+            Time.timeScale = 0.5f;
+            Invoke("stopSlowDown", 0.4f);
+            gameManager.PM.Play_Effect(ParticlesManager.ParticleTypes.Boom, transform.position);
             if (other.getColor() == MyColor)
             {
                 grow();
@@ -326,6 +329,11 @@ public class AbstractPlayer : MonoBehaviour
         }
     }
 
+    private void stopSlowDown()
+    {
+        Time.timeScale = 1;
+    }
+
     private void die()
     {
         //print(gameObject + "out, player index = " + playerIndex);
@@ -333,6 +341,7 @@ public class AbstractPlayer : MonoBehaviour
         isOut = true;
         canMove = false;
         gameManager.AudioManagerRef.Play_Sound(AudioManager.SoundTypes.Player_Death, player_index: playerIndex);
+        gameManager.PM.Play_Effect(ParticlesManager.ParticleTypes.Splash, transform.position+Vector3.up*2);
         //audioSource.clip = drownSound;
         //audioSource.Play();
         GetComponent<Collider>().enabled = false;
