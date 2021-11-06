@@ -88,8 +88,9 @@ public class GameManager : MonoBehaviour
                 {"the_being", "Chair"},
                 {"Mouse3D_10_combinedMeshInSphere_ForUnity", "Bizo_MAIN"},
                 {"ss_guppy_no_modifier", "Lifebuoy"},
-                {"Concept_CH_Jelly_7_RigOnly_For_Unity", ""},
-                {"SlimePBR", "Slime"}
+                {"Concept_CH_Jelly_7_RigOnly_For_Unity", ""}, 
+                {"NewSlime", "NewSlimeBody"}
+              // {"SlimePBR", "Slime"}
             };
             // Instantiate prefab and set its names to our standards. Then set it to the player (by choosing a parent):
             var pref = Instantiate(prefabsForPlayers[i], new Vector3(0, 0, 0), Quaternion.identity);
