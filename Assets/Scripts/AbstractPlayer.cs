@@ -321,8 +321,8 @@ public class AbstractPlayer : MonoBehaviour
                 Vector3 collisionForce = otherPlayer.impulse;
                 rb.AddForce(collisionForce, ForceMode.Impulse);
             }
-            Time.timeScale = 0.5f;
-            Invoke("stopSlowDown", 0.4f);
+            Time.timeScale = 0.6f;
+            Invoke("stopSlowDown", 0.6f);
             gameManager.PM.Play_Effect(ParticlesManager.ParticleTypes.Boom, transform.position);
             if (other.getColor() == MyColor)
             {
