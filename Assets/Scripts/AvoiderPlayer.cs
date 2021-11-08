@@ -6,6 +6,8 @@ using UnityEngine.InputSystem;
 public class AvoiderPlayer : AbstractPlayer
 {
 	bool canUseAbility = true;
+	GameObject DashFireParticle;
+	float addedSpeed = 20;
 	protected override void useAbility()
 	{
 		if (canUseAbility)
@@ -13,18 +15,18 @@ public class AvoiderPlayer : AbstractPlayer
 			canUseAbility = false;
 			overSpeedAllowed = true;
 			//prev_vel = rb.GetPointVelocity(rb.centerOfMass);
-			speed += 200;
-			Invoke("endAbility", 0.3f);
+			speed += addedSpeed;
+			Invoke("endAbility", 1f);
+			DashFireParticle = gameManager.PM.Play_Effect(ParticlesManager.ParticleTypes.DashRocket, Vector3.zero, gameObject.transform);
 			gameManager.AudioManagerRef.Play_Sound(AudioManager.SoundTypes.Dash, player_index: playerIndex);
 			//print("DASH");
 		}
-		//speed += 10;
-		//Invoke("endAbility", 3f);
 	}
 
 	protected void endAbility()
 	{
-		speed -= 200;
+		speed -= addedSpeed;
+		Destroy(DashFireParticle);
 		//rb.velocity = Vector3.zero;
 		overSpeedAllowed = false;
 		canUseAbility = true;

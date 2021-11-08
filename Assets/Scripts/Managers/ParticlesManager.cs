@@ -23,6 +23,7 @@ public class ParticlesManager : MonoBehaviour
         Boom = 1,
         Splash = 2,
         Snow = 3,
+        DashRocket = 4
     }
 
     internal void Init(GameManager gameManager)
@@ -30,21 +31,26 @@ public class ParticlesManager : MonoBehaviour
         
     }
 
-    public void Play_Effect(ParticleTypes particleType, Vector3 pos ,  bool isLoop = false, int player_index = 0)
+    public GameObject Play_Effect(ParticleTypes particleType, Vector3 pos , Transform parent = null)
     {
-        GameObject clip = getParticleSystemRef(particleType);
+        GameObject particle = getParticleSystemRef(particleType);
 
        //  = isLoop;
 
-        Play_Effect(clip, pos);
+        return Play_Effect(particle, pos, parent);
 
     }
 
-    private void Play_Effect(GameObject particle, Vector3 position)
+    private GameObject Play_Effect(GameObject particle, Vector3 position, Transform parent)
     {
-        GameObject clone = Instantiate(particle, transform);
-        clone.transform.position = position;
+        if (!parent)
+        {
+            parent = transform;
+        }
+        GameObject clone = Instantiate(particle, parent);
+        clone.transform.localPosition = position;
         clone.GetComponent<ParticleSystem>().Play();
+        return clone;
     }
 
     private GameObject getParticleSystemRef(ParticleTypes particleType)
@@ -56,10 +62,5 @@ public class ParticlesManager : MonoBehaviour
         }
 
         return null;
-    }
-
-    internal void Play_Effect(ParticleTypes snow, object p)
-    {
-        throw new NotImplementedException();
     }
 }

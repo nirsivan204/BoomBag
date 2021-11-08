@@ -19,7 +19,7 @@ public class AbstractPlayer : MonoBehaviour
     public float drag = 0;
     private float movementX = 0;
     private float movementY = 0;
-    protected bool grounded = true;
+    //protected bool grounded = true;
     private int size; //= startSize in start;
     [SerializeField] private int maxGrow = 8;
     [SerializeField] private int minGrow = 1;
@@ -339,7 +339,7 @@ public class AbstractPlayer : MonoBehaviour
         {
             if(otherPlayer.gameObject.tag == "Arena")
             {
-                grounded = true;
+                //grounded = true;
             }
             else if (otherPlayer.gameObject.tag == "Out" && !isOut)
             {

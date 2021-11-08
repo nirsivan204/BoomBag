@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
  
 public class JumperPlayer : AbstractPlayer
 {
-	private float jumpForce = 2000;
+	private float jumpForce = 200;
 	//private AudioClip jumpSound;
 	public override void init()
 	{
@@ -14,13 +14,8 @@ public class JumperPlayer : AbstractPlayer
 	}
 	protected override void useAbility()
 	{
-        if (grounded)
-        {
-			grounded = false;
-			rb.AddForce(Vector3.up * jumpForce, ForceMode.Acceleration);
+			rb.AddForce(Vector3.up * jumpForce, ForceMode.VelocityChange);
 			showAbilityEffect();
-		}
-
 	}
 
 	protected override void showAbilityEffect()
