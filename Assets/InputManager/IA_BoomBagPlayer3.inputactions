@@ -80,6 +80,17 @@
                 },
                 {
                     "name": "",
+                    "id": "def5b68a-90f6-4aee-8527-f1fa36e74613",
+                    "path": "<DualShockGamepad>/leftStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "05f6913d-c316-48b2-a6bb-e225f14c7960",
                     "path": "<Keyboard>/t",
                     "interactions": "",
@@ -91,22 +102,11 @@
                 },
                 {
                     "name": "",
-                    "id": "a7a25507-3e58-4bde-b241-fdc691c169c2",
-                    "path": "<Joystick>/trigger",
+                    "id": "4f3921bc-2953-45c3-872b-556edbaa2651",
+                    "path": "<DualShockGamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Gamepad;Joystick",
-                    "action": "Fire",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "ac3f3954-23c7-496d-a780-1d645c44dd26",
-                    "path": "<HID::TGZ Controller>/trigger",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad;Joystick",
+                    "groups": "",
                     "action": "Fire",
                     "isComposite": false,
                     "isPartOfComposite": false

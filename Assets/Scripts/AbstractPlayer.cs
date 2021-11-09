@@ -6,6 +6,7 @@ using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 
+
 [RequireComponent(typeof(Rigidbody))]
 //[RequireComponent(typeof(BoxCollider))]
 
@@ -57,6 +58,7 @@ public class AbstractPlayer : MonoBehaviour
     private int outsideFactor = 50;
     private float HoleRadius = 15;
     private bool isPlayingMovementSound;
+    private CharacterController _controller;
 
 
 
@@ -116,6 +118,8 @@ public class AbstractPlayer : MonoBehaviour
         }
         isInit = true;
 
+        _controller = gameObject.GetComponent<CharacterController>();
+
     }
 
     void Controller_TouchEvent(Vector2 value)
@@ -130,7 +134,6 @@ public class AbstractPlayer : MonoBehaviour
         movementX = movementVector.x;
         movementY = movementVector.y;
     }
-
     public void OnFire()
     {
         if (!isOut && energy >= ENERGY_COST)
