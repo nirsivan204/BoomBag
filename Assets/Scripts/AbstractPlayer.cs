@@ -130,7 +130,7 @@ public class AbstractPlayer : MonoBehaviour
 
     private void OnMove(InputValue movementValue)
     {
-        Vector2 movementVector = movementValue.Get<Vector2>();//*invertFactor;
+        Vector2 movementVector = movementValue.Get<Vector2>().normalized;//*invertFactor;
         movementX = movementVector.x;
         movementY = movementVector.y;
     }
