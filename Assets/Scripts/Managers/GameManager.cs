@@ -140,12 +140,6 @@ public class GameManager : MonoBehaviour
             numPlayersAlive++;
             liveOrDead[i] = true;
         }
-        for (int i = 0; i < players.Length; i++)
-        {
-            players[i].SetActive(true);
-            playersScripts[i].init();
-            playersScripts[i].playerOut.AddListener(playerDied);
-        }
 
         if (isMobileGame)
         {
@@ -157,6 +151,15 @@ public class GameManager : MonoBehaviour
                     break;
                 }
             }
+            if (mobilePlayer)
+            {
+                mobilePlayer.touchController = touchController;
+            }
+            else
+            {
+                Debug.Log("problem in gameMGR: no mobile player");
+            }
+
             UIMgr = mobileUIMgr;
             mobileCamera.SetActive(true);
         }
@@ -166,6 +169,14 @@ public class GameManager : MonoBehaviour
             pcCamera.SetActive(true);
         }
         UIMgr.gameObject.SetActive(true);
+
+        for (int i = 0; i < players.Length; i++)
+        {
+            players[i].SetActive(true);
+            playersScripts[i].init();
+            playersScripts[i].playerOut.AddListener(playerDied);
+        }
+
 
         colorChanger.gameObject.SetActive(colorChangerEnable);
         colorChanger.isTeams = isTeams;
@@ -236,10 +247,6 @@ public class GameManager : MonoBehaviour
 //            playersScripts[i].playerOut.AddListener(playerDied);
 
        // }
-        if (isMobileGame && mobilePlayer)
-        {
-            mobilePlayer.touchController = touchController;
-        }
         UIMgr.startCounter(startCountTime, "GO!!!!", true, startGame);
         AudioManagerRef.Play_Sound(AudioManager.SoundTypes.Countdown);
         PM.Play_Effect(ParticlesManager.ParticleTypes.Snow,Vector3.up*SNOW_HEIGHT);

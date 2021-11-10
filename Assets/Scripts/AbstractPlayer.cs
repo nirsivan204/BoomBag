@@ -206,11 +206,11 @@ public class AbstractPlayer : MonoBehaviour
                 attackLine = new Vector3(attackLine.x, 0, attackLine.z);//(transform.position-Vector3.up * transform.position.z)*holeFactor;
                 if (!isTargetBetweenMeAndMiddle())
                 {
-                    //attackLine += holeFactor * transform.position / transform.position.sqrMagnitude;
+                    attackLine += holeFactor * transform.position / transform.position.sqrMagnitude;
                 }
                 if (!isTargetBetweenMeAndOutside())
                 {
-                    //attackLine += outsideFactor * -1 * transform.position.normalized / (ArenaRadius - transform.position.magnitude);
+                    attackLine += outsideFactor * -1 * transform.position.normalized / (ArenaRadius - transform.position.magnitude);
                 }
             }
             else
