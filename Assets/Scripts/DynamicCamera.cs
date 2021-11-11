@@ -91,9 +91,9 @@ public class DynamicCamera : MonoBehaviour
     private void FixedUpdate()
     {
         Vector3 target = cameraInitialPosition;
-        if (isMobile && gm.mobilePlayer && !gm.mobilePlayer.getIsOut())
+        if (isMobile && gm.GetMobilePlayer() && !gm.GetMobilePlayer().getIsOut())
         {
-            Vector3 mobilePlayerPos = gm.mobilePlayer.transform.position;
+            Vector3 mobilePlayerPos = gm.GetMobilePlayer().transform.position;
             target = cameraInitialPosition + new Vector3(mobilePlayerPos.x, mobilePlayerPos.y + 5, mobilePlayerPos.z);
         }
         else
@@ -105,7 +105,7 @@ public class DynamicCamera : MonoBehaviour
     private void zoom()
     {
         Invoke("zoom", updateZoomDelay);
-        if (!isMobile || gm.mobilePlayer.getIsOut())
+        if (!isMobile || gm.GetMobilePlayer().getIsOut())
         {
             foreach (AbstractPlayer player in gm.playersScripts)
             {

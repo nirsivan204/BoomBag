@@ -55,10 +55,10 @@ public class UIManager : MonoBehaviour
                 energyBar.fillAmount = gm.playersScripts[i].energy / AbstractPlayer.MAX_ENERGY;
                 i++;
             }
-            if (actionButton && gm.isMobileGame && gm.mobilePlayer)
+            if (actionButton && gm.isMobileGame && gm.GetMobilePlayer())
             {
                 ColorBlock colors = actionButton.colors;
-                if (gm.mobilePlayer.energy > AbstractPlayer.ENERGY_COST)
+                if (gm.GetMobilePlayer().energy > AbstractPlayer.ENERGY_COST)
                 {
 
                     colors.pressedColor = Color.green;

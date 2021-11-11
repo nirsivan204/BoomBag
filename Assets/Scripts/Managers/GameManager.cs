@@ -10,15 +10,19 @@ public class IntEvent : UnityEvent<int>
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField]
-    AudioManager audioManagerRef;
-    public AudioManager AudioManagerRef
-    {
-        get
-        {
-            return audioManagerRef;
-        }
-    }
+    [Header("SETUP")]
+    [SerializeField] AudioManager audioManagerRef;
+    [SerializeField] GameObject mobileCamera;
+    [SerializeField] GameObject pcCamera;
+    [SerializeField] SimpleTouchController touchController;
+    [SerializeField] ColorChangeManager colorChanger;
+    [SerializeField] GameObject milk;
+    [SerializeField] ParticlesManager PM;
+    [SerializeField] GameObject dummyPlayer;
+    [SerializeField] UIManager mobileUIMgr;
+    [SerializeField] UIManager PCUIMgr;
+    [SerializeField] GameObject pickupBounderies;
+
 
     public float SNOW_HEIGHT;
 
@@ -32,42 +36,39 @@ public class GameManager : MonoBehaviour
     public bool isTilting;
     public GameObject[] arenas;
 
-    [SerializeField] GameObject mobileCamera;
-    [SerializeField] GameObject pcCamera;
-
     public enum CharTypes { Rigid, Soft, Jumper, Avoider };
     public CharTypes[] charTypes = { CharTypes.Rigid, CharTypes.Soft, CharTypes.Jumper, CharTypes.Avoider };
-    public ColorChangeManager colorChanger;
     public AbstractPlayer[] playersScripts;
     private int numPlayersAlive;
     public bool[] liveOrDead;
     public IntEvent winEvent;
     public bool[] humanOrAI;
-    public GameObject dummyPlayer;
-    public UIManager mobileUIMgr;
-    public UIManager PCUIMgr;
+
     private UIManager UIMgr;
     [SerializeField] bool colorChangerEnable;
     [SerializeField] bool isTeams;
 
     public int startCountTime = 3;
-    public GameObject milk;
-    public bool isMilkRising = false;
-    public const float MILK_RISE_RATE = 1;
-    public const float MILK_RISE_SPEED = 2;
+
+    public bool isSuddenDeath = false;
+    private bool isMilkRising = false;
+    public const float MILK_RISE_TIME = 5;
+    public const float MILK_RISE_PERIOD = 5;
+    public const float MILK_RISE_HIGHT = 1;
+    public const float MILK_RISE_SPEED = 0.5f;
+    public const float MILK_RISE_REPEATED_TIMES = 4;
+    private int milkRiseCount = 0;
+
     private Vector3 milkTarget;
     private GameObject arenaChosen = null;
-    public GameObject pickupBounderies;
+
     private float xBoundery;
     private float yBoundery;
     private float zBoundery;
-    private AudioSource audioSource;
 
-    public SimpleTouchController touchController;
-    public AbstractPlayer mobilePlayer;
+    private AbstractPlayer mobilePlayer;
 
 
-    public ParticlesManager PM;
     // Start is called before the first frame update
     void Awake()
     {
@@ -147,13 +148,13 @@ public class GameManager : MonoBehaviour
             {
                 if (humanOrAI[i])
                 {
-                    mobilePlayer = playersScripts[i];
+                    SetMobilePlayer(playersScripts[i]);
                     break;
                 }
             }
-            if (mobilePlayer)
+            if (GetMobilePlayer())
             {
-                mobilePlayer.touchController = touchController;
+                GetMobilePlayer().touchController = GetTouchController();
             }
             else
             {
@@ -178,12 +179,70 @@ public class GameManager : MonoBehaviour
         }
 
 
-        colorChanger.gameObject.SetActive(colorChangerEnable);
-        colorChanger.isTeams = isTeams;
-        colorChanger.UIManager = UIMgr;
+        GetColorChanger().gameObject.SetActive(colorChangerEnable);
+        GetColorChanger().isTeams = isTeams;
+        GetColorChanger().UIManager = UIMgr;
 
         dummyPlayer.SetActive(false);
         initArena();
+    }
+
+    public AudioManager AudioManagerRef
+    {
+        get
+        {
+            return audioManagerRef;
+        }
+    }
+
+    public ParticlesManager GetPM()
+    {
+        return PM;
+    }
+
+    public void SetPM(ParticlesManager value)
+    {
+        PM = value;
+    }
+
+    public ColorChangeManager GetColorChanger()
+    {
+        return colorChanger;
+    }
+
+    public void SetColorChanger(ColorChangeManager value)
+    {
+        colorChanger = value;
+    }
+
+    public SimpleTouchController GetTouchController()
+    {
+        return touchController;
+    }
+
+    public void SetTouchController(SimpleTouchController value)
+    {
+        touchController = value;
+    }
+
+    public AbstractPlayer GetMobilePlayer()
+    {
+        return mobilePlayer;
+    }
+
+    public void SetMobilePlayer(AbstractPlayer value)
+    {
+        mobilePlayer = value;
+    }
+
+    public int GetNumPlayersAlive()
+    {
+        return numPlayersAlive;
+    }
+
+    public void SetNumPlayersAlive(int value)
+    {
+        numPlayersAlive = value;
     }
 
     private void getGameParams()
@@ -239,7 +298,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        colorChanger.ColorChanger();
+        GetColorChanger().ColorChanger();
         AudioManagerRef.Init(this);
    //     for (int i = 0; i < players.Length; i++)
   //      {
@@ -249,7 +308,7 @@ public class GameManager : MonoBehaviour
        // }
         UIMgr.startCounter(startCountTime, "GO!!!!", true, startGame);
         AudioManagerRef.Play_Sound(AudioManager.SoundTypes.Countdown);
-        PM.Play_Effect(ParticlesManager.ParticleTypes.Snow,Vector3.up*SNOW_HEIGHT);
+        GetPM().Play_Effect(ParticlesManager.ParticleTypes.Snow,Vector3.up*SNOW_HEIGHT);
     }
 
 
@@ -265,6 +324,10 @@ private void startGame()
         }
         AudioManagerRef.Play_Sound(AudioManager.SoundTypes.BG_Music);
         // StartCoroutine(MusicUtil.FadeIn(audioSource, 3));
+        if (isSuddenDeath)
+        {
+            InvokeRepeating("milkRiseStart", MILK_RISE_TIME, MILK_RISE_PERIOD);
+        }
     }
     private Vector3 getRandomLocation()
     {
@@ -324,10 +387,14 @@ private void startGame()
 
     public void milkRiseStart()
     {
-        isMilkRising = true;
-        milkTarget = milk.transform.position + Vector3.up * MILK_RISE_RATE;
-        print("milkTarget" + milkTarget);
-        print("milk");
+        if (milkRiseCount < MILK_RISE_REPEATED_TIMES)
+        {
+            milkRiseCount++;
+            isMilkRising = true;
+            milkTarget = milk.transform.position + Vector3.up * MILK_RISE_HIGHT;
+            print("milkTarget" + milkTarget);
+            print("milk");
+        }
     }
 
     private void milkRiseStop()
@@ -350,7 +417,7 @@ private void startGame()
 
     public void mobilePlayerPressedAction()
     {
-        mobilePlayer.OnFire();
+        GetMobilePlayer().OnFire();
     }
 
     public void restartGame()

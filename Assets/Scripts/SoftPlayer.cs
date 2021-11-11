@@ -78,12 +78,12 @@ public class SoftPlayer : AbstractPlayer {
         Color changed = current;
         if (transparent)
         {
-            playerMeshRenderer.material = gameManager.colorChanger.transparentMat;
+            playerMeshRenderer.material = gameManager.GetColorChanger().transparentMat;
             changed.a = 0.5f;
         }
         else
         {
-            playerMeshRenderer.material = gameManager.colorChanger.regulatMat;
+            playerMeshRenderer.material = gameManager.GetColorChanger().regulatMat;
             changed.a = 1;
         }
         playerMeshRenderer.material.color = changed;

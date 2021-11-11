@@ -64,6 +64,7 @@ public class AudioManager : MonoBehaviour
         Gameplay,
         Music,
         Atmosphere,
+        GameEvents,
         Player1Movement,
         Player2Movement,
         Player3Movement,
@@ -117,10 +118,11 @@ public class AudioManager : MonoBehaviour
             case SoundTypes.Bump:
             case SoundTypes.Shrink:
             case SoundTypes.Grow:
-            case SoundTypes.ColorChange:
                 return Get_AudioSource_By_Type(AudioSourceTypes.Gameplay);
-            case SoundTypes.BG_Music:
+            case SoundTypes.ColorChange:
             case SoundTypes.Countdown:
+                return Get_AudioSource_By_Type(AudioSourceTypes.GameEvents);
+            case SoundTypes.BG_Music:
                 return Get_AudioSource_By_Type(AudioSourceTypes.Music);
             default:
                 return Get_AudioSource_By_Type(AudioSourceTypes.Gameplay);

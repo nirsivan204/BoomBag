@@ -12,6 +12,10 @@ public class PlayerIndicator : MonoBehaviour {
     // Use this for initialization
     void Start () {
         parentPlayer = transform.parent.GetComponent<AbstractPlayer>();
+        if (!parentPlayer.getIsHuman())
+        {
+            Destroy(gameObject);
+        }
         mesh = GetComponent<MeshRenderer>();
         amplitude /= 50;
     }

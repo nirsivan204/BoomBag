@@ -47,18 +47,13 @@ public class AbstractPlayer : MonoBehaviour
     private int invertFactor = 1;
     private int numSequentialInverts = 0;
     public AudioSource audioSource;
-    private AudioClip bumpSound;
-    private AudioClip drownSound;
     public SimpleTouchController touchController;
-    private AudioClip shrinksound;
-    private AudioClip growsound;
     [SerializeField] private float holeFactor = 550;
     private float delayAfterBump = 0.15f;
     private float ArenaRadius = 40;
     private int outsideFactor = 50;
     private float HoleRadius = 15;
     private bool isPlayingMovementSound;
-    private CharacterController _controller;
 
 
 
@@ -117,9 +112,6 @@ public class AbstractPlayer : MonoBehaviour
             touchController.TouchEvent += Controller_TouchEvent;
         }
         isInit = true;
-
-        _controller = gameObject.GetComponent<CharacterController>();
-
     }
 
     void Controller_TouchEvent(Vector2 value)
@@ -173,8 +165,10 @@ public class AbstractPlayer : MonoBehaviour
        // }
         //else
        // {
+       if(gameManager.GetNumPlayersAlive() > 1)
+        {
             int count = 0;
-            while (res == playerIndex || !gameManager.liveOrDead[res])
+            while ( res == playerIndex || !gameManager.liveOrDead[res])
             {
                 res = UnityEngine.Random.Range(0, gameManager.players.Length);
                 count++;
@@ -184,6 +178,7 @@ public class AbstractPlayer : MonoBehaviour
                     break;
                 }
             }
+        }
        // }
         AITargetGameObj = gameManager.players[res];
         AITargetScript = gameManager.playersScripts[res];
@@ -326,7 +321,7 @@ public class AbstractPlayer : MonoBehaviour
             }
             Time.timeScale = 0.6f;
             Invoke("stopSlowDown", 0.6f);
-            gameManager.PM.Play_Effect(ParticlesManager.ParticleTypes.Boom, transform.position);
+            gameManager.GetPM().Play_Effect(ParticlesManager.ParticleTypes.Boom, transform.position);
             if (other.getColor() == MyColor)
             {
                 grow();
@@ -363,7 +358,7 @@ public class AbstractPlayer : MonoBehaviour
         isOut = true;
         canMove = false;
         gameManager.AudioManagerRef.Play_Sound(AudioManager.SoundTypes.Player_Death, player_index: playerIndex);
-        gameManager.PM.Play_Effect(ParticlesManager.ParticleTypes.Splash, transform.position+Vector3.up*2);
+        gameManager.GetPM().Play_Effect(ParticlesManager.ParticleTypes.Splash, transform.position+Vector3.up*2);
         //audioSource.clip = drownSound;
         //audioSource.Play();
         GetComponent<Collider>().enabled = false;
@@ -488,6 +483,7 @@ public class AbstractPlayer : MonoBehaviour
     public void setIsHuman(bool isHuman)
     {
         isHumanPlayer = isHuman;
+
     }
 
     public bool getIsHuman()
