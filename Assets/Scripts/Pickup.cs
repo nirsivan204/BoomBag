@@ -92,7 +92,6 @@ public class Pickup : MonoBehaviour
         Collider[] coliders = Physics.OverlapSphere(transform.position, explosionRadius);
         foreach (Collider player in coliders)
         {
-            print(player);
             if(player.tag == "Player")
             {
                 Rigidbody rb = player.GetComponent<Rigidbody>();
@@ -101,6 +100,4 @@ public class Pickup : MonoBehaviour
             }
         }
     }
-
-    //must be called before activating the pickup gameobject
 }

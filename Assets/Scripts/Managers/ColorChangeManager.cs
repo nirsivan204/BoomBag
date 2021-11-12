@@ -45,7 +45,7 @@ public class ColorChangeManager : MonoBehaviour
         UIManager.startCounter(timeToShowCount, "COLOR MIX!",false, ColorChanger);
     }
 
-
+    int lastDecisionForTwoPlayers = -1;
     public void ColorChanger()
     {
         if (!isFirstColorChange)
@@ -58,26 +58,58 @@ public class ColorChangeManager : MonoBehaviour
         }
         if (isTeams)
         {
-            int firstRandomPlayer = Random.Range(0, PlayersScripts.Length);
-            int secondRandomPlayer = firstRandomPlayer;
-            while (secondRandomPlayer== firstRandomPlayer)
+            int firstRandomPlayer; 
+            int secondRandomPlayer;
+            getTwoRandomPlayersIdx(out firstRandomPlayer, out secondRandomPlayer, gameManager.GetNumPlayersAlive() == 2);
+            if(gameManager.GetNumPlayersAlive() == 2)
             {
-                secondRandomPlayer = Random.Range(0, PlayersScripts.Length);
-            }
-            for (int i=0; i < PlayersScripts.Length; i++ )
-            {
-                AbstractPlayer script = PlayersScripts[i];
-                if(i == firstRandomPlayer|| i == secondRandomPlayer)
+                if(lastDecisionForTwoPlayers == -1)//first color change for 2 people
                 {
-                    script.setColor(meshColors[1]);
+                    repeatingTime /= 2;
 
                 }
-                else
+                int decision = Random.Range(0, 4);
+                while(lastDecisionForTwoPlayers== decision)
                 {
-                    script.setColor(meshColors[2]);
+                    decision = Random.Range(0, 4);
+                }
+                switch (decision)
+                {
+                    case 0: //both red
+                        PlayersScripts[firstRandomPlayer].setColor(meshColors[1]);
+                        PlayersScripts[secondRandomPlayer].setColor(meshColors[1]);
+                        break;
+                    case 1: // both blue
+                        PlayersScripts[firstRandomPlayer].setColor(meshColors[2]);
+                        PlayersScripts[secondRandomPlayer].setColor(meshColors[2]);
+                        break;
+                    case 2: // first red second blue
+                        PlayersScripts[firstRandomPlayer].setColor(meshColors[1]);
+                        PlayersScripts[secondRandomPlayer].setColor(meshColors[2]);
+                        break;
+                    case 3: // first blue second red
+                        PlayersScripts[firstRandomPlayer].setColor(meshColors[2]);
+                        PlayersScripts[secondRandomPlayer].setColor(meshColors[1]);
+                        break;
+                }
+                lastDecisionForTwoPlayers = decision;
+            }
+            else
+            {
+                for (int i = 0; i < PlayersScripts.Length; i++)
+                {
+                    AbstractPlayer script = PlayersScripts[i];
+                    if (i == firstRandomPlayer || i == secondRandomPlayer)
+                    {
+                        script.setColor(meshColors[1]);
+
+                    }
+                    else
+                    {
+                        script.setColor(meshColors[2]);
+                    }
                 }
             }
-
         }
         else
         {
@@ -87,5 +119,20 @@ public class ColorChangeManager : MonoBehaviour
             }
         }
         startCount();
+    }
+
+    private void getTwoRandomPlayersIdx(out int first, out int second, bool isMustBeAlive)
+    {
+        first = Random.Range(0, PlayersScripts.Length);
+        while(isMustBeAlive && PlayersScripts[first].getIsOut())
+        {
+            first = Random.Range(0, PlayersScripts.Length);
+        }
+        second = Random.Range(0, PlayersScripts.Length);
+        while (second == first || (isMustBeAlive && PlayersScripts[second].getIsOut()))
+        {
+            second = Random.Range(0, PlayersScripts.Length);
+        }
+
     }
 }
