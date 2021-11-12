@@ -30,7 +30,11 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         gm.winEvent.AddListener(gameFinish);
-        restartButton.onClick.AddListener(gm.restartGame);
+        if (restartButton)
+        {
+            restartButton.onClick.AddListener(gm.restartGame);
+
+        }
         animator = GetComponent<Animator>();
 
         energyBars = new List<Image>();
@@ -76,7 +80,10 @@ public class UIManager : MonoBehaviour
     private void gameFinish(int winnerIndex)
     {
         setWinText(winnerIndex);
-        restartButton.gameObject.SetActive(true);
+        if (restartButton)
+        {
+            restartButton.gameObject.SetActive(true);
+        }
     }
 
     public void setWinText(int winnerIndex)

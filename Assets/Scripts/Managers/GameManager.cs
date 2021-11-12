@@ -162,11 +162,15 @@ public class GameManager : MonoBehaviour
             }
 
             UIMgr = mobileUIMgr;
+            PCUIMgr.gameObject.SetActive(false);
             mobileCamera.SetActive(true);
+            pcCamera.SetActive(false);
         }
         else
         {
             UIMgr = PCUIMgr;
+            mobileUIMgr.gameObject.SetActive(false);
+            mobileCamera.SetActive(false);
             pcCamera.SetActive(true);
         }
         UIMgr.gameObject.SetActive(true);
@@ -300,12 +304,6 @@ public class GameManager : MonoBehaviour
     {
         GetColorChanger().ColorChanger();
         AudioManagerRef.Init(this);
-   //     for (int i = 0; i < players.Length; i++)
-  //      {
- //           players[i].SetActive(true);
-//            playersScripts[i].playerOut.AddListener(playerDied);
-
-       // }
         UIMgr.startCounter(startCountTime, "GO!!!!", true, startGame);
         AudioManagerRef.Play_Sound(AudioManager.SoundTypes.Countdown);
         GetPM().Play_Effect(ParticlesManager.ParticleTypes.Snow,Vector3.up*SNOW_HEIGHT);
@@ -322,7 +320,7 @@ private void startGame()
         {
             InvokeRepeating("createPickup", 5, 10);
         }
-        AudioManagerRef.Play_Sound(AudioManager.SoundTypes.BG_Music);
+        AudioManagerRef.Play_Sound(AudioManager.SoundTypes.BG_Music,true);
         // StartCoroutine(MusicUtil.FadeIn(audioSource, 3));
         if (isSuddenDeath)
         {
@@ -360,7 +358,6 @@ private void startGame()
             if (Vector3.Distance(milk.transform.position, milkTarget) < 0.001f)
             {
                 isMilkRising = false;
-                print("here");
             }
         }
     }
@@ -392,8 +389,8 @@ private void startGame()
             milkRiseCount++;
             isMilkRising = true;
             milkTarget = milk.transform.position + Vector3.up * MILK_RISE_HIGHT;
-            print("milkTarget" + milkTarget);
-            print("milk");
+            //print("milkTarget" + milkTarget);
+            //print("milk");
         }
     }
 

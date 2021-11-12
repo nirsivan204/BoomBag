@@ -16,7 +16,7 @@ public class RigidPlayer : AbstractPlayer
 			isRigid = true;
 			gameManager.AudioManagerRef.Play_Sound(AudioManager.SoundTypes.Rigid , player_index: playerIndex);
 			playerMeshRenderer.material.color = Color.black;
-			Invoke("endAbility", 5f);
+			Invoke("endAbility", 4f);
 			print("RIGID");
 		}
 	}

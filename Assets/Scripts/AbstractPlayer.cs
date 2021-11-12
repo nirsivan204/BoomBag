@@ -322,13 +322,16 @@ public class AbstractPlayer : MonoBehaviour
             Time.timeScale = 0.6f;
             Invoke("stopSlowDown", 0.6f);
             gameManager.GetPM().Play_Effect(ParticlesManager.ParticleTypes.Boom, transform.position);
-            if (other.getColor() == MyColor)
+            if (!other.isRigid && !isRigid)
             {
-                grow();
-            }
-            else
-            {
-                shrink();
+                    if (other.getColor() == MyColor)
+                    {
+                        grow();
+                    }
+                    else
+                    {
+                        shrink();
+                    }
             }
             canMove = false;
             StartCoroutine(setCanMove(true, delayAfterBump));

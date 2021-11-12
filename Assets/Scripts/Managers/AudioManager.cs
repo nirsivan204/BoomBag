@@ -68,8 +68,8 @@ public class AudioManager : MonoBehaviour
         Player1Movement,
         Player2Movement,
         Player3Movement,
-        Player4Movement
-        
+        Player4Movement,
+        Death,
     }
 
     internal void Init(GameManager gameManager)
@@ -107,12 +107,13 @@ public class AudioManager : MonoBehaviour
             case SoundTypes.Movement:
                 return Get_AudioSource_By_Type(AudioSourceTypes.Player1Movement + player_index);
             case SoundTypes.Player_Spawn:
-            case SoundTypes.Player_Death:
             case SoundTypes.Ghost:
             case SoundTypes.Rigid:
             case SoundTypes.Jump:
             case SoundTypes.Dash:
                 return Get_AudioSource_By_Type(AudioSourceTypes.Player1 + player_index);
+            case SoundTypes.Player_Death:
+                return Get_AudioSource_By_Type(AudioSourceTypes.Death);
             case SoundTypes.Click_01:
                 return Get_AudioSource_By_Type(AudioSourceTypes.UI);
             case SoundTypes.Bump:
