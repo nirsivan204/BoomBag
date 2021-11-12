@@ -59,7 +59,7 @@ public class PickupsManager : MonoBehaviour
             //pickupClone.transform.localRotation = Quaternion.Euler(90, 0, 0);
 
             Pickup script = pickupClone.GetComponent<Pickup>();
-            script.init(pickupType);
+            script.init(pickupType,GM);
             pickupClone.SetActive(true);
         }
     }

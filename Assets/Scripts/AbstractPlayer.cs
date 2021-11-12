@@ -45,7 +45,6 @@ public class AbstractPlayer : MonoBehaviour
     protected bool isRigid = false;
     private bool canMove = false;
     private int invertFactor = 1;
-    private int numSequentialInverts = 0;
     public AudioSource audioSource;
     public SimpleTouchController touchController;
     [SerializeField] private float holeFactor = 550;
@@ -249,6 +248,13 @@ public class AbstractPlayer : MonoBehaviour
     {
         if (isInit)
         {
+            if(invertFactor == -1)
+            {
+                if(Time.time - invertedTime >= invertedDuration)
+                {
+                    invertFactor = 1;
+                }
+            }
             rb.AddForce(Vector3.down * GRAVITY_SCALE,ForceMode.Acceleration);
             if (canMove)
             {
@@ -323,7 +329,7 @@ public class AbstractPlayer : MonoBehaviour
             }
             Time.timeScale = 0.6f;
             Invoke("stopSlowDown", 0.6f);
-            gameManager.GetPM().Play_Effect(ParticlesManager.ParticleTypes.Boom, transform.position);
+            gameManager.GetPM().Play_Effect(ParticlesManager.ParticleTypes.Bump, transform.position);
             if (!other.isRigid && !isRigid)
             {
                     if (other.getColor() == MyColor)
@@ -426,24 +432,22 @@ public class AbstractPlayer : MonoBehaviour
 
     }
 
-    public void invertControls(float time)
+    private float invertedTime;
+    private float invertedDuration;
+
+    public void invertControls(float duration)
     {
     
         if (invertFactor == -1)
         {
-            numSequentialInverts++;
-        }
-        invertFactor *= -1;
-        Invoke("unInvertControls", time);
-    }
-
-    public void unInvertControls()
-    {
-        if (numSequentialInverts == 0)
-        {
             invertFactor = 1;
         }
-        numSequentialInverts--;
+        else
+        {
+            invertedTime = Time.time;
+            invertedDuration = duration;
+            invertFactor = -1;
+        }
     }
 
     public virtual void setColor(Color color)

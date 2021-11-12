@@ -8,15 +8,17 @@ public class Pickup : MonoBehaviour
     public static int numOfTypes = 5;
 
     public PickupsManager.pickupsTypes Type;
-    public const float INVERT_TIME = 5;
+    public const float INVERT_DURATION = 5;
     public const float EXPLOSION_FORCE = 50;
     public GameObject explosionEffect;
     private float explosionRadius = 10;
     private AudioSource audioSource;
     private bool isInit = false;
+    GameManager GM;
 
-    public void init(PickupsManager.pickupsTypes type)
+    public void init(PickupsManager.pickupsTypes type, GameManager gm)
     {
+        GM = gm;
         audioSource = GetComponent<AudioSource>();
         Type = type;
         switch (type)
@@ -63,16 +65,20 @@ public class Pickup : MonoBehaviour
         switch (Type)
         {
             case PickupsManager.pickupsTypes.ENLARGE:
+                GM.GetPM().Play_Effect(ParticlesManager.ParticleTypes.Enlarge, transform.position);
                 player.grow(5);
                 break;
             case PickupsManager.pickupsTypes.SHRINK:
+                GM.GetPM().Play_Effect(ParticlesManager.ParticleTypes.Shrink, transform.position);
                 player.shrink(5);
                 break;
             case PickupsManager.pickupsTypes.FULLPOWER:
+                GM.GetPM().Play_Effect(ParticlesManager.ParticleTypes.Mana, transform.position);
                 player.setEnergy(AbstractPlayer.MAX_ENERGY);
                 break;
             case PickupsManager.pickupsTypes.INVERTER:
-                player.invertControls(INVERT_TIME);
+                GM.GetPM().Play_Effect(ParticlesManager.ParticleTypes.Inverser, transform.position);
+                player.invertControls(INVERT_DURATION);
                 break;
             case PickupsManager.pickupsTypes.BOMB:
                 explode();
@@ -85,6 +91,7 @@ public class Pickup : MonoBehaviour
         Collider[] coliders = Physics.OverlapSphere(transform.position, explosionRadius);
         print(coliders.Length);
         audioSource.Play();
+        GM.GetPM().Play_Effect(ParticlesManager.ParticleTypes.Boom,transform.position);
         foreach (Collider player in coliders)
         {
             print(player);

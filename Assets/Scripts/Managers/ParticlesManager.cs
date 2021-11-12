@@ -18,12 +18,17 @@ public class ParticlesManager : MonoBehaviour
 
     public enum ParticleTypes
     {
-        None = 0,
+        None,
+        Bump,
+        Splash,
+        Snow,
+        DashRocket,
+        Boom,
+        Inverser,
+        Enlarge,
+        Shrink,
+        Mana
 
-        Boom = 1,
-        Splash = 2,
-        Snow = 3,
-        DashRocket = 4
     }
 
     internal void Init(GameManager gameManager)
