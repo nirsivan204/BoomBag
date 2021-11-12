@@ -19,7 +19,6 @@ public class Pickup : MonoBehaviour
     public void init(PickupsManager.pickupsTypes type, GameManager gm)
     {
         GM = gm;
-        audioSource = GetComponent<AudioSource>();
         Type = type;
         switch (type)
         {
@@ -81,6 +80,8 @@ public class Pickup : MonoBehaviour
                 player.invertControls(INVERT_DURATION);
                 break;
             case PickupsManager.pickupsTypes.BOMB:
+                GM.GetPM().Play_Effect(ParticlesManager.ParticleTypes.Boom, transform.position);
+                GM.AudioManagerRef.Play_Sound(AudioManager.SoundTypes.Boom);
                 explode();
                 break;
         }
@@ -89,9 +90,6 @@ public class Pickup : MonoBehaviour
     {
         //Instantiate(explosionEffect);
         Collider[] coliders = Physics.OverlapSphere(transform.position, explosionRadius);
-        print(coliders.Length);
-        audioSource.Play();
-        GM.GetPM().Play_Effect(ParticlesManager.ParticleTypes.Boom,transform.position);
         foreach (Collider player in coliders)
         {
             print(player);

@@ -48,6 +48,7 @@ public class AudioManager : MonoBehaviour
         Shrink = 201,
         Grow = 202,
         ColorChange = 203,
+        Boom = 204,
         // Music
         BG_Music = 300,
         Countdown = 301,
@@ -119,6 +120,7 @@ public class AudioManager : MonoBehaviour
             case SoundTypes.Bump:
             case SoundTypes.Shrink:
             case SoundTypes.Grow:
+            case SoundTypes.Boom:
                 return Get_AudioSource_By_Type(AudioSourceTypes.Gameplay);
             case SoundTypes.ColorChange:
             case SoundTypes.Countdown:
