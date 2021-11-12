@@ -314,12 +314,12 @@ public class AbstractPlayer : MonoBehaviour
                 //gameManager.AudioManagerRef.Play_Sound(AudioManager.SoundTypes.Bump);
                 //audioSource.clip = bumpSound;
                 //audioSource.Play();
-                rb.AddExplosionForce(bumpForce * other.getMass(), (other.transform.position + transform.position) / 2, 100, 0);//, ForceMode.Acceleration); or other.size??maybe cancel mass at all??
+                rb.AddExplosionForce(bumpForce * other.getMass() / 2, (other.transform.position + transform.position) / 2, 100, 0);//, ForceMode.Acceleration); or other.size??maybe cancel mass at all??
+                
             }
-            else
+            else if (!other.isRigid)
             {
-                Vector3 collisionForce = otherPlayer.impulse;
-                rb.AddForce(collisionForce, ForceMode.Impulse);
+                other.rb.AddExplosionForce(bumpForce * getMass() / 2, (other.transform.position + transform.position) / (-2), 100, 0);//, ForceMode.Acceleration); or other.size??maybe cancel mass at all??
             }
             Time.timeScale = 0.6f;
             Invoke("stopSlowDown", 0.6f);
