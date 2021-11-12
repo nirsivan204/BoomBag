@@ -249,7 +249,7 @@ public class AbstractPlayer : MonoBehaviour
     {
         if (isInit)
         {
-            rb.AddForce(Vector3.down * GRAVITY_SCALE);
+            rb.AddForce(Vector3.down * GRAVITY_SCALE,ForceMode.Acceleration);
             if (canMove)
             {
                 Vector3 movement = new Vector3(movementX, 0, movementY);
@@ -265,7 +265,8 @@ public class AbstractPlayer : MonoBehaviour
                 }
                 if (!overSpeedAllowed)
                 {
-                    rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxSpeed);
+                    Vector3 horizontalVel = Vector3.ProjectOnPlane(rb.velocity, Vector3.up);
+                    rb.velocity = Vector3.ClampMagnitude(horizontalVel, maxSpeed) + rb.velocity.y * Vector3.up;//Mathf.Clamp(rb.velocity.y,-maxVerticalSpeed, maxVerticalSpeed) * Vector3.up;
                 }
                 if (energy < MAX_ENERGY)
                 {
@@ -300,6 +301,7 @@ public class AbstractPlayer : MonoBehaviour
     public float MinMovementSoundPitch = 0.9f;
     public float MaxMovementSoundPitch = 1.1f;
     private bool isInit = false;
+    private float maxVerticalSpeed = 1;
 
     private void OnCollisionEnter(Collision otherPlayer)
     {
@@ -334,7 +336,8 @@ public class AbstractPlayer : MonoBehaviour
                     }
             }
             canMove = false;
-            StartCoroutine(setCanMove(true, delayAfterBump));
+            disableMoveForSeconds(delayAfterBump);
+//            StartCoroutine(setCanMove(true, delayAfterBump));
         }
         else
         {
@@ -503,10 +506,17 @@ public class AbstractPlayer : MonoBehaviour
         return 0;
     }
 
+    public void disableMoveForSeconds(float seconds)
+    {
+        canMove = false;
+        StartCoroutine(setCanMove(true, seconds));
+
+    }
     public IEnumerator setCanMove(bool Move, float seconds)
     {
         yield return new WaitForSeconds(seconds);
         canMove = Move;
+        print("canmove = " + canMove);
     }
 
     public void setEnergy(float energy)

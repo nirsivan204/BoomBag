@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
  
 public class JumperPlayer : AbstractPlayer
 {
-	private float jumpForce = 200;
+	private float jumpForce = 20;
 	//private AudioClip jumpSound;
 	public override void init()
 	{

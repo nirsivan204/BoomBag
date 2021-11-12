@@ -21,7 +21,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject dummyPlayer;
     [SerializeField] UIManager mobileUIMgr;
     [SerializeField] UIManager PCUIMgr;
-    [SerializeField] GameObject pickupBounderies;
+    [SerializeField] PickupsManager pickupMgr;
+
 
 
     public float SNOW_HEIGHT;
@@ -61,10 +62,6 @@ public class GameManager : MonoBehaviour
 
     private Vector3 milkTarget;
     private GameObject arenaChosen = null;
-
-    private float xBoundery;
-    private float yBoundery;
-    private float zBoundery;
 
     private AbstractPlayer mobilePlayer;
 
@@ -199,6 +196,16 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public GameObject GetArenaChosen()
+    {
+        return arenaChosen;
+    }
+
+    public void SetArenaChosen(GameObject value)
+    {
+        arenaChosen = value;
+    }
+
     public ParticlesManager GetPM()
     {
         return PM;
@@ -264,40 +271,27 @@ public class GameManager : MonoBehaviour
         switch (arena)
         {
             case ArenaTypes.CHEERIOS:
-                arenaChosen = arenas[0];
+                SetArenaChosen(arenas[0]);
                 break;
             case ArenaTypes.UGI:
-                arenaChosen = arenas[1];
+                SetArenaChosen(arenas[1]);
                 break;
             case ArenaTypes.FLAT:
-                arenaChosen = arenas[2];
+                SetArenaChosen(arenas[2]);
                 break;
         }
-        arenaChosen.SetActive(true);
+        GetArenaChosen().SetActive(true);
         if (isTilting)
         {
-            arenaChosen.GetComponent<TiltManager>().enabled = true;
+            GetArenaChosen().GetComponent<TiltManager>().enabled = true;
         }
         if (createPickups)
         {
-            calculateBounderiesOfPickups();
 
+            pickupMgr.Init(this);
         }
     }
 
-    private void calculateBounderiesOfPickups()
-    {
-
-
-     //   return center + new Vector3(
-     //       (Random.value - 0.5f) * pickupBounderies.transform.localScale.x,
-     //       pickupBounderies.transform.position.y,
-    //        (Random.value - 0.5f) * pickupBounderies.transform.localScale.z)
-    //);
-        xBoundery = pickupBounderies.transform.localScale.x;
-        yBoundery = pickupBounderies.transform.position.y;
-        zBoundery = pickupBounderies.transform.localScale.z;
-    }
 
 
     void Start()
@@ -316,10 +310,6 @@ private void startGame()
         {
             StartCoroutine(playersScripts[i].setCanMove(true,0));
         }
-        if (createPickups)
-        {
-            InvokeRepeating("createPickup", 5, 10);
-        }
         AudioManagerRef.Play_Sound(AudioManager.SoundTypes.BG_Music,true);
         // StartCoroutine(MusicUtil.FadeIn(audioSource, 3));
         if (isSuddenDeath)
@@ -327,27 +317,8 @@ private void startGame()
             InvokeRepeating("milkRiseStart", MILK_RISE_TIME, MILK_RISE_PERIOD);
         }
     }
-    private Vector3 getRandomLocation()
-    {
-        return new Vector3((Random.value - 0.5f) * xBoundery, yBoundery, (Random.value - 0.5f) * zBoundery);
-    }
-    private void createPickup()
-    {
-        Pickup.pickupsTypes type = Pickup.getRandomType();
-        Vector3 randLocation = getRandomLocation();
-        GameObject pickupClone = Instantiate(pickup, randLocation,Quaternion.identity);
-        Vector3 scaleTmp = pickupClone.transform.localScale;
-        scaleTmp.x /= arenaChosen.transform.localScale.x;
-        scaleTmp.y /= arenaChosen.transform.localScale.z;
-        scaleTmp.z /= arenaChosen.transform.localScale.y;
-        pickupClone.transform.parent = arenaChosen.transform;
-        pickupClone.transform.localScale = scaleTmp;
-        pickupClone.transform.localRotation = Quaternion.Euler(90,0,0);
 
-        Pickup script = pickupClone.GetComponent<Pickup>();
-        script.setType(type);
-        pickupClone.SetActive(true);
-    }
+
     // Update is called once per frame
     void Update()
     {
