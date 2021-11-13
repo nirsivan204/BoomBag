@@ -17,7 +17,7 @@ public class AvoiderPlayer : AbstractPlayer
 			//prev_vel = rb.GetPointVelocity(rb.centerOfMass);
 			speed += addedSpeed;
 			Invoke("endAbility", 1f);
-			DashFireParticle = gameManager.GetPM().Play_Effect(ParticlesManager.ParticleTypes.DashRocket, Vector3.zero, gameObject.transform);
+			DashFireParticle = gameManager.GetPM().Play_Effect(ParticlesManager.ParticleTypes.DashRocket, Vector3.forward*-1, gameObject.transform);
 			gameManager.AudioManagerRef.Play_Sound(AudioManager.SoundTypes.Dash, player_index: playerIndex);
 			//print("DASH");
 		}

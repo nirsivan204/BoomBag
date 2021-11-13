@@ -27,7 +27,8 @@ public class ParticlesManager : MonoBehaviour
         Inverser,
         Enlarge,
         Shrink,
-        Mana
+        Mana,
+        Jump
 
     }
 
