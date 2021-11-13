@@ -10,6 +10,8 @@ public class SC_MainMenu : MonoBehaviour
     public GameObject mainMenu;
     public GameObject creditsMenu;
     public GameObject characterSelect;
+
+    public GameObject howToPlay;
     public TMP_Dropdown m_Dropdown;
     public static TextMeshPro m_Text;
     private bool isMobile;
@@ -44,6 +46,7 @@ public class SC_MainMenu : MonoBehaviour
         mainMenu.SetActive((false));
         creditsMenu.SetActive((false));
         characterSelect.SetActive((true));
+        howToPlay.SetActive((false));
     }
 
     public void CreditsButton()
@@ -52,6 +55,7 @@ public class SC_MainMenu : MonoBehaviour
         mainMenu.SetActive(false);
         creditsMenu.SetActive(true);
         characterSelect.SetActive((false));
+        howToPlay.SetActive((false));
     }
 
     public void MainMenuButton()
@@ -60,5 +64,15 @@ public class SC_MainMenu : MonoBehaviour
         mainMenu.SetActive(true);
         creditsMenu.SetActive(false);
         characterSelect.SetActive((false));
+        howToPlay.SetActive((false));
+    }
+
+    public void HowToPlayButton()
+    {
+        // Shows how to play the game
+        mainMenu.SetActive(false);
+        creditsMenu.SetActive(false);
+        characterSelect.SetActive((false));
+        howToPlay.SetActive((true));
     }
 }
