@@ -147,7 +147,7 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
-    Android: com.DefaultCompany.BoomPartyRoyale
+    Android: com.DefaultCompany.BoomBags
     Standalone: com.DefaultCompany.BoomBags
   buildNumber:
     Standalone: 0
