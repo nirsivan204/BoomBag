@@ -436,6 +436,26 @@ public class AbstractPlayer : MonoBehaviour
     private float invertedTime;
     private float invertedDuration;
 
+    public float GetArenaRadius()
+    {
+        return ArenaRadius;
+    }
+
+    public void SetArenaRadius(float value)
+    {
+        ArenaRadius = value;
+    }
+
+    public float GetHoleRadius()
+    {
+        return HoleRadius;
+    }
+
+    public void SetHoleRadius(float value)
+    {
+        HoleRadius = value;
+    }
+
     public void invertControls(float duration)
     {
     

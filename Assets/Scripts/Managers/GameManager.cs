@@ -62,7 +62,8 @@ public class GameManager : MonoBehaviour
 
     private Vector3 milkTarget;
     private GameObject arenaChosen = null;
-
+    private float arenaOutRadius;
+    private float arenaInnerRadius;
     private AbstractPlayer mobilePlayer;
 
 
@@ -70,8 +71,8 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         getGameParams();
+        initArena();
 
-        arenas[0].SetActive(false);
         numPlayersAlive = 0;
         winEvent = new IntEvent();
         playersScripts = new AbstractPlayer[players.Length];
@@ -129,6 +130,8 @@ public class GameManager : MonoBehaviour
                 playerScript.setIsHuman(humanOrAI[i]);
                 playerScript.setPlayerIndex(i);
                 playerScript.setGameManager(this);
+                playerScript.SetArenaRadius(arenaOutRadius);
+                playerScript.SetHoleRadius(arenaInnerRadius);
                 playersScripts[i] = playerScript;
                 playerScript.enabled = true;
             }
@@ -186,7 +189,6 @@ public class GameManager : MonoBehaviour
         GetColorChanger().UIManager = UIMgr;
 
         dummyPlayer.SetActive(false);
-        initArena();
     }
 
     public AudioManager AudioManagerRef
@@ -205,6 +207,8 @@ public class GameManager : MonoBehaviour
     public void SetArenaChosen(GameObject value)
     {
         arenaChosen = value;
+        arenaOutRadius = arenaChosen.transform.Find("OuterBounds").position.magnitude;
+        arenaInnerRadius = arenaChosen.transform.Find("InsideBounds").position.magnitude;
     }
 
     public ParticlesManager GetPM()
@@ -268,7 +272,10 @@ public class GameManager : MonoBehaviour
 
     private void initArena()
     {
-        
+        for(int i = 0; i < arenas.Length; i++)
+        {
+            arenas[i].SetActive(false);
+        }
         switch (arena)
         {
             case ArenaTypes.CHEERIOS:
