@@ -127,7 +127,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 3
+  bundleVersion: 3.1
   preloadedAssets:
   - {fileID: 11400000, guid: 18d328c302484e84597bf1b9f3f83aa8, type: 2}
   metroInputSource: 0
@@ -147,14 +147,14 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
-    Android: com.DefaultCompany.BoomBags
+    Android: com.DefaultCompany.BoomPartyRoyale
     Standalone: com.DefaultCompany.BoomBags
   buildNumber:
     Standalone: 0
     iPhone: 0
     tvOS: 0
   overrideDefaultApplicationIdentifier: 0
-  AndroidBundleVersionCode: 3
+  AndroidBundleVersionCode: 31
   AndroidMinSdkVersion: 19
   AndroidTargetSdkVersion: 30
   AndroidPreferredInstallLocation: 1
