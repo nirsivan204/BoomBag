@@ -94,8 +94,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecc7a6f3f210878418b41d0fb56c9698, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  degreesPerSecond: 15
   amplitude: 0.25
-  frequency: 1
-  player: {fileID: 0}
-  playerHeight: 2
