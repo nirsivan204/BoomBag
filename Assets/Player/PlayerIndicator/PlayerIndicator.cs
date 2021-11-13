@@ -9,6 +9,7 @@ public class PlayerIndicator : MonoBehaviour {
     AbstractPlayer parentPlayer;
     MeshRenderer mesh;
     Vector3 tempPos;// = new Vector3 ();
+    public Vector3 RotatePlayerIndicator;
  
     // Use this for initialization
     void Start () {
@@ -19,6 +20,8 @@ public class PlayerIndicator : MonoBehaviour {
         }
         mesh = GetComponent<MeshRenderer>();
         amplitude /= 50;
+        tempPos = transform.localPosition;
+
     }
 
     // Update is called once per frame
@@ -34,11 +37,8 @@ public class PlayerIndicator : MonoBehaviour {
         
         // Fill the indicator according to player's energy:
        // mesh.material.SetTextureOffset("_MainTex" , new Vector2(0, parentPlayer.energy / (AbstractPlayer.MAX_ENERGY * 2)));
-       
-       
     }
-
-
+    
     private void LateUpdate()
     {
         // Look at Camera

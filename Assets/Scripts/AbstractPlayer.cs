@@ -110,6 +110,7 @@ public class AbstractPlayer : MonoBehaviour
         {
             touchController.TouchEvent += Controller_TouchEvent;
         }
+        transform.LookAt(transform.position.y * Vector3.up);
         isInit = true;
     }
 

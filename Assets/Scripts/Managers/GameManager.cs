@@ -100,6 +100,7 @@ public class GameManager : MonoBehaviour
             pref.name = "Body";
             pref.transform.parent = players[i].transform;
             pref.transform.localPosition = new Vector3(0, 0, 0);
+            
 
             switch (charTypes[i])
             {
