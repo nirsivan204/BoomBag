@@ -262,7 +262,7 @@ public class GameManager : MonoBehaviour
         if (gameParams.isInit)
         {
             charTypes = gameParams.characterArray;
-
+            arena = gameParams.arena;
         }
     }
 

@@ -13,11 +13,13 @@ public static class gameParams
     public static bool isInit = false;
 
     public static GameManager.CharTypes[] characterArray { get; set; } = { 0, 0, 0, 0 };
+    public static GameManager.ArenaTypes arena { get; set; } = 0;
     public static int[] isHumansArray { get; set; }
 
     static public void init()
     {
         isInit = true;
+        arena = 1 - arena;
         //Add listener for when the value of the Dropdown changes, to take action
     }
 }
