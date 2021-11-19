@@ -65,18 +65,22 @@ public class Pickup : MonoBehaviour
         {
             case PickupsManager.pickupsTypes.ENLARGE:
                 GM.GetPM().Play_Effect(ParticlesManager.ParticleTypes.Enlarge, transform.position);
-                player.grow(5);
+                GM.AudioManagerRef.Play_Sound(AudioManager.SoundTypes.Pickup_Enlarge);
+                player.grow(5,true);
                 break;
             case PickupsManager.pickupsTypes.SHRINK:
                 GM.GetPM().Play_Effect(ParticlesManager.ParticleTypes.Shrink, transform.position);
-                player.shrink(5);
+                GM.AudioManagerRef.Play_Sound(AudioManager.SoundTypes.Pickup_Shrink);
+                player.shrink(5, true);
                 break;
             case PickupsManager.pickupsTypes.FULLPOWER:
                 GM.GetPM().Play_Effect(ParticlesManager.ParticleTypes.Mana, transform.position);
+                GM.AudioManagerRef.Play_Sound(AudioManager.SoundTypes.Pickup_Mana);
                 player.setEnergy(AbstractPlayer.MAX_ENERGY);
                 break;
             case PickupsManager.pickupsTypes.INVERTER:
                 GM.GetPM().Play_Effect(ParticlesManager.ParticleTypes.Inverser, transform.position);
+                GM.AudioManagerRef.Play_Sound(AudioManager.SoundTypes.Pickup_Inverter);
                 player.invertControls(INVERT_DURATION);
                 break;
             case PickupsManager.pickupsTypes.BOMB:

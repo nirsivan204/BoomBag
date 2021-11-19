@@ -49,6 +49,10 @@ public class AudioManager : MonoBehaviour
         Grow = 202,
         ColorChange = 203,
         Boom = 204,
+        Pickup_Enlarge = 205,
+        Pickup_Shrink = 206,
+        Pickup_Inverter = 207,
+        Pickup_Mana = 208,
         // Music
         BG_Music = 300,
         Countdown = 304,
@@ -121,7 +125,11 @@ public class AudioManager : MonoBehaviour
             case SoundTypes.Shrink:
             case SoundTypes.Grow:
             case SoundTypes.Boom:
-                return Get_AudioSource_By_Type(AudioSourceTypes.Gameplay);
+            case SoundTypes.Pickup_Enlarge:
+            case SoundTypes.Pickup_Shrink:
+            case SoundTypes.Pickup_Inverter:
+            case SoundTypes.Pickup_Mana:
+               return Get_AudioSource_By_Type(AudioSourceTypes.Gameplay);
             case SoundTypes.ColorChange:
             case SoundTypes.Countdown:
                 return Get_AudioSource_By_Type(AudioSourceTypes.GameEvents);

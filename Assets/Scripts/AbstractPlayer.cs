@@ -388,36 +388,46 @@ public class AbstractPlayer : MonoBehaviour
         }
 
     }
-        public void grow(int times = 1)
+        public void grow(int times = 1, bool isPickup = false)
     {
         if (size < maxGrow)
         {
-            size = Math.Min(maxGrow,size + times);
+            size = Math.Min(maxGrow, size + times);
             setNewSize();
-            gameManager.AudioManagerRef.Play_Sound(AudioManager.SoundTypes.Grow);
-//            audioSource.clip = growsound;
-//            audioSource.Play();
+            if (!isPickup)
+            {
+                gameManager.AudioManagerRef.Play_Sound(AudioManager.SoundTypes.Grow);
+
+            }
         }
         else
         {
-            gameManager.AudioManagerRef.Play_Sound(AudioManager.SoundTypes.Bump);
+            if (!isPickup)
+            {
+                gameManager.AudioManagerRef.Play_Sound(AudioManager.SoundTypes.Bump);
+            }
         }
 
     }
 
-    public void shrink(int times = 1)
+    public void shrink(int times = 1, bool isPickup = false)
     {
         if (size > minGrow)
         {
             size = Math.Max(minGrow, size - times);
             setNewSize();
-            gameManager.AudioManagerRef.Play_Sound(AudioManager.SoundTypes.Shrink);
-            //audioSource.clip = shrinksound;
-            //audioSource.Play();
+            if (!isPickup)
+            {
+                gameManager.AudioManagerRef.Play_Sound(AudioManager.SoundTypes.Shrink);
+
+            }
         }
         else
         {
-            gameManager.AudioManagerRef.Play_Sound(AudioManager.SoundTypes.Bump);
+            if (!isPickup)
+            {
+                gameManager.AudioManagerRef.Play_Sound(AudioManager.SoundTypes.Bump);
+            }
         }
     }
 
