@@ -42,7 +42,7 @@ public class ColorChangeManager : MonoBehaviour
 
     private void startShowCount()
     {
-        UIManager.startCounter(timeToShowCount, "COLOR MIX!",false, ColorChanger);
+        UIManager.startCounter(timeToShowCount, "COLOR CHANGE!",false, ColorChanger);
     }
 
     int lastDecisionForTwoPlayers = -1;
