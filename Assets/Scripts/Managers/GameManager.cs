@@ -53,11 +53,6 @@ public class GameManager : MonoBehaviour
 
     public bool isSuddenDeath = false;
     private bool isMilkRising = false;
-    public const float MILK_RISE_TIME = 5;
-    public const float MILK_RISE_PERIOD = 5;
-    public const float MILK_RISE_HIGHT = 1;
-    public const float MILK_RISE_SPEED = 0.5f;
-    public const float MILK_RISE_REPEATED_TIMES = 4;
     private int milkRiseCount = 0;
 
     private Vector3 milkTarget;
@@ -65,6 +60,7 @@ public class GameManager : MonoBehaviour
     private float arenaOutRadius;
     private float arenaInnerRadius;
     private AbstractPlayer mobilePlayer;
+    private TiltManager tiltMgr;
 
 
     // Start is called before the first frame update
@@ -291,7 +287,9 @@ public class GameManager : MonoBehaviour
         GetArenaChosen().SetActive(true);
         if (isTilting)
         {
-            GetArenaChosen().GetComponent<TiltManager>().enabled = true;
+            tiltMgr = GetArenaChosen().GetComponent<TiltManager>();
+            tiltMgr.enabled = true;
+            milk.transform.position = new Vector3 (milk.transform.position.x,tiltMgr.milkStartingHight,milk.transform.position.z) ;
         }
         if (createPickups)
         {
@@ -322,7 +320,7 @@ private void startGame()
         // StartCoroutine(MusicUtil.FadeIn(audioSource, 3));
         if (isSuddenDeath)
         {
-            InvokeRepeating("milkRiseStart", MILK_RISE_TIME, MILK_RISE_PERIOD);
+            InvokeRepeating("milkRiseStart", tiltMgr.MILK_RISE_TIME, tiltMgr.MILK_RISE_PERIOD);
         }
     }
 
@@ -332,7 +330,7 @@ private void startGame()
     {
         if (isMilkRising)
         {
-            float step = MILK_RISE_SPEED * Time.deltaTime; // calculate distance to move
+            float step = tiltMgr.MILK_RISE_SPEED * Time.deltaTime; // calculate distance to move
             milk.transform.position = Vector3.MoveTowards(milk.transform.position, milkTarget, step);
             if (Vector3.Distance(milk.transform.position, milkTarget) < 0.001f)
             {
@@ -363,11 +361,11 @@ private void startGame()
 
     public void milkRiseStart()
     {
-        if (milkRiseCount < MILK_RISE_REPEATED_TIMES)
+        if (milkRiseCount < tiltMgr.MILK_RISE_REPEATED_TIMES)
         {
             milkRiseCount++;
             isMilkRising = true;
-            milkTarget = milk.transform.position + Vector3.up * MILK_RISE_HIGHT;
+            milkTarget = milk.transform.position + Vector3.up * tiltMgr.MILK_RISE_HIGHT;
             //print("milkTarget" + milkTarget);
             //print("milk");
         }

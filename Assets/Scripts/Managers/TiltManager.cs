@@ -13,6 +13,15 @@ public class TiltManager : MonoBehaviour
     public GameObject middle2;
     Quaternion lastRotation;
 
+    //MILK STUFF
+    [SerializeField] public  float MILK_RISE_TIME = 20;
+    [SerializeField] public  float MILK_RISE_PERIOD = 5;
+    [SerializeField] public  float MILK_RISE_HIGHT = 0.5f;
+    [SerializeField] public  float MILK_RISE_SPEED = 0.5f;
+    [SerializeField] public  float MILK_RISE_REPEATED_TIMES = 4;
+    [SerializeField] public float milkStartingHight;
+
+
     void Start()
     {
         timer = 0;
@@ -40,7 +49,8 @@ public class TiltManager : MonoBehaviour
 	{
         Vector3 resultingUpVector = middle2.transform.position - middle1.transform.position;
         //print(Vector3.Angle(Vector3.up, resultingUpVector));
-        if(Vector3.Angle(Vector3.up, resultingUpVector) < maxTilt)
+        //print(Quaternion.Angle(lastRotation, transform.rotation));
+        if(Vector3.Angle(Vector3.up, resultingUpVector) < maxTilt )
         {
             lastRotation = transform.rotation;
             transform.Rotate(axis, angle, Space.World);
