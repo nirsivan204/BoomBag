@@ -93,6 +93,28 @@ AudioMixerEffectController:
   m_SendTarget: {fileID: 0}
   m_EnableWetMix: 0
   m_Bypass: 0
+--- !u!244 &-6638851371829563189
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: aadb42af8b4c28e49806d2e5037651d4
+  m_EffectName: Compressor
+  m_MixLevel: 2bd728271ade3024aa41396733719d9e
+  m_Parameters:
+  - m_ParameterName: Threshold
+    m_GUID: 7e956ba0bf4ee494aa3bb2b6e9ddc67c
+  - m_ParameterName: Attack
+    m_GUID: de22fe757851040468b5d646c5755648
+  - m_ParameterName: Release
+    m_GUID: 56d9f11578e69cf4ca7349713f2ac541
+  - m_ParameterName: Make up gain
+    m_GUID: f28e8223ca1276e4cb1daed5f5be0bfa
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
 --- !u!244 &-5451772196306239326
 AudioMixerEffectController:
   m_ObjectHideFlags: 3
@@ -278,6 +300,7 @@ AudioMixerGroupController:
   m_Send: 00000000000000000000000000000000
   m_Effects:
   - {fileID: 24400004}
+  - {fileID: -6638851371829563189}
   m_UserColorIndex: 0
   m_Mute: 0
   m_Solo: 0
@@ -302,20 +325,24 @@ AudioMixerSnapshotController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Snapshot
+  m_Name: Default
   m_AudioMixer: {fileID: 24100000}
   m_SnapshotID: eac91ca13dc8043a0b282be35f51c853
   m_FloatValues:
+    7e956ba0bf4ee494aa3bb2b6e9ddc67c: -14.5
     db04f222da1dab047bac161080134565: -1757
     7e26c732849d0264d9c90d6c652b5302: 0.506
+    f28e8223ca1276e4cb1daed5f5be0bfa: 1.6
     7b70c1c388067ce45a4184bb3cc66a5a: 228
+    56d9f11578e69cf4ca7349713f2ac541: 77
     c70815756621fd0429dc6c55ca09bd8f: 0.211
+    de22fe757851040468b5d646c5755648: 10
     d498fb9506082044896d003c73a4841e: -10000
     c2d273a5cb5efd240aabb5c75fd577fe: 0
     74865356d9d9d174c8d33553bfa30a6d: 1.506
     e743a768887dd884ca6794ba770817a0: 103
     da85a57863eafdd49a12dda2a50e1655: 0
-    4294d009d8ad64f9f809740047d5c573: -32.15444
+    4294d009d8ad64f9f809740047d5c573: -25.086687
     50256539721a1044e8b989dd94081b01: 0
     a939f4aa74becc946bb21b74e346f837: 0
     7c9d23ca17452db4db32cc167ae1e06b: 0.45299998

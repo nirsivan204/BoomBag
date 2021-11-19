@@ -51,7 +51,7 @@ public class AudioManager : MonoBehaviour
         Boom = 204,
         // Music
         BG_Music = 300,
-        Countdown = 301,
+        Countdown = 304,
     }
 
     public enum AudioSourceTypes
@@ -158,4 +158,9 @@ public class AudioManager : MonoBehaviour
         return null;
     }
 
+    public void AddPitch(SoundTypes soundType, float addedPitch , int player_index = 0)
+    {
+        AudioSource source = Get_AudioSource_Of(soundType, player_index);
+        source.pitch += addedPitch;
+    }
 }

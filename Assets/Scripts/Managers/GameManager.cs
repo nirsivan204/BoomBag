@@ -366,6 +366,7 @@ private void startGame()
             milkRiseCount++;
             isMilkRising = true;
             milkTarget = milk.transform.position + Vector3.up * tiltMgr.MILK_RISE_HIGHT;
+            AudioManagerRef.AddPitch(AudioManager.SoundTypes.BG_Music, 0.1f);
             //print("milkTarget" + milkTarget);
             //print("milk");
         }
