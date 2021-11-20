@@ -127,9 +127,26 @@ public class UIManager : MonoBehaviour
         }
 	}
 
-    private IEnumerator deleteText(TMP_Text textToDelete)
+    public void showMsg(string msg, int duration, bool isMiddle)
     {
-        yield return new WaitForSeconds(1);
+        TMP_Text text;
+        if (isMiddle)
+        {
+            text = counterTextMiddle;
+        }
+        else
+        {
+            text = counterTextCorner;
+        }
+        text.SetText(msg);
+        StartCoroutine(deleteText(text, duration));
+    }
+
+
+
+    private IEnumerator deleteText(TMP_Text textToDelete, float time = 1)
+    {
+        yield return new WaitForSeconds(time);
         textToDelete.SetText("");
     }
 }

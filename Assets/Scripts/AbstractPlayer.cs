@@ -29,7 +29,7 @@ public class AbstractPlayer : MonoBehaviour
     private int startSize = 4;
     private GameObject playerCharacter;
     public Color MyColor;
-    protected Renderer playerMeshRenderer;
+    private Renderer playerMeshRenderer;
     // Energy units are equivalent to seconds:
     public float energy = 4;
     public const float MAX_ENERGY = 10;
@@ -104,8 +104,8 @@ public class AbstractPlayer : MonoBehaviour
             Invoke("aiCalculateMove", 0.5f);
         }
         audioSource = GetComponentsInChildren<AudioSource>()[1];
-        playerMeshRenderer = playerCharacter.GetComponent<Renderer>();
-        MyColor = playerMeshRenderer.material.color;
+        SetPlayerMeshRenderer(playerCharacter.GetComponent<Renderer>());
+        MyColor = GetPlayerMeshRenderer().material.color;
         if (touchController && gameManager.isMobileGame)
         {
             touchController.TouchEvent += Controller_TouchEvent;
@@ -254,6 +254,7 @@ public class AbstractPlayer : MonoBehaviour
                 if(Time.time - invertedTime >= invertedDuration)
                 {
                     invertFactor = 1;
+                    playerMeshRenderer.material.color = MyColor;
                 }
             }
             rb.AddForce(Vector3.down * GRAVITY_SCALE,ForceMode.Acceleration);
@@ -446,6 +447,16 @@ public class AbstractPlayer : MonoBehaviour
     private float invertedTime;
     private float invertedDuration;
 
+    public Renderer GetPlayerMeshRenderer()
+    {
+        return playerMeshRenderer;
+    }
+
+    public void SetPlayerMeshRenderer(Renderer value)
+    {
+        playerMeshRenderer = value;
+    }
+
     public float GetArenaRadius()
     {
         return ArenaRadius;
@@ -484,9 +495,9 @@ public class AbstractPlayer : MonoBehaviour
     public virtual void setColor(Color color)
     {
         MyColor = color;
-        if (!isRigid)
+        if (!isRigid && invertFactor != -1)
         {
-            playerMeshRenderer.material.color = color;
+            GetPlayerMeshRenderer().material.color = color;
         }
     }
 
