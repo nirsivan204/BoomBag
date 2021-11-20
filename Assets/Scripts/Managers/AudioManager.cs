@@ -53,6 +53,7 @@ public class AudioManager : MonoBehaviour
         Pickup_Shrink = 206,
         Pickup_Inverter = 207,
         Pickup_Mana = 208,
+        Milk_Rise = 209,
         // Music
         BG_Music = 300,
         Countdown = 304,
