@@ -37,27 +37,29 @@ public class TiltManager : MonoBehaviour
     }
 #endif
 
-    private void massTilt(Vector2 vector, float mass)
-    {
+    //private void massTilt(Vector2 vector, float mass)
+    //{
         
-        startTilt(new Vector3(vector.x, vector.y, 0), 0.1f * mass, 0.1f);  // 2d y is placed in 3d z.
-    }
+    //    startTilt(new Vector3(vector.x, vector.y, 0), 0.1f * mass, 0.1f);  // 2d y is placed in 3d z.
+    //}
 
 
     // Tilt angle around axis (unless it's more then maxTilt).
     void tilt(Vector3 axis, float angle)
 	{
         Vector3 resultingUpVector = middle2.transform.position - middle1.transform.position;
-        //print(Vector3.Angle(Vector3.up, resultingUpVector));
-        //print(Quaternion.Angle(lastRotation, transform.rotation));
-        if(Vector3.Angle(Vector3.up, resultingUpVector) < maxTilt )
+        
+        if (Vector3.Angle(Vector3.up, resultingUpVector) < maxTilt)
         {
             lastRotation = transform.rotation;
             transform.Rotate(axis, angle, Space.World);
         }
         else
         {
+            // This feels weird that it works, as it should cancel itself. Why can't I just delete it?
+            //  But it doesn't work corretly when removed!
             transform.rotation = lastRotation;
+            transform.Rotate(axis, angle, Space.World);
         }
     }
 
@@ -73,7 +75,7 @@ public class TiltManager : MonoBehaviour
 
     private void calculateTilt()
     {
-        Vector3 torque = Vector3.ProjectOnPlane(gm.calculateTorque(transform.position),Vector3.up);
+        Vector3 torque = Vector3.ProjectOnPlane(gm.calculateTorque(transform.position), Vector3.up);
         startTilt(new Vector3(-torque.z, 0, torque.x), -0.005f * torque.magnitude, 0.05f);  // 2d y is placed in 3d z.
         Invoke("calculateTilt", 0.1f) ;
     }
