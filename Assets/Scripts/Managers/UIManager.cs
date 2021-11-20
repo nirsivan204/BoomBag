@@ -21,10 +21,11 @@ public class UIManager : MonoBehaviour
     public delegate void FuncToCall();
     // bool middleCount;
     private FuncToCall funcToCall;
-    private List<Image> energyBars;
+    [SerializeField] private List<Image> energyBars;
     [SerializeField] private Button actionButton;
     [SerializeField] private Button startButton;
     [SerializeField] private Button restartButton;
+    
 
 
     void Start()
@@ -37,11 +38,11 @@ public class UIManager : MonoBehaviour
         }
         animator = GetComponent<Animator>();
 
-        energyBars = new List<Image>();
-        foreach (Transform child in transform.Find("energyBars"))
-		{
-            energyBars.Add(child.Find("energy").gameObject.GetComponent<Image>());
-        }
+        // energyBars = new List<Image>();
+        // foreach (Transform child in transform.Find("energyBars"))
+		// {
+        //     energyBars.Add(child.Find("energy").gameObject.GetComponent<Image>());
+        // }
 
         if (actionButton)
         {
