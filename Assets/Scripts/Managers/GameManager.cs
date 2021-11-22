@@ -64,6 +64,7 @@ public class GameManager : MonoBehaviour
     private float arenaInnerRadius;
     private AbstractPlayer mobilePlayer;
     private TiltManager tiltMgr;
+    private bool isGameEnded = false;
 
     // Start is called before the first frame update
     void Awake()
@@ -192,9 +193,25 @@ public class GameManager : MonoBehaviour
 
     private void endRound(int winner)
     {
-        gameParams.scores[winner-1]++;
+        gameParams.scores[winner]++;
         print("scores: " + gameParams.scores[0]+"," + gameParams.scores[1] + "," + gameParams.scores[2] + "," + gameParams.scores[3]);
         gameParams.roundNumber++;
+        isGameEnded = true;
+        Destroy(colorChanger.gameObject);
+        StartCoroutine(endOfRoundEffects());
+    }
+
+    private IEnumerator endOfRoundEffects()
+    {
+        yield return new WaitForSeconds(1);
+        UIMgr.showMsg("Starting Next Round", 1, true);
+        yield return new WaitForSeconds(1);
+        UIMgr.startCounter(3, "", true, startNewRound);
+
+    }
+
+    private void startNewRound()
+    {
         if (gameParams.roundNumber <= gameParams.numOfRounds)
         {
             gameParams.initRound();
@@ -204,7 +221,6 @@ public class GameManager : MonoBehaviour
         {
             LevelManager.levelMgr.loadScene("MainMenuScene");
         }
-
     }
 
     public AudioManager AudioManagerRef
@@ -369,19 +385,15 @@ private void startGame()
             {
                 if (liveOrDead[i])
                 {
-                    winEvent.Invoke(i+1);
+                    winEvent.Invoke(i);
                 }
             }
         }
-        //if(numPlayersAlive == 2 && isTeams)
-       // {
-       //     colorChanger.isTeams = false;
-       // }
     }
 
     public void milkRiseStart()
     {
-        if (milkRiseCount < tiltMgr.MILK_RISE_REPEATED_TIMES)
+        if (milkRiseCount < tiltMgr.MILK_RISE_REPEATED_TIMES && !isGameEnded)
         {
             milkRiseCount++;
             isMilkRising = true;

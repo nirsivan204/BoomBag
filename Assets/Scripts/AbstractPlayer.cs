@@ -254,7 +254,10 @@ public class AbstractPlayer : MonoBehaviour
                 if(Time.time - invertedTime >= invertedDuration)
                 {
                     invertFactor = 1;
-                    playerMeshRenderer.material.color = MyColor;
+                    if (!isRigid)
+                    {
+                        playerMeshRenderer.material.color = MyColor;
+                    }
                 }
             }
             rb.AddForce(Vector3.down * GRAVITY_SCALE,ForceMode.Acceleration);

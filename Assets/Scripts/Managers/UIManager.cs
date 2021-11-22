@@ -80,7 +80,8 @@ public class UIManager : MonoBehaviour
 
     private void gameFinish(int winnerIndex)
     {
-        setWinText(winnerIndex);
+        setWinText(winnerIndex+1);
+        StartCoroutine(deleteText(winText, 1));
         if (restartButton)
         {
             restartButton.gameObject.SetActive(true);

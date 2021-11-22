@@ -46,18 +46,7 @@ public class PickupsManager : MonoBehaviour
         {
             pickupsTypes pickupType = getRandomType();
             Vector3 randLocation = getRandomLocation();
-            GameObject pickupClone = Instantiate(pickupPref, arena.transform);
-            pickupClone.transform.position = randLocation;
-
-            Vector3 scaleTmp = pickupClone.transform.localScale;
-
-
-            scaleTmp.x /= arena.transform.localScale.x;
-            scaleTmp.y /= arena.transform.localScale.z;
-            scaleTmp.z /= arena.transform.localScale.y;
-            pickupClone.transform.localScale = scaleTmp;
-            //pickupClone.transform.localRotation = Quaternion.Euler(90, 0, 0);
-
+            GameObject pickupClone = Instantiate(pickupPref, randLocation,Quaternion.identity);
             Pickup script = pickupClone.GetComponent<Pickup>();
             script.init(pickupType,GM);
             pickupClone.SetActive(true);
@@ -83,17 +72,6 @@ public class PickupsManager : MonoBehaviour
         return new Vector3((Random.value - 0.5f) * xBoundery, yBoundery, (Random.value - 0.5f) * zBoundery);
     }
 
-/*
-    private GameObject getParticleSystemRef(ParticleTypes particleType)
-    {
-        for (int i = 0; i < ParticleType_And_Ref_List.Count; i++)
-        {
-            if (ParticleType_And_Ref_List[i].ParticleType == particleType)
-                return ParticleType_And_Ref_List[i].particleRef;
-        }
-
-        return null;
-    }*/
 
     public static pickupsTypes getRandomType()
     {
