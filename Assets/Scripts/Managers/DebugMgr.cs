@@ -44,6 +44,9 @@ public class DebugMgr : MonoBehaviour
     {
         //Resets the Scene on button press
         SceneManager.LoadScene("InitialTestScene");
+        //LevelManager.levelMgr.loadScene("MainMenuScene");
+        //LevelManager.levelMgr.loadScene("InitialTestScene");
+
     }
 
     private void OnMilkRise()
