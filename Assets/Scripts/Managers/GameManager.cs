@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -33,11 +34,13 @@ public class GameManager : MonoBehaviour
     public bool createPickups;
     public bool isMobileGame;
     public enum ArenaTypes { CHEERIOS, UGI, FLAT }
+    [HideInInspector]  public static int numOfArenas = 3;
     public ArenaTypes arena;
     public bool isTilting;
     public GameObject[] arenas;
 
     public enum CharTypes { Rigid, Soft, Jumper, Avoider };
+    [HideInInspector] public static int numOfCharTypes = 4;
     public CharTypes[] charTypes = { CharTypes.Rigid, CharTypes.Soft, CharTypes.Jumper, CharTypes.Avoider };
     public AbstractPlayer[] playersScripts;
     private int numPlayersAlive;
@@ -62,7 +65,6 @@ public class GameManager : MonoBehaviour
     private AbstractPlayer mobilePlayer;
     private TiltManager tiltMgr;
 
-
     // Start is called before the first frame update
     void Awake()
     {
@@ -71,6 +73,7 @@ public class GameManager : MonoBehaviour
 
         numPlayersAlive = 0;
         winEvent = new IntEvent();
+        winEvent.AddListener(endRound);
         playersScripts = new AbstractPlayer[players.Length];
         liveOrDead = new bool[players.Length];
         for (int i = 0; i < players.Length; i++)
@@ -185,6 +188,23 @@ public class GameManager : MonoBehaviour
         GetColorChanger().UIManager = UIMgr;
 
         dummyPlayer.SetActive(false);
+    }
+
+    private void endRound(int winner)
+    {
+        gameParams.scores[winner-1]++;
+        print("scores: " + gameParams.scores[0]+"," + gameParams.scores[1] + "," + gameParams.scores[2] + "," + gameParams.scores[3]);
+        gameParams.roundNumber++;
+        if (gameParams.roundNumber <= gameParams.numOfRounds)
+        {
+            gameParams.initRound();
+            LevelManager.levelMgr.loadScene("InitialTestScene");
+        }
+        else
+        {
+            LevelManager.levelMgr.loadScene("MainMenuScene");
+        }
+
     }
 
     public AudioManager AudioManagerRef

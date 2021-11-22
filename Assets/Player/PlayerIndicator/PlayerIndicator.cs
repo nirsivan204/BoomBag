@@ -14,7 +14,7 @@ public class PlayerIndicator : MonoBehaviour {
     // Use this for initialization
     void Start () {
         parentPlayer = transform.parent.GetComponent<AbstractPlayer>();
-        if (!parentPlayer.getIsHuman())
+        if (parentPlayer &&!parentPlayer.getIsHuman())
         {
             Destroy(gameObject);
         }

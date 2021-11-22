@@ -132,6 +132,7 @@ public class AudioManager : MonoBehaviour
             case SoundTypes.Pickup_Mana:
                return Get_AudioSource_By_Type(AudioSourceTypes.Gameplay);
             case SoundTypes.ColorChange:
+            case SoundTypes.Milk_Rise:
             case SoundTypes.Countdown:
                 return Get_AudioSource_By_Type(AudioSourceTypes.GameEvents);
             case SoundTypes.BG_Music:
