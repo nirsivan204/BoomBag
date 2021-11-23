@@ -39,6 +39,11 @@ public class PlayerIndicator : MonoBehaviour {
     
     private void LateUpdate()
     {
+        // Move to camera-player axis:
+        Vector3 plyaerToIndicator = transform.position - parentPlayer.transform.position;
+        Vector3 playerToCamera = Camera.main.transform.position - parentPlayer.transform.position;
+        transform.position += -plyaerToIndicator + (plyaerToIndicator.magnitude / playerToCamera.magnitude) * playerToCamera;
+
         // Look at Camera
         transform.LookAt(Camera.main.transform.position, Camera.main.transform.up);
     }
