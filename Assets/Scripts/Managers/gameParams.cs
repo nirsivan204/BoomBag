@@ -24,7 +24,6 @@ public static class gameParams
     public static int[] scores { get; set; } = { 0, 0, 0, 0 };
     static public void init()
     {
-        isInit = true;
         scores =  new int[]{ 0, 0, 0, 0 };
         roundNumber = 1;
         initRound();
@@ -36,6 +35,7 @@ public static class gameParams
         arena = (GameManager.ArenaTypes)Random.Range(0, GameManager.numOfArenas);
         chooseRandomCharTypes();
         BGMusic = Random.Range(0, numBGMusic);
+        isInit = true;
     }
 
     private static void chooseRandomCharTypes()

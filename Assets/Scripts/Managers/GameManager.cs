@@ -175,6 +175,7 @@ public class GameManager : MonoBehaviour
             pcCamera.SetActive(true);
         }
         UIMgr.gameObject.SetActive(true);
+        UIMgr.setScoreText(gameParams.scores);
 
         for (int i = 0; i < players.Length; i++)
         {

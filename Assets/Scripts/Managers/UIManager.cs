@@ -21,6 +21,7 @@ public class UIManager : MonoBehaviour
     public delegate void FuncToCall();
     // bool middleCount;
     private FuncToCall funcToCall;
+    [SerializeField] private TMP_Text scoreText;
     [SerializeField] private List<Image> energyBars;
     [SerializeField] private Button actionButton;
     [SerializeField] private Button startButton;
@@ -93,6 +94,11 @@ public class UIManager : MonoBehaviour
     public void setWinText(int winnerIndex)
     {
         winText.SetText("Player "+ winnerIndex + " wins!");
+    }
+
+    public void setScoreText(int [] scores)
+    {
+        scoreText.SetText(scores[0] + ":" + scores[1] + ":"+ scores[2] + ":"+ scores[3] );
     }
 
     public void startCounter(int duration, string msg, bool isMiddle, FuncToCall func)

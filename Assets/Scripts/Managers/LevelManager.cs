@@ -51,7 +51,6 @@ public class LevelManager : MonoBehaviour
         target = scene.progress;
         isLoadingScene = false;
         scene.allowSceneActivation = true;
-        await Task.Delay(1000);
         loadingScreen.SetActive(false);
         vid1.Stop();
         vid2.Stop();
