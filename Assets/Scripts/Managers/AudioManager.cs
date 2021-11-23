@@ -55,7 +55,9 @@ public class AudioManager : MonoBehaviour
         Pickup_Mana = 208,
         Milk_Rise = 209,
         // Music
-        BG_Music = 300,
+        BG_Music_1 = 300,
+        BG_Music_2 = 301,
+        //other
         Countdown = 304,
     }
 
@@ -135,7 +137,8 @@ public class AudioManager : MonoBehaviour
             case SoundTypes.Milk_Rise:
             case SoundTypes.Countdown:
                 return Get_AudioSource_By_Type(AudioSourceTypes.GameEvents);
-            case SoundTypes.BG_Music:
+            case SoundTypes.BG_Music_1:
+            case SoundTypes.BG_Music_2:
                 return Get_AudioSource_By_Type(AudioSourceTypes.Music);
             default:
                 return Get_AudioSource_By_Type(AudioSourceTypes.Gameplay);

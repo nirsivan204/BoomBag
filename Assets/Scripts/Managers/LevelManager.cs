@@ -4,12 +4,15 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-
+using UnityEngine.Video;
 public class LevelManager : MonoBehaviour
 {
     public static LevelManager levelMgr;
     [SerializeField] GameObject loadingScreen;
     [SerializeField] Image loadingBar;
+    public VideoPlayer vid1;
+    public VideoPlayer vid2;
+
     private float target;
     private float startLoadingTime;
     bool isLoadingScene = false;
@@ -36,6 +39,8 @@ public class LevelManager : MonoBehaviour
         isLoadingScene = true;
         loadingBar.fillAmount = 0;
         target = 0;
+        vid1.Play();
+        vid2.Play();
         AsyncOperation scene = SceneManager.LoadSceneAsync(sceneName);
         scene.allowSceneActivation = false;
 
@@ -48,6 +53,9 @@ public class LevelManager : MonoBehaviour
         scene.allowSceneActivation = true;
         await Task.Delay(1000);
         loadingScreen.SetActive(false);
+        vid1.Stop();
+        vid2.Stop();
+
     }
 
     private void Update()

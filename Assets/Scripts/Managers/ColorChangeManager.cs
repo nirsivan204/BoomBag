@@ -16,19 +16,18 @@ public class ColorChangeManager : MonoBehaviour
 
     public Material TransparentMat { get => transparentMat; set => transparentMat = value; }
     public Material RegulatMat { get => regulatMat; set => regulatMat = value; }
-
-    public void Awake()
+    public void init()
     {
         // Set Hex colors to Color name in array
-        ColorUtility.TryParseHtmlString("#CDD764", out Color yellow); 
+        ColorUtility.TryParseHtmlString("#CDD764", out Color yellow);
         ColorUtility.TryParseHtmlString("#E63430", out Color red);
         ColorUtility.TryParseHtmlString("#61C2C8", out Color cyan);
         ColorUtility.TryParseHtmlString("#EDA853", out Color orange);
         ColorUtility.TryParseHtmlString("#00A650", out Color green);
         ColorUtility.TryParseHtmlString("#81398F", out Color purple);
-        meshColors = new Color[] {yellow, red, cyan, orange, green, purple};
+        meshColors = new Color[] { yellow, red, cyan, orange, green, purple };
         PlayersScripts = new AbstractPlayer[gameManager.players.Length];
-        
+
         for (int i = 0; i < gameManager.players.Length; i++)
         {
             PlayersScripts[i] = gameManager.players[i].GetComponent<AbstractPlayer>();
@@ -118,7 +117,10 @@ public class ColorChangeManager : MonoBehaviour
                 script.setColor(meshColors[Random.Range(0, meshColors.Length)]);
             }
         }
-        startCount();
+        if (gameManager.colorChangerEnable)
+        {
+            startCount();
+        }
     }
 
     private void getTwoRandomPlayersIdx(out int first, out int second, bool isMustBeAlive)

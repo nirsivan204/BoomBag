@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
     public bool[] humanOrAI;
 
     private UIManager UIMgr;
-    [SerializeField] bool colorChangerEnable;
+    public bool colorChangerEnable;
     [SerializeField] bool isTeams;
 
     public int startCountTime = 3;
@@ -183,10 +183,13 @@ public class GameManager : MonoBehaviour
             playersScripts[i].playerOut.AddListener(playerDied);
         }
 
-
-        GetColorChanger().gameObject.SetActive(colorChangerEnable);
-        GetColorChanger().isTeams = isTeams;
-        GetColorChanger().UIManager = UIMgr;
+        GetColorChanger().init();
+        if (colorChangerEnable)
+        {
+            GetColorChanger().gameObject.SetActive(true);
+            GetColorChanger().isTeams = isTeams;
+            GetColorChanger().UIManager = UIMgr;
+        }
 
         dummyPlayer.SetActive(false);
     }
@@ -352,7 +355,7 @@ private void startGame()
         {
             StartCoroutine(playersScripts[i].setCanMove(true,0));
         }
-        AudioManagerRef.Play_Sound(AudioManager.SoundTypes.BG_Music,true);
+        AudioManagerRef.Play_Sound(AudioManager.SoundTypes.BG_Music_1+gameParams.BGMusic,true);
         // StartCoroutine(MusicUtil.FadeIn(audioSource, 3));
         if (isSuddenDeath)
         {
@@ -400,7 +403,7 @@ private void startGame()
             milkTarget = milk.transform.position + Vector3.up * tiltMgr.MILK_RISE_HIGHT;
             AudioManagerRef.Play_Sound(AudioManager.SoundTypes.Milk_Rise);
             UIMgr.showMsg("MILK RISE", 1, true);
-            AudioManagerRef.AddPitch(AudioManager.SoundTypes.BG_Music, 0.1f);
+            AudioManagerRef.AddPitch(AudioManager.SoundTypes.BG_Music_1 + gameParams.BGMusic, 0.1f);
             //print("milkTarget" + milkTarget);
             //print("milk");
         }

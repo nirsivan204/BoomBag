@@ -14,6 +14,8 @@ public static class gameParams
     public static bool isInit = false;
     public static int numOfRounds { get; set; } = 2;
     public static int roundNumber { get; set; } = 1;
+    public static int BGMusic { get; set; } = 0;
+    public static int numBGMusic = 2;
 
     public static GameManager.CharTypes[] characterArray { get; set; } = { 0, 0, 0, 0 };
     public static GameManager.ArenaTypes arena { get; set; } = 0;
@@ -33,6 +35,7 @@ public static class gameParams
     {
         arena = (GameManager.ArenaTypes)Random.Range(0, GameManager.numOfArenas);
         chooseRandomCharTypes();
+        BGMusic = Random.Range(0, numBGMusic);
     }
 
     private static void chooseRandomCharTypes()
