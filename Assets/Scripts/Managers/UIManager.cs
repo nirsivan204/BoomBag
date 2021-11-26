@@ -98,7 +98,10 @@ public class UIManager : MonoBehaviour
 
     public void setScoreText(int [] scores)
     {
-        scoreText.SetText(scores[0] + ":" + scores[1] + ":"+ scores[2] + ":"+ scores[3] );
+        if (scoreText)
+        {
+            scoreText.SetText(scores[0] + ":" + scores[1] + ":" + scores[2] + ":" + scores[3]);
+        }
     }
 
     public void startCounter(int duration, string msg, bool isMiddle, FuncToCall func)
