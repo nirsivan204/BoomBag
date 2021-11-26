@@ -204,6 +204,7 @@ public class GameManager : MonoBehaviour
         isGameEnded = true;
         Destroy(colorChanger.gameObject);
         StartCoroutine(endOfRoundEffects());
+
     }
 
     private IEnumerator endOfRoundEffects()

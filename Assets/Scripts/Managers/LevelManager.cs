@@ -8,8 +8,11 @@ using UnityEngine.Video;
 public class LevelManager : MonoBehaviour
 {
     public static LevelManager levelMgr;
-    [SerializeField] GameObject loadingScreen;
+    private GameObject loadingScreen;
+    [SerializeField] GameObject loadingScreen_Mobile;
+    [SerializeField] GameObject loadingScreen_PC;
     [SerializeField] Image loadingBar;
+    [SerializeField] GameManager GM;
     public VideoPlayer vid1;
     public VideoPlayer vid2;
 
@@ -17,6 +20,7 @@ public class LevelManager : MonoBehaviour
     private float startLoadingTime;
     bool isLoadingScene = false;
     [SerializeField] int timeToLoad = 5;
+    
 
     // Start is called before the first frame update
     void Awake()
@@ -30,9 +34,18 @@ public class LevelManager : MonoBehaviour
             levelMgr = this;
             DontDestroyOnLoad(gameObject);
         }
+        if(GM.isMobileGame)
+        {
+            loadingScreen = loadingScreen_Mobile;
+        }
+        else
+        {
+            loadingScreen = loadingScreen_PC;
+        }
+        
     }
 
-    // Update is called once per frame
+    
     public async void loadScene(string sceneName)
     {
         startLoadingTime = Time.time;

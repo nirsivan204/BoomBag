@@ -83,8 +83,9 @@ public class UIManager : MonoBehaviour
     {
         counterTextCorner.SetText("");
         counterTextMiddle.SetText("");
+        counterTextCorner.gameObject.SetActive(false);
         setWinText(winnerIndex+1);
-        StartCoroutine(deleteText(winText, 1));
+        StartCoroutine(deleteText(winText, 4));
         if (restartButton)
         {
             restartButton.gameObject.SetActive(true);
