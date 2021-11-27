@@ -11,7 +11,7 @@ public class LevelManager : MonoBehaviour
     private GameObject loadingScreen;
     [SerializeField] GameObject loadingScreen_Mobile;
     [SerializeField] GameObject loadingScreen_PC;
-    [SerializeField] Image loadingBar;
+    Image loadingBar;
     [SerializeField] GameManager GM;
     public VideoPlayer vid1;
     public VideoPlayer vid2;
@@ -42,7 +42,7 @@ public class LevelManager : MonoBehaviour
         {
             loadingScreen = loadingScreen_PC;
         }
-        
+        loadingBar = loadingScreen.transform.Find("Image").Find("barProgress").GetComponent<Image>();
     }
 
     
