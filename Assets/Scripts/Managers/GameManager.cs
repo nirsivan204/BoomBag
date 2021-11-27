@@ -71,7 +71,6 @@ public class GameManager : MonoBehaviour
     {
         getGameParams();
         initArena();
-
         numPlayersAlive = 0;
         winEvent = new IntEvent();
         winEvent.AddListener(endRound);
