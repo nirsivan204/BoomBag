@@ -19,7 +19,7 @@ public class LevelManager : MonoBehaviour
     private float target;
     private float startLoadingTime;
     bool isLoadingScene = false;
-    [SerializeField] int timeToLoad = 5;
+    [SerializeField] int timeToLoad = 3;
     
 
     // Start is called before the first frame update

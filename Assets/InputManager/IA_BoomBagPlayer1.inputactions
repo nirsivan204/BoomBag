@@ -88,17 +88,6 @@
                 },
                 {
                     "name": "",
-                    "id": "b294fed9-4f0e-455a-be15-436245b5de17",
-                    "path": "<Joystick>/stick",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "adb9b76e-25c3-4629-aa62-dae4311e71d8",
                     "path": "<DualShockGamepad>/leftStick",
                     "interactions": "",

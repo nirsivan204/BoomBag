@@ -75,6 +75,6 @@ public class PickupsManager : MonoBehaviour
 
     public static pickupsTypes getRandomType()
     {
-        return (pickupsTypes)Random.Range(0, numOfTypes);
+        return (pickupsTypes)2;//(pickupsTypes)Random.Range(0, numOfTypes);
     }
 }

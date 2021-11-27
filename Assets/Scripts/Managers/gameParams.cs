@@ -33,6 +33,7 @@ public static class gameParams
     static public void initRound()
     {
         arena = (GameManager.ArenaTypes)Random.Range(0, GameManager.numOfArenas);
+        Debug.Log(arena);
         chooseRandomCharTypes();
         BGMusic = Random.Range(0, numBGMusic);
         isInit = true;

@@ -85,6 +85,10 @@ public class Pickup : MonoBehaviour
                 if(player.getInverFactor() == -1)
                 {
                     player.GetPlayerMeshRenderer().material.color = Color.green;
+                    if (player.getIsTransparent())
+                    {
+                        ((SoftPlayer)player).setTransparent(true);
+                    }
                 }
                 break;
             case PickupsManager.pickupsTypes.BOMB:

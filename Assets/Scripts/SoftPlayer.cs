@@ -7,7 +7,6 @@ using UnityEngine.InputSystem;
 public class SoftPlayer : AbstractPlayer {
     bool canUseAbility = true;
     private Collider[] playersColliders;
-    private bool isTransparent = false;
     //private AudioClip ghostSound;
     public override void init()
     {
@@ -72,7 +71,7 @@ public class SoftPlayer : AbstractPlayer {
         }
     }
 
-    private void setTransparent(bool transparent)
+    public void setTransparent(bool transparent)
     {
         Color current = GetPlayerMeshRenderer().material.color;
         Color changed = current;

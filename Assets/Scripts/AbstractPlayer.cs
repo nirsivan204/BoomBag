@@ -40,11 +40,10 @@ public class AbstractPlayer : MonoBehaviour
     private GameObject AITargetGameObj;
     private AbstractPlayer AITargetScript;
     public float maxSpeed = 20;
-    public bool overSpeedAllowed = false;
     public float bumpForce = 1100;
     protected bool isRigid = false;
     private bool canMove = false;
-    private int invertFactor = 1;
+    protected int invertFactor = 1;
     public AudioSource audioSource;
     public SimpleTouchController touchController;
     [SerializeField] private float holeFactor = 550;
@@ -54,6 +53,7 @@ public class AbstractPlayer : MonoBehaviour
     private float HoleRadius = 15;
     private bool isPlayingMovementSound;
     private PlayerIndicator PI;
+    protected bool isTransparent = false;
 
 
 
@@ -262,6 +262,10 @@ public class AbstractPlayer : MonoBehaviour
             if (!isRigid && invertFactor==1)
             {
                 playerMeshRenderer.material.color = MyColor;
+                if (isTransparent)
+                {
+                    ((SoftPlayer)this).setTransparent(true);
+                }
             }
             rb.AddForce(Vector3.down * GRAVITY_SCALE,ForceMode.Acceleration);
             if (canMove)
@@ -277,11 +281,8 @@ public class AbstractPlayer : MonoBehaviour
                     //Quaternion targetRotation = Quaternion.LookRotation(heading); can work also
                     //transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, Time.fixedDeltaTime * 100);
                 }
-                if (!overSpeedAllowed)
-                {
-                    Vector3 horizontalVel = Vector3.ProjectOnPlane(rb.velocity, Vector3.up);
-                    rb.velocity = Vector3.ClampMagnitude(horizontalVel, maxSpeed) + rb.velocity.y * Vector3.up;//Mathf.Clamp(rb.velocity.y,-maxVerticalSpeed, maxVerticalSpeed) * Vector3.up;
-                }
+                Vector3 horizontalVel = Vector3.ProjectOnPlane(rb.velocity, Vector3.up);
+                rb.velocity = Vector3.ClampMagnitude(horizontalVel, maxSpeed) + rb.velocity.y * Vector3.up;//Mathf.Clamp(rb.velocity.y,-maxVerticalSpeed, maxVerticalSpeed) * Vector3.up;
                 if (energy < MAX_ENERGY)
                 {
                     energy += Time.deltaTime;
@@ -578,5 +579,10 @@ public class AbstractPlayer : MonoBehaviour
     public float getInverFactor()
     {
         return invertFactor;
+    }
+
+    public bool getIsTransparent()
+    {
+        return isTransparent;
     }
 }

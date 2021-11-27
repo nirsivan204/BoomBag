@@ -26,7 +26,14 @@ public class RigidPlayer : AbstractPlayer
 		//overSpeedAllowed = false;
 		//speed -= 20;
 		isRigid = false;
-        GetPlayerMeshRenderer().material.color = MyColor;
+		if(invertFactor == -1)
+        {
+			GetPlayerMeshRenderer().material.color = Color.green;
+        }
+        else
+        {
+			GetPlayerMeshRenderer().material.color = MyColor;
+		}
 		canUseAbility = true;
 	}
 }

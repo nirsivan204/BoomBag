@@ -103,7 +103,7 @@
                 {
                     "name": "",
                     "id": "b088d34f-440b-4b44-9472-c9403cad93be",
-                    "path": "<DualShockGamepad>/leftTrigger",
+                    "path": "<DualShockGamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
