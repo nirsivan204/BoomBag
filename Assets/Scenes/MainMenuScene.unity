@@ -765,7 +765,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &272022922
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1028,6 +1028,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 705095769}
+  - {fileID: 1920153798}
   m_Father: {fileID: 272022922}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1671,7 +1672,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 50, y: 200}
+  m_SizeDelta: {x: 50, y: 330.3892}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &442735837
 MonoBehaviour:
@@ -2606,12 +2607,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 32
+  m_fontSize: 40
   m_fontSizeBase: 14
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 32
+  m_fontSizeMax: 40
   m_fontStyle: 33
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -3720,7 +3721,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1903274439
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3735,7 +3736,6 @@ RectTransform:
   - {fileID: 1209300892}
   - {fileID: 374248317}
   - {fileID: 132060606}
-  - {fileID: 1920153798}
   m_Father: {fileID: 669495543}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3779,8 +3779,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 50}
+  m_AnchoredPosition: {x: 0, y: -11.908005}
+  m_SizeDelta: {x: 0, y: 73.816}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1905909778
 MonoBehaviour:
@@ -3848,7 +3848,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1920153798
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3863,13 +3863,13 @@ RectTransform:
   - {fileID: 826234811}
   - {fileID: 464170967}
   - {fileID: 442735836}
-  m_Father: {fileID: 1903274439}
-  m_RootOrder: 3
+  m_Father: {fileID: 347051818}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -100}
-  m_SizeDelta: {x: 300, y: 100}
+  m_SizeDelta: {x: 500, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1920153799
 MonoBehaviour:

@@ -30,7 +30,7 @@ public class SC_MainMenu : MonoBehaviour
 
     private void DropdownValueChanged(TMP_Dropdown m_Dropdown)
     {
-            Debug.Log("char " + (GameManager.CharTypes)m_Dropdown.value);
+        Debug.Log("char " + (GameManager.CharTypes)m_Dropdown.value);
         gameParams.characterArray.SetValue( (GameManager.CharTypes)m_Dropdown.value,0);
     }
 
