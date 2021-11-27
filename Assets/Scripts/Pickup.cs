@@ -82,7 +82,10 @@ public class Pickup : MonoBehaviour
                 GM.GetPM().Play_Effect(ParticlesManager.ParticleTypes.Inverser, transform.position);
                 GM.AudioManagerRef.Play_Sound(AudioManager.SoundTypes.Pickup_Inverter);
                 player.invertControls(INVERT_DURATION);
-                player.GetPlayerMeshRenderer().material.color = Color.green;
+                if(player.getInverFactor() == -1)
+                {
+                    player.GetPlayerMeshRenderer().material.color = Color.green;
+                }
                 break;
             case PickupsManager.pickupsTypes.BOMB:
                 GM.GetPM().Play_Effect(ParticlesManager.ParticleTypes.Boom, transform.position);

@@ -53,35 +53,36 @@ public class AbstractPlayer : MonoBehaviour
     private int outsideFactor = 50;
     private float HoleRadius = 15;
     private bool isPlayingMovementSound;
+    private PlayerIndicator PI;
 
 
 
-/*    void Awake()
-    {
-        playerCharacter = transform.Find("Body").gameObject.transform.Find("Character").gameObject;
-        rb = GetComponent<Rigidbody>();
-        rb.drag = drag;
-        //playerMeshRenderer = playerCharacter.GetComponent<Renderer>();
-        //MyColor = playerMeshRenderer.material.color;
-        //rb.constraints |= RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
-        
-        playerOut = new IntEvent();
-        size = startSize;
-        transform.localScale = new Vector3(startSize, startSize, startSize);
-        if (!isHumanPlayer)
+    /*    void Awake()
         {
-            GetComponent<PlayerInput>().enabled = false;
-            chooseTarget();
-            Invoke("aiCalculateMove", 0.5f);
-        }
-        audioSource = GetComponentsInChildren<AudioSource>()[1];
-        //bumpSound = AssetsManager.AM.bumpSound;
-        //drownSound = AssetsManager.AM.drownSound;
-        //shrinksound = AssetsManager.AM.growsound;
-        //growsound = AssetsManager.AM.shrinksound;
+            playerCharacter = transform.Find("Body").gameObject.transform.Find("Character").gameObject;
+            rb = GetComponent<Rigidbody>();
+            rb.drag = drag;
+            //playerMeshRenderer = playerCharacter.GetComponent<Renderer>();
+            //MyColor = playerMeshRenderer.material.color;
+            //rb.constraints |= RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
 
-        init();
-    }*/
+            playerOut = new IntEvent();
+            size = startSize;
+            transform.localScale = new Vector3(startSize, startSize, startSize);
+            if (!isHumanPlayer)
+            {
+                GetComponent<PlayerInput>().enabled = false;
+                chooseTarget();
+                Invoke("aiCalculateMove", 0.5f);
+            }
+            audioSource = GetComponentsInChildren<AudioSource>()[1];
+            //bumpSound = AssetsManager.AM.bumpSound;
+            //drownSound = AssetsManager.AM.drownSound;
+            //shrinksound = AssetsManager.AM.growsound;
+            //growsound = AssetsManager.AM.shrinksound;
+
+            init();
+        }*/
 
 
     public virtual void init()
@@ -110,7 +111,9 @@ public class AbstractPlayer : MonoBehaviour
         {
             touchController.TouchEvent += Controller_TouchEvent;
         }
-        transform.LookAt(transform.position.y * Vector3.up);
+        transform.LookAt(transform.position.y * Vector3.up); // look to middle
+        PI = GetComponentInChildren<PlayerIndicator>();
+        PI.init();
         isInit = true;
     }
 
@@ -254,11 +257,11 @@ public class AbstractPlayer : MonoBehaviour
                 if(Time.time - invertedTime >= invertedDuration)
                 {
                     invertFactor = 1;
-                    if (!isRigid)
-                    {
-                        playerMeshRenderer.material.color = MyColor;
-                    }
                 }
+            }
+            if (!isRigid && invertFactor==1)
+            {
+                playerMeshRenderer.material.color = MyColor;
             }
             rb.AddForce(Vector3.down * GRAVITY_SCALE,ForceMode.Acceleration);
             if (canMove)
@@ -312,7 +315,7 @@ public class AbstractPlayer : MonoBehaviour
     public float MinMovementSoundPitch = 0.9f;
     public float MaxMovementSoundPitch = 1.1f;
     private bool isInit = false;
-    private float maxVerticalSpeed = 1;
+    //private float maxVerticalSpeed = 1;
 
     private void OnCollisionEnter(Collision otherPlayer)
     {
@@ -565,7 +568,6 @@ public class AbstractPlayer : MonoBehaviour
     {
         yield return new WaitForSeconds(seconds);
         canMove = Move;
-        print("canmove = " + canMove);
     }
 
     public void setEnergy(float energy)
@@ -573,4 +575,8 @@ public class AbstractPlayer : MonoBehaviour
         this.energy = energy;
     }
 
+    public float getInverFactor()
+    {
+        return invertFactor;
+    }
 }

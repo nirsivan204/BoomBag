@@ -21,15 +21,13 @@ public class UIManager : MonoBehaviour
     public delegate void FuncToCall();
     // bool middleCount;
     private FuncToCall funcToCall;
-    [SerializeField] private TMP_Text scoreText;
     [SerializeField] private List<Image> energyBars;
     [SerializeField] private Button actionButton;
     [SerializeField] private Button startButton;
     [SerializeField] private Button restartButton;
-    
+    [SerializeField] private TMP_Text[] scoresText;
 
-
-    void Start()
+    public void init()
     {
         gm.winEvent.AddListener(gameFinish);
         if (restartButton)
@@ -41,7 +39,7 @@ public class UIManager : MonoBehaviour
 
         // energyBars = new List<Image>();
         // foreach (Transform child in transform.Find("energyBars"))
-		// {
+        // {
         //     energyBars.Add(child.Find("energy").gameObject.GetComponent<Image>());
         // }
 
@@ -99,9 +97,9 @@ public class UIManager : MonoBehaviour
 
     public void setScoreText(int [] scores)
     {
-        if (scoreText)
+        for(int i = 0; i < scoresText.Length; i++)
         {
-            scoreText.SetText(scores[0] + ":" + scores[1] + ":" + scores[2] + ":" + scores[3]);
+            scoresText[i].SetText(scores[i].ToString());
         }
     }
 

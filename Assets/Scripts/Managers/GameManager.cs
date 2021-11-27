@@ -67,13 +67,54 @@ public class GameManager : MonoBehaviour
     private bool isGameEnded = false;
 
     // Start is called before the first frame update
-    void Awake()
+    void init()
     {
-        getGameParams();
-        initArena();
-        numPlayersAlive = 0;
         winEvent = new IntEvent();
         winEvent.AddListener(endRound);
+        getGameParams();
+        initArena();
+        initPlayers();
+        initUI();
+        initColorChanger();
+       // dummyPlayer.SetActive(false);
+    }
+
+    private void initColorChanger()
+    {
+        GetColorChanger().init();
+        if (colorChangerEnable)
+        {
+            GetColorChanger().gameObject.SetActive(true);
+            GetColorChanger().isTeams = isTeams;
+            GetColorChanger().UIManager = UIMgr;
+        }
+    }
+
+    private void initUI()
+    {
+        if (isMobileGame)
+        {
+            UIMgr = mobileUIMgr;
+            PCUIMgr.gameObject.SetActive(false);
+            mobileCamera.SetActive(true);
+            pcCamera.SetActive(false);
+        }
+        else
+        {
+            UIMgr = PCUIMgr;
+            mobileUIMgr.gameObject.SetActive(false);
+            mobileCamera.SetActive(false);
+            pcCamera.SetActive(true);
+        }
+        UIMgr.init();
+        UIMgr.transform.parent.gameObject.SetActive(true);
+        UIMgr.gameObject.SetActive(true);
+        UIMgr.setScoreText(gameParams.scores);
+    }
+
+    private void initPlayers()
+    {
+        numPlayersAlive = 0;
         playersScripts = new AbstractPlayer[players.Length];
         liveOrDead = new bool[players.Length];
         for (int i = 0; i < players.Length; i++)
@@ -88,19 +129,19 @@ public class GameManager : MonoBehaviour
                 {"the_being", "Chair"},
                 {"Mouse3D_10_combinedMeshInSphere_ForUnity", "Bizo_MAIN"},
                 {"ss_guppy_no_modifier", "Lifebuoy"},
-                {"Concept_CH_Jelly_7_RigOnly_For_Unity", ""}, 
+                {"Concept_CH_Jelly_7_RigOnly_For_Unity", ""},
                 {"NewSlime", "NewSlimeBody"}
               // {"SlimePBR", "Slime"}
             };
             // Instantiate prefab and set its names to our standards. Then set it to the player (by choosing a parent):
             var pref = Instantiate(prefabsForPlayers[i], new Vector3(0, 0, 0), Quaternion.identity);
-            print(pref.name);
-            print(prefabsForPlayers[i].name);
+            //print(pref.name);
+            //print(prefabsForPlayers[i].name);
             pref.transform.Find(prefabToMainPartMap[prefabsForPlayers[i].name]).name = "Character";
             pref.name = "Body";
             pref.transform.parent = players[i].transform;
             pref.transform.localPosition = new Vector3(0, 0, 0);
-            
+
 
             switch (charTypes[i])
             {
@@ -141,10 +182,9 @@ public class GameManager : MonoBehaviour
             numPlayersAlive++;
             liveOrDead[i] = true;
         }
-
         if (isMobileGame)
         {
-            for(int i = 0; i < humanOrAI.Length;i++) 
+            for (int i = 0; i < humanOrAI.Length; i++)
             {
                 if (humanOrAI[i])
                 {
@@ -160,39 +200,13 @@ public class GameManager : MonoBehaviour
             {
                 Debug.Log("problem in gameMGR: no mobile player");
             }
-
-            UIMgr = mobileUIMgr;
-            PCUIMgr.gameObject.SetActive(false);
-            mobileCamera.SetActive(true);
-            pcCamera.SetActive(false);
         }
-        else
-        {
-            UIMgr = PCUIMgr;
-            mobileUIMgr.gameObject.SetActive(false);
-            mobileCamera.SetActive(false);
-            pcCamera.SetActive(true);
-        }
-        UIMgr.transform.parent.gameObject.SetActive(true);
-        UIMgr.gameObject.SetActive(true);
-        UIMgr.setScoreText(gameParams.scores);
-
         for (int i = 0; i < players.Length; i++)
         {
             players[i].SetActive(true);
             playersScripts[i].init();
             playersScripts[i].playerOut.AddListener(playerDied);
         }
-
-        GetColorChanger().init();
-        if (colorChangerEnable)
-        {
-            GetColorChanger().gameObject.SetActive(true);
-            GetColorChanger().isTeams = isTeams;
-            GetColorChanger().UIManager = UIMgr;
-        }
-
-        dummyPlayer.SetActive(false);
     }
 
     private void endRound(int winner)
@@ -343,6 +357,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        init();
         GetColorChanger().ColorChanger();
         AudioManagerRef.Init(this);
         UIMgr.startCounter(startCountTime, "GO!!!!", true, startGame);
