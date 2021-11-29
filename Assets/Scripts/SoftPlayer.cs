@@ -79,11 +79,20 @@ public class SoftPlayer : AbstractPlayer {
         {
             GetPlayerMeshRenderer().material = gameManager.GetColorChanger().transparentMat;
             changed.a = 0.5f;
+            foreach (MeshRenderer mesh in GetComponentsInChildren<MeshRenderer>())
+            {
+                mesh.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+
+            }
         }
         else
         {
             GetPlayerMeshRenderer().material = gameManager.GetColorChanger().regulatMat;
             changed.a = 1;
+            foreach (MeshRenderer mesh in GetComponentsInChildren<MeshRenderer>())
+            {
+                mesh.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
+            }
         }
         GetPlayerMeshRenderer().material.color = changed;
         isTransparent = transparent;
