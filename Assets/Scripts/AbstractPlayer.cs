@@ -54,7 +54,7 @@ public class AbstractPlayer : MonoBehaviour
     private bool isPlayingMovementSound;
     private PlayerIndicator PI;
     protected bool isTransparent = false;
-
+    protected bool isDashing = false;
 
 
     /*    void Awake()
@@ -329,7 +329,7 @@ public class AbstractPlayer : MonoBehaviour
                 //gameManager.AudioManagerRef.Play_Sound(AudioManager.SoundTypes.Bump);
                 //audioSource.clip = bumpSound;
                 //audioSource.Play();
-                rb.AddExplosionForce(bumpForce * other.getMass() / 2, (other.transform.position + transform.position) / 2, 100, 0);//, ForceMode.Acceleration); or other.size??maybe cancel mass at all??
+                rb.AddExplosionForce(other.bumpForce * other.getMass() / 2, (other.transform.position + transform.position) / 2, 100, 0);//, ForceMode.Acceleration); or other.size??maybe cancel mass at all??
                 
             }
             else if (!other.isRigid)

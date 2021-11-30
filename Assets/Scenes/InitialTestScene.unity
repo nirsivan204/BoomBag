@@ -731,7 +731,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 80447089}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6c3e653fc255cf44d81c458fc042c259, type: 3}
   m_Name: 
@@ -2559,7 +2559,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 28
+  m_RootOrder: 25
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &301548670
 MonoBehaviour:
@@ -4699,7 +4699,7 @@ MonoBehaviour:
   MILK_RISE_PERIOD: 5
   MILK_RISE_HIGHT: 0.4
   MILK_RISE_SPEED: 0.5
-  MILK_RISE_REPEATED_TIMES: 4
+  MILK_RISE_REPEATED_TIMES: 6
   milkStartingHight: 2.5
 --- !u!64 &602921281
 MeshCollider:
@@ -5629,7 +5629,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &697904702
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9451,7 +9451,7 @@ Transform:
   - {fileID: 1030064506}
   - {fileID: 697904705}
   m_Father: {fileID: 0}
-  m_RootOrder: 27
+  m_RootOrder: 28
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!328 &1165228684
 VideoPlayer:
@@ -10025,14 +10025,14 @@ MonoBehaviour:
   - {fileID: 649067119}
   - {fileID: 1676306644}
   - {fileID: 1045231695}
-  charTypes: 00000000000000000000000000000000
+  charTypes: 03000000030000000300000003000000
   playersScripts: []
   liveOrDead: 
   humanOrAI: 01000000
   colorChangerEnable: 1
   isTeams: 1
   startCountTime: 3
-  isSuddenDeath: 0
+  isSuddenDeath: 1
 --- !u!4 &1293597159
 Transform:
   m_ObjectHideFlags: 0
@@ -10563,7 +10563,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player1: {fileID: 378446723850911089}
-  player2: {fileID: 767990100}
+  player2: {fileID: 1901328305}
   gm: {fileID: 1293597158}
 --- !u!82 &1414177735 stripped
 AudioSource:
@@ -11968,7 +11968,7 @@ RectTransform:
   - {fileID: 1441738918}
   - {fileID: 798572779}
   m_Father: {fileID: 0}
-  m_RootOrder: 26
+  m_RootOrder: 27
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -12052,7 +12052,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 25
+  m_RootOrder: 26
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1675873135
 MonoBehaviour:
