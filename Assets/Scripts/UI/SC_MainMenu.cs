@@ -10,19 +10,30 @@ public class SC_MainMenu : MonoBehaviour
     public GameObject mainMenu;
     public GameObject creditsMenu;
     public GameObject characterSelect;
+    public GameObject scoreBoard;
 
     public GameObject howToPlay;
     public TMP_Dropdown m_Dropdown;
-    public static TextMeshPro m_Text;
-    private bool isMobile;
+    [SerializeField] TMP_Text score;
+    [SerializeField] bool isMobile;
     // Start is called before the first frame update
     void Start()
     {
         gameParams.init();
+        if (isMobile)
+        {
+            scoreBoard.SetActive(true);
+            score.SetText(gameParams.maxMobileScore.ToString());
+        }
+        else
+        {
+            scoreBoard.SetActive(false);
+        }
+
         //Add listener for when the value of the Dropdown changes, to take action
-        m_Dropdown.onValueChanged.AddListener(delegate {
-            DropdownValueChanged(m_Dropdown);
-        });
+        //m_Dropdown.onValueChanged.AddListener(delegate {
+        //    DropdownValueChanged(m_Dropdown);
+        //});
 
         //Initialise the Text to say the first value of the Dropdown
         //m_Text.text = "First Value : " + m_Dropdown.value; MainMenuButton();
@@ -37,7 +48,7 @@ public class SC_MainMenu : MonoBehaviour
     public void PlayNowButton()
     {
         // Play Now Button has been pressed, here you can initialize your game (For example Load a Scene called GameLevel etc.)
-        gameParams.init();
+        //gameParams.init();
         UnityEngine.SceneManagement.SceneManager.LoadScene("InitialTestScene");
     }
 
@@ -75,5 +86,29 @@ public class SC_MainMenu : MonoBehaviour
         creditsMenu.SetActive(false);
         characterSelect.SetActive((false));
         howToPlay.SetActive((true));
+    }
+
+    public void OnRigidChosen()
+    {
+        gameParams.characterArray[0] = GameManager.CharTypes.Rigid;
+        PlayNowButton();
+    }
+    public void OnGhostChosen()
+    {
+        gameParams.characterArray[0] = GameManager.CharTypes.Soft;
+        PlayNowButton();
+
+    }
+    public void OnJumperChosen()
+    {
+        gameParams.characterArray[0] = GameManager.CharTypes.Jumper;
+        PlayNowButton();
+
+    }
+    public void OnDasherChosen()
+    {
+        gameParams.characterArray[0] = GameManager.CharTypes.Avoider;
+        PlayNowButton();
+
     }
 }

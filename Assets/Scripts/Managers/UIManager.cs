@@ -92,7 +92,21 @@ public class UIManager : MonoBehaviour
 
     public void setWinText(int winnerIndex)
     {
-        winText.SetText("Player "+ winnerIndex + " wins!");
+        if (winnerIndex > 0)
+        {
+            if (gm.isMobileGame)
+            {
+                winText.SetText("You Win!\nNumber of wins in a row: " + gameParams.scores[gm.GetMobilePlayer().getIndex()]);
+            }
+            else
+            {
+                winText.SetText("Player " + winnerIndex + " wins!");
+            }
+        }
+        else
+        {
+            winText.SetText("You Lose!\nNumber of wins in a row: " + gameParams.scores[gm.GetMobilePlayer().getIndex()]);
+        }
     }
 
     public void setScoreText(int [] scores)

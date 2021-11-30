@@ -59,8 +59,10 @@ public class LevelManager : MonoBehaviour
 
         loadingScreen.SetActive(true);
 
-
-        await Task.Delay(timeToLoad*1000);
+        if(sceneName != "MainMenuScene")
+        {
+            await Task.Delay(timeToLoad * 1000);
+        }
         target = scene.progress;
         isLoadingScene = false;
         scene.allowSceneActivation = true;

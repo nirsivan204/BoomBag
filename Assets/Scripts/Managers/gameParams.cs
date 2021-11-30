@@ -8,7 +8,6 @@ using Random = UnityEngine.Random;
 
 public static class gameParams
 {
-    static Dropdown m_Dropdown;
     public static Text m_Text;
     private static bool isMobile;
     public static bool isInit = false;
@@ -21,6 +20,7 @@ public static class gameParams
     public static GameManager.ArenaTypes arena { get; set; } = 0;
     public static int[] isHumansArray { get; set; }
 
+    public static int maxMobileScore = 0;
     public static int[] scores { get; set; } = { 0, 0, 0, 0 };
     static public void init()
     {
@@ -33,8 +33,8 @@ public static class gameParams
     static public void initRound()
     {
         arena = (GameManager.ArenaTypes)Random.Range(0, GameManager.numOfArenas);
-        Debug.Log(arena);
-        chooseRandomCharTypes();
+        //Debug.Log(arena);
+        //chooseRandomCharTypes();
         BGMusic = Random.Range(0, numBGMusic);
         isInit = true;
     }

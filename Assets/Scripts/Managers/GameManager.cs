@@ -65,6 +65,7 @@ public class GameManager : MonoBehaviour
     private AbstractPlayer mobilePlayer;
     private TiltManager tiltMgr;
     private bool isGameEnded = false;
+    private bool isLastRound;
 
     // Start is called before the first frame update
     void init()
@@ -184,14 +185,15 @@ public class GameManager : MonoBehaviour
         }
         if (isMobileGame)
         {
-            for (int i = 0; i < humanOrAI.Length; i++)
+            mobilePlayer = playersScripts[0];
+/*            for (int i = 0; i < humanOrAI.Length; i++)
             {
                 if (humanOrAI[i])
                 {
                     SetMobilePlayer(playersScripts[i]);
                     break;
                 }
-            }
+            }*/
             if (GetMobilePlayer())
             {
                 GetMobilePlayer().touchController = GetTouchController();
@@ -211,27 +213,63 @@ public class GameManager : MonoBehaviour
 
     private void endRound(int winner)
     {
-        gameParams.scores[winner]++;
-        print("scores: " + gameParams.scores[0]+"," + gameParams.scores[1] + "," + gameParams.scores[2] + "," + gameParams.scores[3]);
-        gameParams.roundNumber++;
+        if (isMobileGame)
+        {
+            if (winner == -1)
+            {
+                isLastRound = true;
+                if(gameParams.maxMobileScore < gameParams.scores[0])
+                {
+                    gameParams.maxMobileScore = gameParams.scores[0];
+                }
+            }
+            else
+            {
+                isLastRound = false;
+                gameParams.scores[winner]++;
+                gameParams.roundNumber++;
+            }
+        }
+        else
+        {
+            gameParams.scores[winner]++;
+            print("scores: " + gameParams.scores[0] + "," + gameParams.scores[1] + "," + gameParams.scores[2] + "," + gameParams.scores[3]);
+            gameParams.roundNumber++;
+            if(gameParams.roundNumber <= gameParams.numOfRounds)
+            {
+                isLastRound = false;
+            }
+            else
+            {
+                isLastRound = true;
+            }
+        }
+
         isGameEnded = true;
         Destroy(colorChanger.gameObject);
         StartCoroutine(endOfRoundEffects());
-
     }
 
     private IEnumerator endOfRoundEffects()
     {
         yield return new WaitForSeconds(1);
-        UIMgr.showMsg("Starting Next Round", 1, true);
-        yield return new WaitForSeconds(1);
-        UIMgr.startCounter(3, "", true, startNewRound);
-
+        if (isLastRound)
+        {
+            UIMgr.showMsg("Better Luck Next Time", 2, true);
+            yield return new WaitForSeconds(2);
+            UIMgr.startCounter(0, "", true, startNewRound);
+        }
+        else
+        {
+            UIMgr.showMsg("Starting Next Round", 1, true);
+            yield return new WaitForSeconds(1);
+            UIMgr.startCounter(3, "", true, startNewRound);
+        }
     }
 
     private void startNewRound()
     {
-        if (gameParams.roundNumber <= gameParams.numOfRounds)
+        if (!isLastRound)
         {
             gameParams.initRound();
             LevelManager.levelMgr.loadScene("InitialTestScene");
@@ -366,7 +404,7 @@ public class GameManager : MonoBehaviour
     }
 
 
-private void startGame()
+    private void startGame()
     {
         for (int i = 0; i < players.Length; i++)
         {
@@ -408,6 +446,10 @@ private void startGame()
                     winEvent.Invoke(i);
                 }
             }
+        }
+        if (isMobileGame && playerIndex == mobilePlayer.getIndex() && numPlayersAlive > 0)
+        {
+            winEvent.Invoke(-1);
         }
     }
 
