@@ -73,6 +73,7 @@ public class GameManager : MonoBehaviour
         winEvent = new IntEvent();
         winEvent.AddListener(endRound);
         getGameParams();
+        LevelManager.levelMgr.init(this);
         initArena();
         initPlayers();
         initUI();
@@ -356,6 +357,7 @@ public class GameManager : MonoBehaviour
         {
             charTypes = gameParams.characterArray;
             arena = gameParams.arena;
+            isMobileGame = gameParams.isMobile;
         }
     }
 

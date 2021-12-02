@@ -20,7 +20,8 @@ public class LevelManager : MonoBehaviour
     private float startLoadingTime;
     bool isLoadingScene = false;
     [SerializeField] int timeToLoad = 3;
-    
+    private bool isInit = false;
+
 
     // Start is called before the first frame update
     void Awake()
@@ -34,15 +35,24 @@ public class LevelManager : MonoBehaviour
             levelMgr = this;
             DontDestroyOnLoad(gameObject);
         }
-        if(GM.isMobileGame)
+    }
+
+    public void init(GameManager gameMGR)
+    {
+        if (!isInit)
         {
-            loadingScreen = loadingScreen_Mobile;
+            GM = gameMGR;
+            isInit = true;
+            if (GM.isMobileGame)
+            {
+                loadingScreen = loadingScreen_Mobile;
+            }
+            else
+            {
+                loadingScreen = loadingScreen_PC;
+            }
+            loadingBar = loadingScreen.transform.Find("Image").Find("barProgress").GetComponent<Image>();
         }
-        else
-        {
-            loadingScreen = loadingScreen_PC;
-        }
-        loadingBar = loadingScreen.transform.Find("Image").Find("barProgress").GetComponent<Image>();
     }
 
     

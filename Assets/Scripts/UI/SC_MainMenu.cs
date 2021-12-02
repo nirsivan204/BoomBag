@@ -16,17 +16,21 @@ public class SC_MainMenu : MonoBehaviour
     public TMP_Dropdown m_Dropdown;
     [SerializeField] TMP_Text score;
     [SerializeField] bool isMobile;
+    [SerializeField] GameObject playButton;
     // Start is called before the first frame update
     void Start()
     {
+        gameParams.isMobile = isMobile;
         gameParams.init();
         if (isMobile)
         {
             scoreBoard.SetActive(true);
             score.SetText(gameParams.maxMobileScore.ToString());
+            playButton.SetActive(false) ;
         }
         else
         {
+            playButton.SetActive(true);
             scoreBoard.SetActive(false);
         }
 

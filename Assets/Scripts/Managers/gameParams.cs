@@ -9,7 +9,7 @@ using Random = UnityEngine.Random;
 public static class gameParams
 {
     public static Text m_Text;
-    private static bool isMobile;
+    public static bool isMobile;
     public static bool isInit = false;
     public static int numOfRounds { get; set; } = 5;
     public static int roundNumber { get; set; } = 1;
