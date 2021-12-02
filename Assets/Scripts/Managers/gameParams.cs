@@ -24,9 +24,12 @@ public static class gameParams
     public static int[] scores { get; set; } = { 0, 0, 0, 0 };
     static public void init()
     {
-        scores =  new int[]{ 0, 0, 0, 0 };
-        roundNumber = 1;
-        initRound();
+        if (!isInit)
+        {
+            scores = new int[] { 0, 0, 0, 0 };
+            roundNumber = 1;
+            initRound();
+        }
         //Add listener for when the value of the Dropdown changes, to take action
     }
 

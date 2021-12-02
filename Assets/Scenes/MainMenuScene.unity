@@ -2419,7 +2419,7 @@ MonoBehaviour:
   howToPlay: {fileID: 863826886}
   m_Dropdown: {fileID: 1920153799}
   score: {fileID: 1183085583}
-  isMobile: 1
+  isMobile: 0
   playButton: {fileID: 374248316}
 --- !u!1 &672967630
 GameObject:

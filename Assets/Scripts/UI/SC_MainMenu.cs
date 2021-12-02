@@ -20,8 +20,15 @@ public class SC_MainMenu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        gameParams.isMobile = isMobile;
-        gameParams.init();
+        if (gameParams.isInit)
+        {
+            isMobile = gameParams.isMobile;
+        }
+        else
+        {
+            gameParams.isMobile = isMobile;
+            gameParams.init();
+        }
         if (isMobile)
         {
             scoreBoard.SetActive(true);

@@ -78,6 +78,7 @@ public class AudioManager : MonoBehaviour
         Player3Movement,
         Player4Movement,
         Death,
+        Arena,
     }
 
     internal void Init(GameManager gameManager)
@@ -128,11 +129,12 @@ public class AudioManager : MonoBehaviour
             case SoundTypes.Shrink:
             case SoundTypes.Grow:
             case SoundTypes.Boom:
+               return Get_AudioSource_By_Type(AudioSourceTypes.Gameplay);
             case SoundTypes.Pickup_Enlarge:
             case SoundTypes.Pickup_Shrink:
             case SoundTypes.Pickup_Inverter:
             case SoundTypes.Pickup_Mana:
-               return Get_AudioSource_By_Type(AudioSourceTypes.Gameplay);
+               return Get_AudioSource_By_Type(AudioSourceTypes.Arena);
             case SoundTypes.ColorChange:
             case SoundTypes.Milk_Rise:
             case SoundTypes.Countdown:

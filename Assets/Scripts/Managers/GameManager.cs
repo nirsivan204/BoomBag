@@ -270,9 +270,9 @@ public class GameManager : MonoBehaviour
 
     private void startNewRound()
     {
+        gameParams.initRound();
         if (!isLastRound)
         {
-            gameParams.initRound();
             LevelManager.levelMgr.loadScene("InitialTestScene");
         }
         else
@@ -358,6 +358,10 @@ public class GameManager : MonoBehaviour
             charTypes = gameParams.characterArray;
             arena = gameParams.arena;
             isMobileGame = gameParams.isMobile;
+        }
+        else
+        {
+            gameParams.isMobile = isMobileGame;
         }
     }
 

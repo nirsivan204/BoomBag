@@ -19,7 +19,7 @@ public class LevelManager : MonoBehaviour
     private float target;
     private float startLoadingTime;
     bool isLoadingScene = false;
-    [SerializeField] int timeToLoad = 3;
+    [SerializeField] int timeToLoad = 10;
     private bool isInit = false;
 
 
