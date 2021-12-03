@@ -27,8 +27,8 @@ public class SC_MainMenu : MonoBehaviour
         else
         {
             gameParams.isMobile = isMobile;
-            gameParams.init();
         }
+        gameParams.init();
         if (isMobile)
         {
             scoreBoard.SetActive(true);
@@ -60,7 +60,7 @@ public class SC_MainMenu : MonoBehaviour
     {
         // Play Now Button has been pressed, here you can initialize your game (For example Load a Scene called GameLevel etc.)
         //gameParams.init();
-        UnityEngine.SceneManagement.SceneManager.LoadScene("InitialTestScene");
+        LevelManager.getInstance().loadScene(LevelManager.Scenes.CharacterSelect);
     }
 
     public void SelectCharacterButton()

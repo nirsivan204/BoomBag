@@ -1,5 +1,24 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!243 &-8866023268256837378
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Arena
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: bff3ecc9173f4f54182180695f5b08f9
+  m_Children: []
+  m_Volume: a3c73ace9077d1445b7e8e46541a8d8d
+  m_Pitch: 1e3f47c14515b534788ffee6fa0af821
+  m_Send: 00000000000000000000000000000000
+  m_Effects:
+  - {fileID: -5557806252694298293}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
 --- !u!244 &-8457588863573924077
 AudioMixerEffectController:
   m_ObjectHideFlags: 3
@@ -112,6 +131,20 @@ AudioMixerEffectController:
     m_GUID: 56d9f11578e69cf4ca7349713f2ac541
   - m_ParameterName: Make up gain
     m_GUID: f28e8223ca1276e4cb1daed5f5be0bfa
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
+--- !u!244 &-5557806252694298293
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: 6f60520180e72d6469ddcb961b26bb3a
+  m_EffectName: Attenuation
+  m_MixLevel: 4cddd12152f07ab4c901d9743db69d2c
+  m_Parameters: []
   m_SendTarget: {fileID: 0}
   m_EnableWetMix: 0
   m_Bypass: 0
@@ -275,6 +308,7 @@ AudioMixerController:
     - 392a725bb287f1c469452a2def512f96
     - f800075cdfab02f469924bd6521d949b
     - 5fd0cf4877774f04bafb52dd2f28bb9b
+    - bff3ecc9173f4f54182180695f5b08f9
     name: View
   m_CurrentViewIndex: 0
   m_TargetSnapshot: {fileID: 24500006}
@@ -295,6 +329,7 @@ AudioMixerGroupController:
   - {fileID: -1832081851484363320}
   - {fileID: 8717856923972983353}
   - {fileID: -7734066919981544979}
+  - {fileID: -8866023268256837378}
   m_Volume: 47d0195009f2b412ca209b390929a5b5
   m_Pitch: 4d534d256002540a9a6ac1c7e93ddc3f
   m_Send: 00000000000000000000000000000000

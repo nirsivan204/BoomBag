@@ -11,5 +11,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/InitialTestScene.unity
     guid: 5b7d16b0ec990764b9dfeb08fc8ae063
+  - enabled: 1
+    path: Assets/Scenes/PickACharacterScene.unity
+    guid: a9c6426326f4bde458d2569afc074159
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 18d328c302484e84597bf1b9f3f83aa8, type: 2}

@@ -252,6 +252,10 @@ public class AbstractPlayer : MonoBehaviour
     {
         if (isInit)
         {
+            if (transform.position.y <= gameManager.milk.transform.position.y && !isOut)
+            {
+                die();
+            }
             if(invertFactor == -1)
             {
                 if(Time.time - invertedTime >= invertedDuration)

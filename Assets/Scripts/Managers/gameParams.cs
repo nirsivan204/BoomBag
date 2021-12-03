@@ -24,12 +24,13 @@ public static class gameParams
     public static int[] scores { get; set; } = { 0, 0, 0, 0 };
     static public void init()
     {
-        if (!isInit)
-        {
-            scores = new int[] { 0, 0, 0, 0 };
-            roundNumber = 1;
-            initRound();
-        }
+        roundNumber = 1;
+
+        scores = new int[] { 0, 0, 0, 0 };
+
+        isInit = true;
+        initRound();
+
         //Add listener for when the value of the Dropdown changes, to take action
     }
 
@@ -37,7 +38,11 @@ public static class gameParams
     {
         arena = (GameManager.ArenaTypes)Random.Range(0, GameManager.numOfArenas);
         //Debug.Log(arena);
-        //chooseRandomCharTypes();
+        if (!isMobile)
+        {
+            chooseRandomCharTypes();
+
+        }
         BGMusic = Random.Range(0, numBGMusic);
         isInit = true;
     }

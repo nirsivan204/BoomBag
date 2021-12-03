@@ -12,7 +12,6 @@ public class LevelManager : MonoBehaviour
     [SerializeField] GameObject loadingScreen_Mobile;
     [SerializeField] GameObject loadingScreen_PC;
     Image loadingBar;
-    [SerializeField] GameManager GM;
     public VideoPlayer vid1;
     public VideoPlayer vid2;
 
@@ -21,7 +20,23 @@ public class LevelManager : MonoBehaviour
     bool isLoadingScene = false;
     [SerializeField] int timeToLoad = 10;
     private bool isInit = false;
+    public static GameObject levelMgrPrefab;
 
+    public enum Scenes {Manu,CharacterSelect,Game};
+
+    private string getNameOfScene(Scenes sceneEnum)
+    {
+        switch (sceneEnum)
+        {
+            case Scenes.Manu:
+                return "MainMenuScene";
+            case Scenes.CharacterSelect:
+                return "PickACharacterScene";
+            case Scenes.Game:
+                return "InitialTestScene";
+        }
+        return null;
+    }
 
     // Start is called before the first frame update
     void Awake()
@@ -32,18 +47,28 @@ public class LevelManager : MonoBehaviour
         }
         else
         {
-            levelMgr = this;
+            //levelMgr = this;
             DontDestroyOnLoad(gameObject);
         }
     }
 
-    public void init(GameManager gameMGR)
+    public  static LevelManager getInstance()
+    {
+        if (!levelMgr)
+        {
+            GameObject clone = Instantiate(Resources.Load("LevelMgr")) as GameObject;
+            levelMgr = clone.GetComponent<LevelManager>();
+            levelMgr.init();
+        }
+        return levelMgr;
+    }
+
+    public void init()
     {
         if (!isInit)
         {
-            GM = gameMGR;
             isInit = true;
-            if (GM.isMobileGame)
+            if (gameParams.isMobile)
             {
                 loadingScreen = loadingScreen_Mobile;
             }
@@ -56,7 +81,7 @@ public class LevelManager : MonoBehaviour
     }
 
     
-    public async void loadScene(string sceneName)
+    public async void loadScene(Scenes sceneName)
     {
         startLoadingTime = Time.time;
         isLoadingScene = true;
@@ -64,12 +89,12 @@ public class LevelManager : MonoBehaviour
         target = 0;
         vid1.Play();
         vid2.Play();
-        AsyncOperation scene = SceneManager.LoadSceneAsync(sceneName);
+        AsyncOperation scene = SceneManager.LoadSceneAsync(getNameOfScene(sceneName));
         scene.allowSceneActivation = false;
 
         loadingScreen.SetActive(true);
 
-        if(sceneName != "MainMenuScene")
+        if(sceneName != Scenes.Manu)
         {
             await Task.Delay(timeToLoad * 1000);
         }

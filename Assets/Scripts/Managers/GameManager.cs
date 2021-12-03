@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject pcCamera;
     [SerializeField] SimpleTouchController touchController;
     [SerializeField] ColorChangeManager colorChanger;
-    [SerializeField] GameObject milk;
+    [SerializeField] public GameObject milk;
     [SerializeField] ParticlesManager PM;
     [SerializeField] GameObject dummyPlayer;
     [SerializeField] UIManager mobileUIMgr;
@@ -73,7 +73,7 @@ public class GameManager : MonoBehaviour
         winEvent = new IntEvent();
         winEvent.AddListener(endRound);
         getGameParams();
-        LevelManager.levelMgr.init(this);
+        LevelManager.getInstance().init();
         initArena();
         initPlayers();
         initUI();
@@ -273,11 +273,11 @@ public class GameManager : MonoBehaviour
         gameParams.initRound();
         if (!isLastRound)
         {
-            LevelManager.levelMgr.loadScene("InitialTestScene");
+            LevelManager.getInstance().loadScene(LevelManager.Scenes.Game);
         }
         else
         {
-            LevelManager.levelMgr.loadScene("MainMenuScene");
+            LevelManager.getInstance().loadScene(LevelManager.Scenes.Manu);
         }
     }
 
