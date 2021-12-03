@@ -63,7 +63,14 @@ public class SC_MainMenu : MonoBehaviour
     {
         // Play Now Button has been pressed, here you can initialize your game (For example Load a Scene called GameLevel etc.)
         //gameParams.init();
-        LevelManager.getInstance().loadScene(LevelManager.Scenes.CharacterSelect);
+        if (isMobile)
+        {//goto character select
+            LevelManager.getInstance().loadScene(LevelManager.Scenes.Game);
+        }
+        else
+        {
+            LevelManager.getInstance().loadScene(LevelManager.Scenes.CharacterSelect);
+        }
 
     }
 
