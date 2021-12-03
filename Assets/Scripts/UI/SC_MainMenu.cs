@@ -7,6 +7,7 @@ using TMPro;
 
 public class SC_MainMenu : MonoBehaviour
 {
+    #region Ref
     public GameObject mainMenu;
     public GameObject creditsMenu;
     public GameObject characterSelect;
@@ -17,6 +18,8 @@ public class SC_MainMenu : MonoBehaviour
     [SerializeField] TMP_Text score;
     [SerializeField] bool isMobile;
     [SerializeField] GameObject playButton;
+    #endregion Ref
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -33,7 +36,7 @@ public class SC_MainMenu : MonoBehaviour
         {
             scoreBoard.SetActive(true);
             score.SetText(gameParams.maxMobileScore.ToString());
-            playButton.SetActive(false) ;
+            playButton.SetActive(true) ;
         }
         else
         {
@@ -55,12 +58,13 @@ public class SC_MainMenu : MonoBehaviour
         Debug.Log("char " + (GameManager.CharTypes)m_Dropdown.value);
         gameParams.characterArray.SetValue( (GameManager.CharTypes)m_Dropdown.value,0);
     }
-
+#region Buttons
     public void PlayNowButton()
     {
         // Play Now Button has been pressed, here you can initialize your game (For example Load a Scene called GameLevel etc.)
         //gameParams.init();
         LevelManager.getInstance().loadScene(LevelManager.Scenes.CharacterSelect);
+
     }
 
     public void SelectCharacterButton()
@@ -70,6 +74,7 @@ public class SC_MainMenu : MonoBehaviour
         creditsMenu.SetActive((false));
         characterSelect.SetActive((true));
         howToPlay.SetActive((false));
+        scoreBoard.SetActive(false);
     }
 
     public void CreditsButton()
@@ -79,6 +84,7 @@ public class SC_MainMenu : MonoBehaviour
         creditsMenu.SetActive(true);
         characterSelect.SetActive((false));
         howToPlay.SetActive((false));
+        scoreBoard.SetActive(false);
     }
 
     public void MainMenuButton()
@@ -88,6 +94,7 @@ public class SC_MainMenu : MonoBehaviour
         creditsMenu.SetActive(false);
         characterSelect.SetActive((false));
         howToPlay.SetActive((false));
+        scoreBoard.SetActive(true);
     }
 
     public void HowToPlayButton()
@@ -97,8 +104,10 @@ public class SC_MainMenu : MonoBehaviour
         creditsMenu.SetActive(false);
         characterSelect.SetActive((false));
         howToPlay.SetActive((true));
+        scoreBoard.SetActive(false);
     }
-
+#endregion Buttons
+#region ChosenChar
     public void OnRigidChosen()
     {
         gameParams.characterArray[0] = GameManager.CharTypes.Rigid;
@@ -122,4 +131,5 @@ public class SC_MainMenu : MonoBehaviour
         PlayNowButton();
 
     }
+#endregion ChosenChar
 }
