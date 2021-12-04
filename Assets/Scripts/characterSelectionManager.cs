@@ -23,7 +23,7 @@ public class characterSelectionManager : MonoBehaviour
     void characterSelected()
     {
         numOfCharactersChosen++;
-        if(numOfCharactersChosen == characterCubes.Length-2)
+        if(numOfCharactersChosen == characterCubes.Length)
         {
             allChosenTime = Time.time;
         }
