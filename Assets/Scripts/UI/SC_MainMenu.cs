@@ -34,13 +34,11 @@ public class SC_MainMenu : MonoBehaviour
         gameParams.init();
         if (isMobile)
         {
-            scoreBoard.SetActive(true);
             score.SetText(gameParams.maxMobileScore.ToString());
             playButton.SetActive(true) ;
         }
         else
         {
-            playButton.SetActive(true);
             scoreBoard.SetActive(false);
         }
 
@@ -92,6 +90,7 @@ public class SC_MainMenu : MonoBehaviour
         characterSelect.SetActive((false));
         howToPlay.SetActive((false));
         scoreBoard.SetActive(false);
+        playButton.SetActive(false) ;
     }
 
     public void MainMenuButton()
@@ -102,6 +101,7 @@ public class SC_MainMenu : MonoBehaviour
         characterSelect.SetActive((false));
         howToPlay.SetActive((false));
         scoreBoard.SetActive(true);
+        playButton.SetActive(true);
     }
 
     public void HowToPlayButton()
@@ -112,9 +112,10 @@ public class SC_MainMenu : MonoBehaviour
         characterSelect.SetActive((false));
         howToPlay.SetActive((true));
         scoreBoard.SetActive(false);
+        playButton.SetActive(false);
     }
-#endregion Buttons
-#region ChosenChar
+    #endregion Buttons
+    #region ChosenChar
     public void OnRigidChosen()
     {
         gameParams.characterArray[0] = GameManager.CharTypes.Rigid;

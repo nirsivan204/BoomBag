@@ -14,6 +14,9 @@ public class CharacterCube : MonoBehaviour
     private float speed = 5;
     public UnityEvent characterSelectedEvent;
     public UnityEvent characterDeSelectedEvent;
+    [SerializeField] AudioSource AS;
+    [SerializeField] AudioClip selectSound;
+    [SerializeField] AudioClip deselectSound;
 
     public void init()
     {
@@ -46,7 +49,6 @@ public class CharacterCube : MonoBehaviour
         newRotation = Quaternion.Euler(0, (int)currentChar * 90, 0);
         isRotating = true;
     }
-    Quaternion oldRotation;
     Quaternion newRotation;
     private bool isRotating;
 
@@ -59,20 +61,21 @@ public class CharacterCube : MonoBehaviour
     }
     public void OnFire()
     {
-        print("here");
         if (!isCharChosen)
         {
             isCharChosen = true;
             gameParams.characterArray[playerIndex] = currentChar;
             characterSelectedEvent.Invoke();
-            print(currentChar);
+            AS.clip = selectSound;
         }
         else
         {
             isCharChosen = false;
             characterDeSelectedEvent.Invoke();
-            print(currentChar);
+            AS.clip = deselectSound;
         }
+        AS.Play();
+
     }
 
 

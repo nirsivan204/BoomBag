@@ -256,7 +256,14 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(1);
         if (isLastRound)
         {
-            UIMgr.showMsg("Better Luck Next Time", 2, true);
+            if (isMobileGame)
+            {
+                UIMgr.showMsg("Better Luck Next Time", 2, true);
+            }
+            else
+            {
+                showWinMsg();
+            }
             yield return new WaitForSeconds(2);
             UIMgr.startCounter(0, "", true, startNewRound);
         }
@@ -265,6 +272,52 @@ public class GameManager : MonoBehaviour
             UIMgr.showMsg("Starting Next Round", 1, true);
             yield return new WaitForSeconds(1);
             UIMgr.startCounter(3, "", true, startNewRound);
+        }
+    }
+
+    private void showWinMsg()
+    {
+        int winnerScore = 0;
+        int winnerPlayer = 0;
+        bool isTie = false;
+        bool[] tieBetween = new bool[4];
+        for (int i = 0; i < players.Length; i++)
+        {
+            if (winnerScore == gameParams.scores[i])
+            {
+                tieBetween[i] = true;
+                isTie = true;
+            }
+            if (winnerScore < gameParams.scores[i])
+            {
+                winnerPlayer = i;
+                winnerScore = gameParams.scores[i];
+                tieBetween = new bool[4];
+                tieBetween[i] = true;
+                isTie = false;
+            }
+        }
+        if (isTie)
+        {
+            String tieMsg = "It's A Tie between ";
+            bool isFirst = true;
+            for (int i = 0; i < players.Length; i++)
+            {
+                if (tieBetween[i])
+                {
+                    if (!isFirst)
+                    {
+                        tieMsg += " and ";
+                    }
+                    tieMsg += "player " + (i + 1).ToString();
+                    isFirst = false;
+                }
+            }
+            UIMgr.showMsg(tieMsg, 2, true);
+        }
+        else
+        {
+            UIMgr.showMsg("Winner is Player " + (winnerPlayer + 1).ToString(), 2, true);
         }
     }
 
