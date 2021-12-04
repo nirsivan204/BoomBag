@@ -13,9 +13,10 @@ public class CharacterCube : MonoBehaviour
     private Transform target;
     private float speed = 5;
     public UnityEvent characterSelectedEvent;
+    public UnityEvent characterDeSelectedEvent;
+
     public void init()
     {
-        characterSelectedEvent = new UnityEvent();
     }
 
     private void OnMove(InputValue movementValue)
@@ -58,11 +59,18 @@ public class CharacterCube : MonoBehaviour
     }
     public void OnFire()
     {
+        print("here");
         if (!isCharChosen)
         {
             isCharChosen = true;
             gameParams.characterArray[playerIndex] = currentChar;
             characterSelectedEvent.Invoke();
+            print(currentChar);
+        }
+        else
+        {
+            isCharChosen = false;
+            characterDeSelectedEvent.Invoke();
             print(currentChar);
         }
     }

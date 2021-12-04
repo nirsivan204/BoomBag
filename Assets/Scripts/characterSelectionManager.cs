@@ -6,6 +6,8 @@ public class characterSelectionManager : MonoBehaviour
 {
     public CharacterCube[] characterCubes;
     private int numOfCharactersChosen = 0;
+    private float allChosenTime;
+    private float timeTillStart = 2;
     // Start is called before the first frame update
 
     void Start()
@@ -14,20 +16,37 @@ public class characterSelectionManager : MonoBehaviour
         {
             cube.init();
             cube.characterSelectedEvent.AddListener(characterSelected);
+            cube.characterDeSelectedEvent.AddListener(characterNotSelected);
         }
     }
     // Update is called once per frame
     void characterSelected()
     {
         numOfCharactersChosen++;
-        if(numOfCharactersChosen == characterCubes.Length)
+        if(numOfCharactersChosen == characterCubes.Length-2)
         {
-            LevelManager.getInstance().loadScene(LevelManager.Scenes.Game);
+            allChosenTime = Time.time;
         }
+    }
+
+    void startGame()
+    {
+        LevelManager.getInstance().loadScene(LevelManager.Scenes.Game);
+
     }
 
     void characterNotSelected()
     {
         numOfCharactersChosen--;
+        allChosenTime = 0;
+    }
+
+    private void Update()
+    {
+        if(allChosenTime > 0 && Time.time - allChosenTime > timeTillStart)
+        {
+            startGame();
+            allChosenTime = 0;
+        }
     }
 }

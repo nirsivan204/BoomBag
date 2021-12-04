@@ -18,7 +18,7 @@ public class LevelManager : MonoBehaviour
     private float target;
     private float startLoadingTime;
     bool isLoadingScene = false;
-    [SerializeField] int timeToLoad = 10;
+    [SerializeField] int timeToLoad;
     private bool isInit = false;
     public static GameObject levelMgrPrefab;
 
@@ -94,10 +94,15 @@ public class LevelManager : MonoBehaviour
 
         loadingScreen.SetActive(true);
 
-        if(sceneName != Scenes.Manu)
+        if(sceneName == Scenes.Game)
         {
             await Task.Delay(timeToLoad * 1000);
         }
+        do
+        {
+            await Task.Delay(100);
+        }
+        while (scene.progress < 0.9f);
         target = scene.progress;
         isLoadingScene = false;
         scene.allowSceneActivation = true;

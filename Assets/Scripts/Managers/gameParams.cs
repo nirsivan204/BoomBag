@@ -38,11 +38,11 @@ public static class gameParams
     {
         arena = (GameManager.ArenaTypes)Random.Range(0, GameManager.numOfArenas);
         //Debug.Log(arena);
-        if (!isMobile)
-        {
-            chooseRandomCharTypes();
+        //if (!isMobile)
+       // {
+//            chooseRandomCharTypes();
 
-        }
+//        }
         BGMusic = Random.Range(0, numBGMusic);
         isInit = true;
     }
