@@ -53,6 +53,7 @@ public class AbstractPlayer : MonoBehaviour
     private float HoleRadius = 15;
     private bool isPlayingMovementSound;
     private PlayerIndicator PI;
+    private float playerIndicatorAmplitude;
     protected bool isTransparent = false;
     protected bool isDashing = false;
 
@@ -114,6 +115,7 @@ public class AbstractPlayer : MonoBehaviour
         transform.LookAt(transform.position.y * Vector3.up); // look to middle
         PI = GetComponentInChildren<PlayerIndicator>();
         PI.init();
+        playerIndicatorAmplitude = PI.amplitude;
         isInit = true;
     }
 
@@ -448,8 +450,11 @@ public class AbstractPlayer : MonoBehaviour
         //float newSize = size * growRatio * sizeNormalizer;
         float multiplyCoefficient = (float)size / startSize - 1;
         float newSize = startSize + growRatio * multiplyCoefficient;
-       // transform.localScale = new Vector3(newSize, newSize, newSize);
-		LeanTween.scale (gameObject,  new Vector3(newSize, newSize, newSize), 0.2f).setEase(LeanTweenType.easeSpring);
+        float piNewSize = startSize / (newSize);
+        PI.amplitude = playerIndicatorAmplitude * piNewSize;
+        // transform.localScale = new Vector3(newSize, newSize, newSize);
+        LeanTween.scale(gameObject,  new Vector3(newSize, newSize, newSize), 0.2f).setEase(LeanTweenType.easeSpring);
+        LeanTween.scale(PI.gameObject, new Vector3(piNewSize, piNewSize, piNewSize), 0.2f).setEase(LeanTweenType.easeSpring);
         rb.mass = 1 + massGrowRate * multiplyCoefficient;
         //print("mass " + rb.mass);
 

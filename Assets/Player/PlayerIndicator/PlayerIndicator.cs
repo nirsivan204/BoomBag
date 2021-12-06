@@ -4,7 +4,7 @@ using System.Collections;
 
 public class PlayerIndicator : MonoBehaviour {
     //private float degreesPerSecond = 15.0f;
-    [SerializeField] private float amplitude = 0.5f;
+    [SerializeField] public float amplitude = 0.5f;
     private float frequency = 1f;
     AbstractPlayer parentPlayer;
     MeshRenderer mesh;
