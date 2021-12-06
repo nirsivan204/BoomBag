@@ -127,7 +127,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 33
+  bundleVersion: 3.4
   preloadedAssets:
   - {fileID: 11400000, guid: 18d328c302484e84597bf1b9f3f83aa8, type: 2}
   metroInputSource: 0
@@ -154,7 +154,7 @@ PlayerSettings:
     iPhone: 0
     tvOS: 0
   overrideDefaultApplicationIdentifier: 0
-  AndroidBundleVersionCode: 33
+  AndroidBundleVersionCode: 34
   AndroidMinSdkVersion: 19
   AndroidTargetSdkVersion: 30
   AndroidPreferredInstallLocation: 1
