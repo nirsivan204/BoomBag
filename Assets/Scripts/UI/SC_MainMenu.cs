@@ -18,11 +18,16 @@ public class SC_MainMenu : MonoBehaviour
     [SerializeField] TMP_Text score;
     [SerializeField] bool isMobile;
     [SerializeField] GameObject playButton;
+    [SerializeField] GameObject creditsButton;
+    [SerializeField] GameObject MobileCharacterSelect;
     #endregion Ref
     
     // Start is called before the first frame update
     void Start()
     {
+
+        creditsButton.SetActive(true);
+
         if (gameParams.isInit)
         {
             isMobile = gameParams.isMobile;
@@ -35,11 +40,12 @@ public class SC_MainMenu : MonoBehaviour
         if (isMobile)
         {
             score.SetText(gameParams.maxMobileScore.ToString());
-            playButton.SetActive(true) ;
+            MobileCharacterSelect.SetActive(true) ;
         }
         else
         {
             scoreBoard.SetActive(false);
+            playButton.SetActive(true);
         }
 
         //Add listener for when the value of the Dropdown changes, to take action
@@ -64,6 +70,7 @@ public class SC_MainMenu : MonoBehaviour
         if (isMobile)
         {//goto character select
             LevelManager.getInstance().loadScene(LevelManager.Scenes.Game);
+            creditsButton.SetActive(false);
         }
         else
         {
@@ -100,8 +107,18 @@ public class SC_MainMenu : MonoBehaviour
         creditsMenu.SetActive(false);
         characterSelect.SetActive((false));
         howToPlay.SetActive((false));
-        scoreBoard.SetActive(true);
-        playButton.SetActive(true);
+        
+        if (isMobile)
+        {
+            scoreBoard.SetActive(true);
+            playButton.SetActive(false);
+        }
+
+        else
+        {
+            scoreBoard.SetActive(false);
+            playButton.SetActive(true);
+        }
     }
 
     public void HowToPlayButton()
