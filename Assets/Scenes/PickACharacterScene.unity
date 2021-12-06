@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44822723, g: 0.4982521, b: 0.57557684, a: 1}
+  m_IndirectSpecularColor: {r: 0.44822764, g: 0.49825257, b: 0.5755784, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2000,7 +2000,7 @@ Transform:
   m_Children:
   - {fileID: 859903755}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &859903754
 GameObject:
@@ -2672,7 +2672,7 @@ Transform:
   - {fileID: 2044635320}
   - {fileID: 1500379920}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1078002854
 MonoBehaviour:
@@ -3176,7 +3176,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1377206401}
         m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
-        m_MethodName: ResetTrigger
+        m_MethodName: SetTrigger
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

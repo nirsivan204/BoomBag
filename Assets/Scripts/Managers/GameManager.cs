@@ -169,6 +169,10 @@ public class GameManager : MonoBehaviour
             }
             if (playerScript)
             {
+                if (isMobileGame && i > 0)
+                {
+                    humanOrAI[i] = false;
+                }
                 playerScript.setIsHuman(humanOrAI[i]);
                 playerScript.setPlayerIndex(i);
                 playerScript.setGameManager(this);
@@ -187,17 +191,9 @@ public class GameManager : MonoBehaviour
         if (isMobileGame)
         {
             mobilePlayer = playersScripts[0];
-/*            for (int i = 0; i < humanOrAI.Length; i++)
+            if (mobilePlayer)
             {
-                if (humanOrAI[i])
-                {
-                    SetMobilePlayer(playersScripts[i]);
-                    break;
-                }
-            }*/
-            if (GetMobilePlayer())
-            {
-                GetMobilePlayer().touchController = GetTouchController();
+                mobilePlayer.touchController = GetTouchController();
             }
             else
             {

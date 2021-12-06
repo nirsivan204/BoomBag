@@ -454,7 +454,10 @@ public class AbstractPlayer : MonoBehaviour
         PI.amplitude = playerIndicatorAmplitude * piNewSize;
         // transform.localScale = new Vector3(newSize, newSize, newSize);
         LeanTween.scale(gameObject,  new Vector3(newSize, newSize, newSize), 0.2f).setEase(LeanTweenType.easeSpring);
-        LeanTween.scale(PI.gameObject, new Vector3(piNewSize, piNewSize, piNewSize), 0.2f).setEase(LeanTweenType.easeSpring);
+        if (PI)
+        {
+            LeanTween.scale(PI.gameObject, new Vector3(piNewSize, piNewSize, piNewSize), 0.2f).setEase(LeanTweenType.easeSpring);
+        }
         rb.mass = 1 + massGrowRate * multiplyCoefficient;
         //print("mass " + rb.mass);
 
