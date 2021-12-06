@@ -31,9 +31,9 @@ public class AbstractPlayer : MonoBehaviour
     public Color MyColor;
     private Renderer playerMeshRenderer;
     // Energy units are equivalent to seconds:
-    public float energy = 4;
-    public const float MAX_ENERGY = 10;
-    public const float ENERGY_COST = 10;
+    public float energy = 40;
+    public const float MAX_ENERGY = 100;
+    public const float ENERGY_COST = 100;
     public IntEvent playerOut;
     protected bool isOut = false;
     bool isHumanPlayer = true;
@@ -57,6 +57,8 @@ public class AbstractPlayer : MonoBehaviour
     protected bool isTransparent = false;
     protected bool isDashing = false;
 
+    const int ENERGY_FROM_ALLY = 15;
+    const int ENERGY_FROM_HOSTILE = 10;
 
     /*    void Awake()
         {
@@ -347,14 +349,16 @@ public class AbstractPlayer : MonoBehaviour
             gameManager.GetPM().Play_Effect(ParticlesManager.ParticleTypes.Bump, transform.position);
             if (!other.isRigid && !isRigid)
             {
-                    if (other.getColor() == MyColor)
-                    {
-                        grow();
-                    }
-                    else
-                    {
-                        shrink();
-                    }
+                if (other.getColor() == MyColor)
+                {
+                    energy += ENERGY_FROM_ALLY;
+                    grow();
+                }
+                else
+                {
+                    energy += ENERGY_FROM_HOSTILE;
+                    shrink();
+                }
             }
             canMove = false;
             disableMoveForSeconds(delayAfterBump);
@@ -450,11 +454,14 @@ public class AbstractPlayer : MonoBehaviour
         //float newSize = size * growRatio * sizeNormalizer;
         float multiplyCoefficient = (float)size / startSize - 1;
         float newSize = startSize + growRatio * multiplyCoefficient;
-        float piNewSize = startSize / (newSize);
-        PI.amplitude = playerIndicatorAmplitude * piNewSize;
         // transform.localScale = new Vector3(newSize, newSize, newSize);
         LeanTween.scale(gameObject,  new Vector3(newSize, newSize, newSize), 0.2f).setEase(LeanTweenType.easeSpring);
-        LeanTween.scale(PI.gameObject, new Vector3(piNewSize, piNewSize, piNewSize), 0.2f).setEase(LeanTweenType.easeSpring);
+        if (PI != null)
+        {
+            float piNewSize = startSize / newSize;
+            PI.amplitude = playerIndicatorAmplitude * piNewSize;
+            LeanTween.scale(PI.gameObject, new Vector3(piNewSize, piNewSize, piNewSize), 0.2f).setEase(LeanTweenType.easeSpring);
+        }
         rb.mass = 1 + massGrowRate * multiplyCoefficient;
         //print("mass " + rb.mass);
 
