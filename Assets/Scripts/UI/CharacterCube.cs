@@ -17,6 +17,7 @@ public class CharacterCube : MonoBehaviour
     [SerializeField] AudioSource AS;
     [SerializeField] AudioClip selectSound;
     [SerializeField] AudioClip deselectSound;
+    [SerializeField] AudioClip swoosh;
 
     public void init()
     {
@@ -24,23 +25,38 @@ public class CharacterCube : MonoBehaviour
 
     private void OnMove(InputValue movementValue)
     {
-        if (!isCharChosen)
+        Vector2 movementVector = movementValue.Get<Vector2>();
+        float movementX = movementVector.x;
+        if (!isCharChosen && canMove == 0)
         {
-            Vector2 movementVector = movementValue.Get<Vector2>();
-            float movementX = movementVector.x;
-            if (movementVector.x < -0.3f)
+            if (movementX < -0.3f)
             {
                 turnLeft();
+                canMove = -1;
             }
-            if (movementVector.x > 0.3f)
+            else
             {
-                turnRight();
+                if (movementX > 0.3f)
+                {
+                    turnRight();
+                    canMove = 1;
+                }
             }
+        }
+        if(canMove == 1 && movementX<=0)
+        {
+            canMove = 0;
+        }
+        if (canMove == -1 && movementX >= 0)
+        {
+            canMove = 0;
         }
     }
 
     private void turnRight()
     {
+        AS.clip = swoosh;
+        AS.Play();
         currentChar = (GameManager.CharTypes)(((int)currentChar - 1) % 4);
         if((int)currentChar == -1) // workaround because c# is defining modulu like idiot
         {
@@ -51,13 +67,15 @@ public class CharacterCube : MonoBehaviour
     }
     Quaternion newRotation;
     private bool isRotating;
+    private int canMove = 0;
 
     private void turnLeft()
     {
+        AS.clip = swoosh;
+        AS.Play();
         currentChar = (GameManager.CharTypes) (((int)currentChar + 1) % 4);
         newRotation = Quaternion.Euler(0, (int)currentChar*90, 0);
         isRotating = true;
-
     }
     public void OnFire()
     {
@@ -85,7 +103,7 @@ public class CharacterCube : MonoBehaviour
         if (isRotating)
         {
             transform.rotation = Quaternion.Slerp(transform.rotation, newRotation, Time.deltaTime*speed);
-            if(transform.rotation == newRotation)
+            if(Quaternion.Angle(transform.rotation, newRotation) == 0)
             {
                 isRotating = false;
                 transform.rotation = newRotation;

@@ -20,6 +20,8 @@ public class SC_MainMenu : MonoBehaviour
     [SerializeField] GameObject playButton;
     [SerializeField] GameObject creditsButton;
     [SerializeField] GameObject MobileCharacterSelect;
+    [SerializeField] AudioSource AS;
+
     #endregion Ref
     private bool isPlayingNow = false;
     // Start is called before the first frame update
@@ -69,6 +71,7 @@ public class SC_MainMenu : MonoBehaviour
         //gameParams.init();
         if (!isPlayingNow) // this is because the button of character selections triggers twice for some reason
         {
+            AS.Play();
             isPlayingNow = true;
             if (isMobile)
             {//goto character select
@@ -87,6 +90,7 @@ public class SC_MainMenu : MonoBehaviour
     public void SelectCharacterButton()
     {
         // Character Select button has been pressed, allowing the player to select their character
+        AS.Play();
         mainMenu.SetActive((false));
         creditsMenu.SetActive((false));
         characterSelect.SetActive((true));
@@ -97,6 +101,7 @@ public class SC_MainMenu : MonoBehaviour
     public void CreditsButton()
     {
         // Show Credits Menu
+        AS.Play();
         mainMenu.SetActive(false);
         creditsMenu.SetActive(true);
         characterSelect.SetActive((false));
@@ -107,6 +112,7 @@ public class SC_MainMenu : MonoBehaviour
 
     public void MainMenuButton()
     {
+        AS.Play();
         // Show Main Menu
         mainMenu.SetActive(true);
         creditsMenu.SetActive(false);
@@ -129,6 +135,7 @@ public class SC_MainMenu : MonoBehaviour
     public void HowToPlayButton()
     {
         // Shows how to play the game
+        AS.Play();
         mainMenu.SetActive(false);
         creditsMenu.SetActive(false);
         characterSelect.SetActive((false));

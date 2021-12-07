@@ -1643,6 +1643,7 @@ MonoBehaviour:
   AS: {fileID: 695525180}
   selectSound: {fileID: 8300000, guid: 40d4e9fd57c55454f8174b3ae9f7f0ff, type: 3}
   deselectSound: {fileID: 8300000, guid: 938f70d1e719ad04d8cab44c02b092e2, type: 3}
+  swoosh: {fileID: 8300000, guid: 71a4b1f42dc0b8446a4f71723cc52a83, type: 3}
 --- !u!82 &695525180
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2774,6 +2775,7 @@ MonoBehaviour:
   AS: {fileID: 1078002856}
   selectSound: {fileID: 8300000, guid: 40d4e9fd57c55454f8174b3ae9f7f0ff, type: 3}
   deselectSound: {fileID: 8300000, guid: 938f70d1e719ad04d8cab44c02b092e2, type: 3}
+  swoosh: {fileID: 8300000, guid: 71a4b1f42dc0b8446a4f71723cc52a83, type: 3}
 --- !u!82 &1078002856
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3201,6 +3203,7 @@ MonoBehaviour:
   AS: {fileID: 1212346136}
   selectSound: {fileID: 8300000, guid: 40d4e9fd57c55454f8174b3ae9f7f0ff, type: 3}
   deselectSound: {fileID: 8300000, guid: 938f70d1e719ad04d8cab44c02b092e2, type: 3}
+  swoosh: {fileID: 8300000, guid: 71a4b1f42dc0b8446a4f71723cc52a83, type: 3}
 --- !u!82 &1212346136
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3580,6 +3583,7 @@ MonoBehaviour:
   AS: {fileID: 1322831770}
   selectSound: {fileID: 8300000, guid: 40d4e9fd57c55454f8174b3ae9f7f0ff, type: 3}
   deselectSound: {fileID: 8300000, guid: 938f70d1e719ad04d8cab44c02b092e2, type: 3}
+  swoosh: {fileID: 8300000, guid: 71a4b1f42dc0b8446a4f71723cc52a83, type: 3}
 --- !u!82 &1322831770
 AudioSource:
   m_ObjectHideFlags: 0

@@ -82,8 +82,18 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    
-    public async void loadScene(Scenes sceneName)
+    public void loadScene(Scenes sceneName)
+    {
+        if(sceneName == Scenes.Game)
+        {
+            loadSceneWithLoadingScreen(sceneName);
+        }
+        else
+        {
+            SceneManager.LoadScene(getNameOfScene(sceneName));
+        }
+    }
+    private async void loadSceneWithLoadingScreen(Scenes sceneName)
     {
         startLoadingTime = Time.time;
         isLoadingScene = true;
