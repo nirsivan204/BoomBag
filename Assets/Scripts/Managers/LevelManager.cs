@@ -39,7 +39,7 @@ public class LevelManager : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Awake()
+/*    void Awake()
     {
         if (levelMgr)
         {
@@ -47,10 +47,10 @@ public class LevelManager : MonoBehaviour
         }
         else
         {
-            //levelMgr = this;
+            levelMgr = this;
             DontDestroyOnLoad(gameObject);
         }
-    }
+    }*/
 
     public  static LevelManager getInstance()
     {
@@ -67,6 +67,8 @@ public class LevelManager : MonoBehaviour
     {
         if (!isInit)
         {
+            DontDestroyOnLoad(gameObject);
+
             isInit = true;
             if (gameParams.isMobile)
             {
@@ -103,7 +105,6 @@ public class LevelManager : MonoBehaviour
             await Task.Delay(100);
         }
         while (scene.progress < 0.9f);
-        target = scene.progress;
         isLoadingScene = false;
         scene.allowSceneActivation = true;
         loadingScreen.SetActive(false);

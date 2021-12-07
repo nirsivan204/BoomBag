@@ -73,7 +73,6 @@ public class GameManager : MonoBehaviour
         winEvent = new IntEvent();
         winEvent.AddListener(endRound);
         getGameParams();
-        LevelManager.getInstance().init();
         initArena();
         initPlayers();
         initUI();
@@ -492,19 +491,26 @@ public class GameManager : MonoBehaviour
     {
         numPlayersAlive--;
         liveOrDead[playerIndex] = false;
-        if (numPlayersAlive == 1)
-        {
-            for (int i=0; i<players.Length ; i++)
-            {
-                if (liveOrDead[i])
-                {
-                    winEvent.Invoke(i);
-                }
-            }
-        }
-        if (isMobileGame && playerIndex == mobilePlayer.getIndex() && numPlayersAlive > 0)
+        if (isMobileGame && playerIndex == mobilePlayer.getIndex() && numPlayersAlive > 0 && !isGameEnded)
         {
             winEvent.Invoke(-1);
+            isGameEnded = true;
+
+        }
+        else
+        {
+            if (numPlayersAlive == 1 && !isGameEnded)
+            {
+                for (int i = 0; i < players.Length; i++)
+                {
+                    if (liveOrDead[i])
+                    {
+                        winEvent.Invoke(i);
+                        isGameEnded = true;
+
+                    }
+                }
+            }
         }
     }
 

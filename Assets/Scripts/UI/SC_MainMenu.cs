@@ -21,7 +21,7 @@ public class SC_MainMenu : MonoBehaviour
     [SerializeField] GameObject creditsButton;
     [SerializeField] GameObject MobileCharacterSelect;
     #endregion Ref
-    
+    private bool isPlayingNow = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -67,15 +67,20 @@ public class SC_MainMenu : MonoBehaviour
     {
         // Play Now Button has been pressed, here you can initialize your game (For example Load a Scene called GameLevel etc.)
         //gameParams.init();
-        if (isMobile)
-        {//goto character select
-            LevelManager.getInstance().loadScene(LevelManager.Scenes.Game);
-            creditsButton.SetActive(false);
-        }
-        else
+        if (!isPlayingNow) // this is because the button of character selections triggers twice for some reason
         {
-            LevelManager.getInstance().loadScene(LevelManager.Scenes.CharacterSelect);
+            isPlayingNow = true;
+            if (isMobile)
+            {//goto character select
+                LevelManager.getInstance().loadScene(LevelManager.Scenes.Game);
+                //creditsButton.SetActive(false);
+            }
+            else
+            {
+                LevelManager.getInstance().loadScene(LevelManager.Scenes.CharacterSelect);
+            }
         }
+
 
     }
 
