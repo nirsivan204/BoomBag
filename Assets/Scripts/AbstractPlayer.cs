@@ -115,9 +115,9 @@ public class AbstractPlayer : MonoBehaviour
             touchController.TouchEvent += Controller_TouchEvent;
         }
         transform.LookAt(transform.position.y * Vector3.up); // look to middle
+        PI = GetComponentInChildren<PlayerIndicator>();
         if (PI)
         {
-            PI = GetComponentInChildren<PlayerIndicator>();
             PI.init();
             playerIndicatorAmplitude = PI.amplitude;
         }

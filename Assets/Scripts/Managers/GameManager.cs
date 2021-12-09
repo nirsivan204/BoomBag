@@ -410,6 +410,7 @@ public class GameManager : MonoBehaviour
         else
         {
             gameParams.isMobile = isMobileGame;
+            gameParams.characterArray = charTypes;
         }
     }
 

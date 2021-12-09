@@ -8,7 +8,7 @@ public class AvoiderPlayer : AbstractPlayer
 	bool canUseAbility = true;
 	GameObject DashFireParticle;
 	float addedSpeed = 40;
-	float bumpForceMultiplyer = 9;
+	float bumpForceMultiplyer = 6;
 	protected override void useAbility()
 	{
 		if (canUseAbility)

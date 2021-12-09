@@ -11,11 +11,10 @@ public class LevelManager : MonoBehaviour
     private GameObject loadingScreen;
     [SerializeField] GameObject loadingScreen_Mobile;
     [SerializeField] GameObject loadingScreen_PC;
+    [SerializeField] GameObject[] PCVidsScreens;
     Image loadingBar;
-    public VideoPlayer vid1;
-    public VideoPlayer vid2;
 
-    private float target;
+    private int randomScreen;
     private float startLoadingTime;
     bool isLoadingScene = false;
     [SerializeField] int timeToLoad;
@@ -78,7 +77,7 @@ public class LevelManager : MonoBehaviour
             {
                 loadingScreen = loadingScreen_PC;
             }
-            loadingBar = loadingScreen.transform.Find("Image").Find("barProgress").GetComponent<Image>();
+            loadingBar = loadingScreen.transform.Find("barProgress").GetComponent<Image>();
         }
     }
 
@@ -98,14 +97,15 @@ public class LevelManager : MonoBehaviour
         startLoadingTime = Time.time;
         isLoadingScene = true;
         loadingBar.fillAmount = 0;
-        target = 0;
-        vid1.Play();
-        vid2.Play();
+        randomScreen = Random.Range(0, 2);
         AsyncOperation scene = SceneManager.LoadSceneAsync(getNameOfScene(sceneName));
         scene.allowSceneActivation = false;
 
         loadingScreen.SetActive(true);
-
+        if (!gameParams.isMobile)
+        {
+            PCVidsScreens[randomScreen].SetActive(true);
+        }
         if(sceneName == Scenes.Game)
         {
             await Task.Delay(timeToLoad * 1000);
@@ -118,9 +118,10 @@ public class LevelManager : MonoBehaviour
         isLoadingScene = false;
         scene.allowSceneActivation = true;
         loadingScreen.SetActive(false);
-        vid1.Stop();
-        vid2.Stop();
-
+        if (!gameParams.isMobile)
+        {
+            PCVidsScreens[randomScreen].SetActive(false);
+        }
     }
 
     private void Update()
