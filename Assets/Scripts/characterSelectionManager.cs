@@ -31,6 +31,10 @@ public class characterSelectionManager : MonoBehaviour
 
     void startGame()
     {
+        foreach(CharacterCube cube in characterCubes)
+        {
+            cube.disableInput();
+        }
         LevelManager.getInstance().loadScene(LevelManager.Scenes.Game);
 
     }

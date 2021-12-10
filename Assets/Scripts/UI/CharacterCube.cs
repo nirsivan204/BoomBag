@@ -53,6 +53,11 @@ public class CharacterCube : MonoBehaviour
         }
     }
 
+    internal void disableInput()
+    {
+        canMove = -2;//never move again
+    }
+
     private void turnRight()
     {
         AS.clip = swoosh;
@@ -79,21 +84,24 @@ public class CharacterCube : MonoBehaviour
     }
     public void OnFire()
     {
-        if (!isCharChosen)
+        if (canMove != -2)
         {
-            isCharChosen = true;
-            gameParams.characterArray[playerIndex] = currentChar;
-            characterSelectedEvent.Invoke();
-            AS.clip = selectSound;
-        }
-        else
-        {
-            isCharChosen = false;
-            characterDeSelectedEvent.Invoke();
-            AS.clip = deselectSound;
-        }
-        AS.Play();
+            if (!isCharChosen)
+            {
+                isCharChosen = true;
+                gameParams.characterArray[playerIndex] = currentChar;
+                characterSelectedEvent.Invoke();
+                AS.clip = selectSound;
+            }
+            else
+            {
+                isCharChosen = false;
+                characterDeSelectedEvent.Invoke();
+                AS.clip = deselectSound;
+            }
+            AS.Play();
 
+        }
     }
 
 

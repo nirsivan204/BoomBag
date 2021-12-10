@@ -43,6 +43,7 @@ public class SC_MainMenu : MonoBehaviour
         {
             score.SetText(gameParams.maxMobileScore.ToString());
             MobileCharacterSelect.SetActive(true) ;
+            scoreBoard.SetActive(true);
         }
         else
         {

@@ -117,6 +117,7 @@ public class LevelManager : MonoBehaviour
         while (scene.progress < 0.9f);
         isLoadingScene = false;
         scene.allowSceneActivation = true;
+        await Task.Delay(500);
         loadingScreen.SetActive(false);
         if (!gameParams.isMobile)
         {
