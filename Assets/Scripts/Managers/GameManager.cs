@@ -259,7 +259,7 @@ public class GameManager : MonoBehaviour
             {
                 showWinMsg();
             }
-            yield return new WaitForSeconds(2);
+            yield return new WaitForSeconds(4);
             UIMgr.startCounter(0, "", true, startNewRound);
         }
         else

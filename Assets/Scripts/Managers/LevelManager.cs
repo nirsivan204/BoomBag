@@ -14,6 +14,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] GameObject[] PCVidsScreens;
     Image loadingBar;
 
+    private static bool loadSceneLock = true;
     private int randomScreen;
     private float startLoadingTime;
     bool isLoadingScene = false;
@@ -94,34 +95,39 @@ public class LevelManager : MonoBehaviour
     }
     private async void loadSceneWithLoadingScreen(Scenes sceneName)
     {
-        startLoadingTime = Time.time;
-        isLoadingScene = true;
-        loadingBar.fillAmount = 0;
-        randomScreen = Random.Range(0, 2);
-        AsyncOperation scene = SceneManager.LoadSceneAsync(getNameOfScene(sceneName));
-        scene.allowSceneActivation = false;
+        if (loadSceneLock)
+        {
+            loadSceneLock = false;
+            startLoadingTime = Time.time;
+            isLoadingScene = true;
+            loadingBar.fillAmount = 0;
+            randomScreen = Random.Range(0, 2);
+            AsyncOperation scene = SceneManager.LoadSceneAsync(getNameOfScene(sceneName));
+            scene.allowSceneActivation = false;
 
-        loadingScreen.SetActive(true);
-        if (!gameParams.isMobile)
-        {
-            PCVidsScreens[randomScreen].SetActive(true);
-        }
-        if(sceneName == Scenes.Game)
-        {
-            await Task.Delay(timeToLoad * 1000);
-        }
-        do
-        {
-            await Task.Delay(100);
-        }
-        while (scene.progress < 0.9f);
-        isLoadingScene = false;
-        scene.allowSceneActivation = true;
-        await Task.Delay(500);
-        loadingScreen.SetActive(false);
-        if (!gameParams.isMobile)
-        {
-            PCVidsScreens[randomScreen].SetActive(false);
+            loadingScreen.SetActive(true);
+            if (!gameParams.isMobile)
+            {
+                PCVidsScreens[randomScreen].SetActive(true);
+            }
+            if (sceneName == Scenes.Game)
+            {
+                await Task.Delay(timeToLoad * 1000);
+            }
+            do
+            {
+                await Task.Delay(100);
+            }
+            while (scene.progress < 0.9f);
+            isLoadingScene = false;
+            scene.allowSceneActivation = true;
+            await Task.Delay(500);
+            loadingScreen.SetActive(false);
+            if (!gameParams.isMobile)
+            {
+                PCVidsScreens[randomScreen].SetActive(false);
+            }
+            loadSceneLock = true;
         }
     }
 
